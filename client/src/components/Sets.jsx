@@ -1,39 +1,73 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { redirect } from 'react-router-dom'
+import axios from 'axios'
 
 const categories = ['Category1', 'Category2']
 
 const Sets = () => {
 
-  const [selectedCategory, setSelectedCategory] = useState("Select a category")
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Select a category");
+  const [isChecked, setIsChecked] = useState(false);
+
+  const formData = {
+    title,
+    description,
+    category: selectedCategory,
+    isChecked
+  }
 
   return (
-    <div className="set-container">
-      <h1>Create a New Set</h1>
-      <Button variant='primary' type='submit'>Create</Button>
-      <Form.Group>
-        <Form.Control type='text' placeholder='Title' />
-      </Form.Group>
-      <Form.Group>
-        <Form.Control type='textarea' placeholder='Description'></Form.Control>
-      </Form.Group>
-      <Dropdown>
-        <Dropdown.Toggle variant='success' id='dropdown-basic'>
-          {selectedCategory}
-        </Dropdown.Toggle>
+    <div className="create-container">
+      <Form>
+        <div className='set-container'>
+          <h1>Create a New Set</h1>
+          <Button variant='primary' type='submit'>Create</Button>
+          <FloatingLabel label='Title'>
+            <Form.Control
+              type='text'
+              placeholder='Title'
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+            />
+          </FloatingLabel>
+          <FloatingLabel label='Description'>
+            <Form.Control
+              type='textarea'
+              placeholder='Description'
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+            />
+          </FloatingLabel>
+          <Dropdown>
+            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+              {selectedCategory}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {categories.map(category => (
+                <Dropdown.Item
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}>
+                  {category}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Form.Check
+            onChange={() => setIsChecked(!isChecked)}
+            reverse
+            label='Private?'
+          />
+        </div>
+        <div className='card-container'>
 
-        <Dropdown.Menu>
-          {categories.map(category => (
-            <Dropdown.Item key={category} onClick={() => setSelectedCategory(category)}>
-              {category}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-
-      <Button variant='primary' type='submit'>Create</Button>
+        </div>
+      </Form>
     </div>
   )
 }
