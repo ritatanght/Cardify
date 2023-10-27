@@ -24,7 +24,8 @@ const Sets = () => {
     title,
     description,
     category: selectedCategory,
-    isChecked
+    isChecked,
+    cards
   }
 
   return (
@@ -71,13 +72,17 @@ const Sets = () => {
         </div>
 
         {cards.map((card, index) => (
-          <div className='card-container'>
+          <div key={index} className='card-container'>
             <FloatingLabel label='Front'>
               <Form.Control
                 type='text'
                 placeholder='Front'
                 value={card.front}
-                onChange={e => setFront(e.target.value)}
+                onChange={e => {
+                  const updatedCards = [...cards];
+                  updatedCards[index].front = e.target.value;
+                  setCards(updatedCards)
+                }}
               />
             </FloatingLabel>
             <FloatingLabel label='Back'>
@@ -85,11 +90,16 @@ const Sets = () => {
                 type='text'
                 placeholder='Back'
                 value={card.back}
-                onChange={e => setBack(e.target.value)}
+                onChange={e => {
+                  const updatedCards = [...cards];
+                  updatedCards[index].back = e.target.value;
+                  setCards(updatedCards)
+                }}
               />
             </FloatingLabel>
           </div>
         ))}
+        <Button onClick={() => setCards([...cards, { front: "", back: "" }])}>Add Card</Button>
       </Form>
     </div>
   )
