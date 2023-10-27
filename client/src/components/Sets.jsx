@@ -1,8 +1,14 @@
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Dropdown from 'react-bootstrap/Dropdown'
 
+const categories = ['Category1', 'Category2']
+
 const Sets = () => {
+
+  const [selectedCategory, setSelectedCategory] = useState("Select a category")
+
   return (
     <div className="set-container">
       <h1>Create a New Set</h1>
@@ -15,11 +21,15 @@ const Sets = () => {
       </Form.Group>
       <Dropdown>
         <Dropdown.Toggle variant='success' id='dropdown-basic'>
-          Categories
+          {selectedCategory}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item>Hello</Dropdown.Item>
+          {categories.map(category => (
+            <Dropdown.Item key={category} onClick={() => setSelectedCategory(category)}>
+              {category}
+            </Dropdown.Item>
+          ))}
         </Dropdown.Menu>
       </Dropdown>
 
