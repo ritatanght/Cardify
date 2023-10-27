@@ -14,6 +14,11 @@ const Sets = () => {
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Select a category");
   const [isChecked, setIsChecked] = useState(false);
+  const [cards, setCards] = useState([
+    { front: '', back: '' },
+    { front: '', back: '' },
+    { front: '', back: '' }
+  ]);
 
   const formData = {
     title,
@@ -64,9 +69,27 @@ const Sets = () => {
             label='Private?'
           />
         </div>
-        <div className='card-container'>
 
-        </div>
+        {cards.map((card, index) => (
+          <div className='card-container'>
+            <FloatingLabel label='Front'>
+              <Form.Control
+                type='text'
+                placeholder='Front'
+                value={card.front}
+                onChange={e => setFront(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel label='Back'>
+              <Form.Control
+                type='text'
+                placeholder='Back'
+                value={card.back}
+                onChange={e => setBack(e.target.value)}
+              />
+            </FloatingLabel>
+          </div>
+        ))}
       </Form>
     </div>
   )
