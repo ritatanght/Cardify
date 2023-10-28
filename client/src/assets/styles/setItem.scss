@@ -1,0 +1,22 @@
+.set-item-container {
+  display:flex;
+  border: solid;
+  border-radius: 20px;
+  justify-content: space-between;
+  padding: 25px;
+  align-items: center;
+
+  .set-item-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      margin-left: 30px;
+    }
+
+    .fav-icon:hover {
+      cursor: pointer;
+    }
+  }
+}
