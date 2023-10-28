@@ -34,19 +34,15 @@ const Sets = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post("/api/sets/create", setformData)
-    console.log('submit clicked!')
-      .then(response => {
-        const setId = response.data.setId;
+      .then(result => {
+        console.log(result.data.data.rows[0].id)
+        const setId = result.data.data.rows[0].id
         const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
-        return axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
+        console.log(cardDataWithSetId)
+        axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
       })
-      .then(response => {
-        console.log(response.data)
-        navigate('/')
-      })
-      .catch(err => {
-        console.err(err)
-      })
+      .then(() => {navigate('/')})
+      .catch(err => {console.error(err)})
   }
 
   const handleDelete = (cardIndex) => {
