@@ -9,6 +9,17 @@ const postCardsData = (cardsData) => {
     return db.query(query, [cardData.front, cardData.back, cardData.setId]);
   });
   return Promise.all(promises);
-}
+};
 
-module.exports = { postCardsData }
+const getCardsBySetId = (setId) => {
+  return db
+    .query(
+      `
+      SELECT * FROM cards
+      WHERE set_id = $1;`,
+      [setId]
+    )
+    .then((data) => data.rows);
+};
+
+module.exports = { postCardsData, getCardsBySetId };
