@@ -6,7 +6,10 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const categories = ['Category1', 'Category2']
+const categories = [
+  { id: 1, name: 'Category1' },
+  { id: 2, name: 'Category2' }
+];
 
 const Sets = () => {
 
@@ -14,7 +17,7 @@ const Sets = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Select a category");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [cards, setCards] = useState([
     { front: '', back: '' },
@@ -22,11 +25,14 @@ const Sets = () => {
     { front: '', back: '' }
   ]);
 
+  // const currentUserId = getUserId()
+
   const setformData = {
     title,
     description,
-    category: selectedCategory,
+    category: selectedCategory.id,
     private: isPrivate
+    // user_id: currentUserId
   }
 
   const cardFormData = cards;
@@ -35,10 +41,8 @@ const Sets = () => {
     event.preventDefault();
     axios.post("/api/sets/create", setformData)
       .then(result => {
-        console.log(result.data.data.rows[0].id)
         const setId = result.data.data.rows[0].id
         const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
-        console.log(cardDataWithSetId)
         axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
       })
       .then(() => {navigate('/')})
@@ -75,14 +79,14 @@ const Sets = () => {
           </FloatingLabel>
           <Dropdown>
             <Dropdown.Toggle variant='success' id='dropdown-basic'>
-              {selectedCategory}
+              {selectedCategory.name || "Select a category"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {categories.map(category => (
                 <Dropdown.Item
-                  key={category}
+                  key={category.id}
                   onClick={() => setSelectedCategory(category)}>
-                  {category}
+                  {category.name}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>
