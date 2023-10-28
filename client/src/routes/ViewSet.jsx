@@ -1,58 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Card from "../components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import axois from "axios";
 
-const response = {
-  set: {
-    id: 1,
-    title: "Chemistry",
-    description: "Study notes for my class!",
-    private: false,
-    category_id: 1,
-    user_id: 1,
-    category_name: "School",
-    username: "testUser1",
-  },
-  cards: [
-    {
-      id: 1,
-      set_id: 1,
-      front: "Three forms of state",
-      back: "Solid, gas, liquid",
-      image_url: null,
-    },
-    {
-      id: 2,
-      set_id: 1,
-      front: "Chemical formula for water",
-      back: "H2O",
-      image_url: null,
-    },
-    {
-      id: 3,
-      set_id: 1,
-      front: "Chemical symbol for Hydrogen",
-      back: "H",
-      image_url: null,
-    },
-  ],
-};
-
+// To be updated
 const user = { id: 1 };
 
 const ViewSet = () => {
+  const { setId } = useParams();
   const [isLiked, setIsLiked] = useState(false);
-  const set = response.set;
-  const cards = response.cards;
+  const [setData, setSetData] = useState(null);
+
+  useEffect(() => {
+    axois
+      .get(`/api/sets/${setId}`)
+      .then(({ data }) => setSetData(data))
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [setId]);
 
   const toggleLike = () => {
     // To be updated to reflect change in database
     setIsLiked(!isLiked);
   };
+
+  if (!setData) return <>Loading...</>;
+
+  const { set, cards } = setData;
 
   return (
     <main className="ViewSet">
