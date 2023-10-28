@@ -1,39 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const categories = ['Category1', 'Category2']
 
 const Sets = () => {
 
+  const navigate = useNavigate()
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Select a category");
-  const [isChecked, setIsChecked] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
   const [cards, setCards] = useState([
     { front: '', back: '' },
     { front: '', back: '' },
     { front: '', back: '' }
   ]);
 
-  const formData = {
+  const setformData = {
     title,
     description,
     category: selectedCategory,
-    isChecked,
-    cards
+    private: isPrivate
   }
+
+  const cardFormData = cards;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post("/api/sets/create", setformData)
+    console.log('submit clicked!')
+      .then(response => {
+        const setId = response.data.setId;
+        const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
+        return axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
+      })
+      .then(response => {
+        console.log(response.data)
+        navigate('/')
+      })
+      .catch(err => {
+        console.err(err)
+      })
+  }
+
+  const handleDelete = (cardIndex) => {
+    const updatedCards = [...cards];
+    updatedCards.splice(cardIndex, 1);
+    setCards(updatedCards);
+}
 
   return (
     <div className="create-container">
       <Form>
         <div className='set-container'>
           <h1>Create a New Set</h1>
-          <Button variant='primary' type='submit'>Create</Button>
+          <Button variant='primary' type='submit' onClick={handleSubmit}>Create</Button>
           <FloatingLabel label='Title'>
             <Form.Control
               type='text'
@@ -65,7 +92,7 @@ const Sets = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Form.Check
-            onChange={() => setIsChecked(!isChecked)}
+            onChange={() => setIsPrivate(!isPrivate)}
             reverse
             label='Private?'
           />
@@ -97,6 +124,7 @@ const Sets = () => {
                 }}
               />
             </FloatingLabel>
+            <i onClick={() => handleDelete(index)}>DELETE ICON PLACEHOLDER</i>
           </div>
         ))}
         <Button onClick={() => setCards([...cards, { front: "", back: "" }])}>Add Card</Button>
