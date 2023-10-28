@@ -4,7 +4,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 
-// To be edit
+// To be edited
 const user = false;
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <header className="px-4 border-bottom">
       <Navbar>
-        <Navbar.Brand href="/">Logo</Navbar.Brand>
+        <Navbar.Brand href="/">FlashCards</Navbar.Brand>
         <NavDropdown title="Categories" id="nav-dropdown">
           {dropDownItems}
         </NavDropdown>
