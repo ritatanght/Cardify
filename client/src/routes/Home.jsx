@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'; 
+import { Link } from 'react-router-dom';
 import '../assets/styles/home.css';  
 
 const Home = () => {
     return (
         <div className="home-container">
-            <LinkContainer to="/sets/create">
-                <Button variant="primary">Create</Button>
-            </LinkContainer>
+            <Link to="/sets/create">
+                <Button variant="primary" as="span">Create</Button>
+            </Link>
             <div className="columns-container">
                 <div className="column">
                     <h3>Info about creating sets</h3>
