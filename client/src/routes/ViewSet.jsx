@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 import Card from "../components/Card";
 
 const response = {
@@ -37,28 +39,42 @@ const response = {
   ],
 };
 
+const user = { id: 1 };
+
 const ViewSet = () => {
+  const [isLiked, setIsLiked] = useState(false);
   const set = response.set;
   const cards = response.cards;
+
+  const toggleLike = () => {
+    // To be updated to reflect change in database
+    setIsLiked(!isLiked);
+  };
 
   return (
     <main className="ViewSet">
       <section className="d-flex justify-content-between align-items-center">
         <div className="d-flex gap-2 align-items-center">
           <h1>{set.title}</h1>
-          <h2>{set.category_name}</h2>
-
-          <Button variant="link">
-            <i className="fa-regular fa-heart"></i>
-            <i className="fa-solid fa-heart"></i>
-          </Button>
+          <h2>
+            <Badge bg="secondary">{set.category_name}</Badge>
+          </h2>
+          {user.id && (
+            <Button variant="link" onClick={toggleLike}>
+              {isLiked ? (
+                <i className="fa-solid fa-heart"></i>
+              ) : (
+                <i className="fa-regular fa-heart"></i>
+              )}
+            </Button>
+          )}
         </div>
-        <Button variant="primary">Edit Set</Button>
+        {user.id === set.user_id && <Button variant="primary">Edit Set</Button>}
       </section>
 
       <Card />
 
-      <section className="d-flex">
+      <section className="d-flex gap-2">
         <p>{set.username}</p>
         <p>{set.description}</p>
       </section>
