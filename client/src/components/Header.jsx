@@ -4,8 +4,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 
-// To be edited
-const user = false;
+// To be updated to use cookies
+const user = { id: 1, username: "testUser1", email: "rick.sandchez@gmail.com" };
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -37,12 +37,23 @@ const Header = () => {
         </Navbar.Collapse>
 
         <Navbar.Collapse className="justify-content-end">
-          {user ? (
-            <Button variant="primary">Sign Out</Button>
+          {user.id ? (
+            <>
+              <Button variant="link" href={`/users/${user.id}`}>
+                <i className="fa-solid fa-user"></i>
+              </Button>
+              <Button variant="primary" href="#">
+                Sign Out
+              </Button>
+            </>
           ) : (
             <>
-              <Button variant="primary">Login</Button>
-              <Button variant="primary">Sign Up</Button>
+              <Button variant="primary" href="#">
+                Login
+              </Button>
+              <Button variant="primary" href="#">
+                Sign Up
+              </Button>
             </>
           )}
         </Navbar.Collapse>
