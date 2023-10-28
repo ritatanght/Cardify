@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 const categories = [
@@ -17,7 +19,7 @@ const Sets = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [isPrivate, setIsPrivate] = useState(false);
   const [cards, setCards] = useState([
     { front: '', back: '' },
@@ -30,7 +32,7 @@ const Sets = () => {
   const setformData = {
     title,
     description,
-    category: selectedCategory.id,
+    category_id: selectedCategory.id,
     private: isPrivate
     // user_id: currentUserId
   }
@@ -124,7 +126,7 @@ const Sets = () => {
                 }}
               />
             </FloatingLabel>
-            <i onClick={() => handleDelete(index)}>DELETE ICON PLACEHOLDER</i>
+            <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
           </div>
         ))}
         <Button onClick={() => setCards([...cards, { front: "", back: "" }])}>Add Card</Button>
