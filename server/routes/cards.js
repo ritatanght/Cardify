@@ -2,13 +2,13 @@ const router = require('express').Router();
 const cards = require("../db/queries/cards")
 
 router.post('/create', (req, res) => {
-  cards.postCardData(req.body)
+  cards.postCardsData(req.body)
     .then(result => {
-      res.status(201).json({ success: true, message: "Set created successfully", data: result });
+      res.status(201).json({ success: true, message: "Cards created successfully", data: result });
     })
     .catch(err => {
       res.status(500)
-      console.err(err)
+      console.error(err)
     })
 })
 
