@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const setsRouter = require('./routes/sets')
 const cardsRouter = require('./routes/cards')
+const categoriesRouter = require("./routes/categories");
 
 var app = express();
 
@@ -20,5 +21,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/sets', setsRouter);
 app.use('/api/cards', cardsRouter);
+app.use('/api/categories', categoriesRouter);
 
 module.exports = app;
