@@ -2,6 +2,9 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Card from "../components/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 const response = {
   set: {
@@ -62,9 +65,9 @@ const ViewSet = () => {
           {user.id && (
             <Button variant="link" onClick={toggleLike}>
               {isLiked ? (
-                <i className="fa-solid fa-heart"></i>
+                <FontAwesomeIcon icon={fillHeart} />
               ) : (
-                <i className="fa-regular fa-heart"></i>
+                <FontAwesomeIcon icon={emptyHeart} />
               )}
             </Button>
           )}
