@@ -9,8 +9,10 @@ const SetItem = (props) => {
   return (
     <div className="set-item-container">
       <h1>{'Set Name'}</h1>
-      <FontAwesomeIcon icon={faHeart} onClick={handleFavoriteClick}/>
-      <h2>{'Set Owner'}</h2>
+      <div className="set-item-right">
+        <FontAwesomeIcon icon={faHeart} onClick={handleFavoriteClick} />
+        <h2>{'Set Owner'}</h2>
+      </div>
     </div>
   )
 }
