@@ -8,16 +8,19 @@ const postSetData = (setData) => {
   return db.query(query, [setData.title, setData.description, setData.private, setData.category_id, setData.user_id])
 };
 
-
-const getSetById = (setId) => {
+const getSetInfoById = (setId) => {
   return db
     .query(
       `
-      SELECT * FROM sets
+      SELECT sets.*, categories.name AS category_name, username
+      FROM sets
+      JOIN categories ON category_id = categories.id
+      JOIN users ON user_id = users.id
       WHERE sets.id = $1;`,
       [setId]
     )
-    .then((data) => data.rows);
+    .then((data) => data.rows[0]);
 };
 
-module.exports = { postSetData, getSetById };
+module.exports = { postSetData, getSetInfoById };
+
