@@ -1,18 +1,14 @@
-
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap'; 
 import '../assets/styles/home.css';  
 
 const Home = () => {
-    const navigate = useNavigate();
-
-    const handleCreateClick = () => {
-        navigate('/sets/create');
-    };
-
     return (
         <div className="home-container">
-            <button onClick={handleCreateClick}>Create</button>
+            <LinkContainer to="/sets/create">
+                <Button variant="primary">Create</Button>
+            </LinkContainer>
             <div className="columns-container">
                 <div className="column">
                     <h3>Info about creating sets</h3>
