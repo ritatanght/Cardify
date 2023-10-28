@@ -9,6 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* Add routes here */}
+        <Route path="/sets/create" element={<YourCreateComponent />} />
         <Route index element={<Home />} />
         <Route path="/category" element={<Category />} />
       </Route>
@@ -16,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
