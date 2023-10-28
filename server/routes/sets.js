@@ -8,7 +8,7 @@ router.post('/create', (req, res) => {
     })
     .catch(err => {
       res.status(500)
-      console.err(err)
+      console.error(err)
     })
 });
 
