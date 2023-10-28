@@ -6,5 +6,6 @@ CREATE TABLE sets (
   description VARCHAR(255) NOT NULL,
   private BOOLEAN default false,
   category_id INT REFERENCES categories(id),
-  user_id INT REFERENCES users(id)
+  user_id INT REFERENCES users(id),
+  deleted BOOLEAN DEFAULT false
 );
