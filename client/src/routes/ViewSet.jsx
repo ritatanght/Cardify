@@ -4,6 +4,7 @@ import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Card from "../components/Card";
+import EditCardModal from './EditCardModal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
@@ -16,6 +17,8 @@ const ViewSet = () => {
   const { setId } = useParams();
   const [setData, setSetData] = useState(null);
   const {isLiked, setIsLiked, toggleLike} = useFavButton();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingCard, setEditingCard] = useState(null);
 
   useEffect(() => {
     const setDataPromise = axios.get(`/api/sets/${setId}`);
@@ -31,6 +34,19 @@ const ViewSet = () => {
       });
   }, [setId]);
 
+  const handleCardEdit = (card) => {
+    setEditingCard(card);
+    setShowEditModal(true);
+  }
+
+  const handleCardUpdate = (updatedCard) => {
+    
+    setSetData(prevData => {
+      const newCards = prevData.cards.map(card => card.id === updatedCard.id ? updatedCard : card);
+      return { ...prevData, cards: newCards };
+    });
+    setShowEditModal(false);
+  }
 
   if (!setData) return <h2>Loading...</h2>;
 
@@ -68,6 +84,22 @@ const ViewSet = () => {
           </Button>
         )}
       </section>
+
+      {/* Display the list of cards with an edit button */}
+      {cards.map(card => (
+        <div key={card.id}>
+          <Card card={card} />
+          <Button onClick={() => handleCardEdit(card)}>Edit Card</Button>
+        </div>
+      ))}
+
+      {/* Edit Card Modal */}
+      <EditCardModal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        card={editingCard}
+        onUpdate={handleCardUpdate}
+      />
 
       <Card />
 
