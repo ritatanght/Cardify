@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import Card from "../components/Card";
+import Cards from "../components/Cards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
@@ -53,7 +53,7 @@ const ViewSet = () => {
             <Badge bg="secondary">{set.category_name}</Badge>
           </h2>
           {user.id && (
-            <Button variant="link" onClick={()=>toggleLike(user.id, setId)}>
+            <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
               {isLiked ? (
                 <FontAwesomeIcon icon={fillHeart} />
               ) : (
@@ -69,7 +69,7 @@ const ViewSet = () => {
         )}
       </section>
 
-      <Card />
+      <Cards cards={cards}/>
 
       <section className="d-flex gap-2">
         <p>{set.username}</p>
