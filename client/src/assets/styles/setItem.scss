@@ -6,6 +6,11 @@
   padding: 25px;
   align-items: center;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .set-item-right {
     display: flex;
     justify-content: space-between;
