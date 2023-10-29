@@ -5,14 +5,14 @@ import '../assets/styles/setItem.scss'
 
 
 const SetItem = (props) => {
-  const { sets, users, handleFavoriteClick } = props
+  const { set, user, handleFavoriteClick } = props
 
   return (
     <div className="set-item-container">
-      <h2>{sets.title}</h2>
+      <h2>{set.title}</h2>
       <div className="set-item-right">
-        <FontAwesomeIcon className='fav-icon' icon={faHeart} onClick={handleFavoriteClick} />
-        <h2>{users.name}</h2>
+        <FontAwesomeIcon className='fav-icon' icon={faHeart} onClick={() => handleFavoriteClick()} />
+        <h2>{user.username}</h2>
       </div>
     </div>
   )
