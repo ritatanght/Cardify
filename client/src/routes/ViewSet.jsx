@@ -30,10 +30,31 @@ const ViewSet = () => {
       });
   }, [setId]);
 
- const toggleLike = () => {
-   // To be updated to reflect change in database
-   setIsLiked(!isLiked);
- };
+  const toggleLike = () => {
+    if (isLiked) {
+      axios
+        .put("/api/favorites", { userId: user.id, setId })
+        .then(({ status }) => {
+          if (status === 200) {
+            setIsLiked(false);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      axios
+        .post("/api/favorites", { userId: user.id, setId })
+        .then(({ status }) => {
+          if (status === 201) {
+            setIsLiked(true);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
 
   if (!setData) return <>Loading...</>;
 
@@ -57,7 +78,11 @@ const ViewSet = () => {
             </Button>
           )}
         </div>
-        {user.id === set.user_id && <Button variant="primary">Edit Set</Button>}
+        {user.id === set.user_id && (
+          <Button variant="primary" href={`/sets/edit/${setId}`}>
+            Edit Set
+          </Button>
+        )}
       </section>
 
       <Card />
