@@ -6,7 +6,7 @@ import Card from "../components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
-import axois from "axios";
+import axios from "axios";
 
 // To be updated
 const user = { id: 1 };
@@ -17,18 +17,23 @@ const ViewSet = () => {
   const [setData, setSetData] = useState(null);
 
   useEffect(() => {
-    axois
-      .get(`/api/sets/${setId}`)
-      .then(({ data }) => setSetData(data))
+    const setDataPromise = axios.get(`/api/sets/${setId}`);
+    const userFavPromise = axios.get(`/api/favorites/${user.id}`);
+
+    Promise.all([setDataPromise, userFavPromise])
+      .then(([setData, userFavData]) => {
+        setSetData(setData.data);
+        setIsLiked(userFavData.data.includes(Number(setId)));
+      })
       .catch((err) => {
         console.error(err);
       });
   }, [setId]);
 
-  const toggleLike = () => {
-    // To be updated to reflect change in database
-    setIsLiked(!isLiked);
-  };
+ const toggleLike = () => {
+   // To be updated to reflect change in database
+   setIsLiked(!isLiked);
+ };
 
   if (!setData) return <>Loading...</>;
 
