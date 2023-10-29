@@ -56,9 +56,17 @@ const ViewSet = () => {
     }
   };
 
-  if (!setData) return <>Loading...</>;
+  if (!setData) return <h2>Loading...</h2>;
 
   const { set, cards } = setData;
+
+  if (set.private) {
+    return (
+      <main className="PrivateSet">
+        <h2>This set is marked as private.</h2>
+      </main>
+    );
+  }
 
   return (
     <main className="ViewSet">
