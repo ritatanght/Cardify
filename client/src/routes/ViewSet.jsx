@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Card from "../components/Card";
@@ -13,8 +14,8 @@ const user = { id: 1 };
 
 const ViewSet = () => {
   const { setId } = useParams();
-  const [isLiked, setIsLiked] = useState(false);
   const [setData, setSetData] = useState(null);
+  const {isLiked, setIsLiked, toggleLike} = useFavButton();
 
   useEffect(() => {
     const setDataPromise = axios.get(`/api/sets/${setId}`);
@@ -30,31 +31,6 @@ const ViewSet = () => {
       });
   }, [setId]);
 
-  const toggleLike = () => {
-    if (isLiked) {
-      axios
-        .put("/api/favorites", { userId: user.id, setId })
-        .then(({ status }) => {
-          if (status === 200) {
-            setIsLiked(false);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      axios
-        .post("/api/favorites", { userId: user.id, setId })
-        .then(({ status }) => {
-          if (status === 201) {
-            setIsLiked(true);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  };
 
   if (!setData) return <h2>Loading...</h2>;
 
@@ -77,7 +53,7 @@ const ViewSet = () => {
             <Badge bg="secondary">{set.category_name}</Badge>
           </h2>
           {user.id && (
-            <Button variant="link" onClick={toggleLike}>
+            <Button variant="link" onClick={()=>toggleLike(user.id, setId)}>
               {isLiked ? (
                 <FontAwesomeIcon icon={fillHeart} />
               ) : (
