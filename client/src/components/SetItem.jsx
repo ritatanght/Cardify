@@ -15,7 +15,7 @@ const SetItem = (props) => {
       </Link>
       <div className="set-item-right">
         <FontAwesomeIcon className='fav-icon' icon={faHeart} onClick={() => handleFavoriteClick()} />
-        <h2>{user}</h2>
+        <h2>{user.username}</h2>
       </div>
     </div>
   )
