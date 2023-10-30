@@ -15,7 +15,7 @@ const user = { id: 1 };
 const ViewSet = () => {
   const { setId } = useParams();
   const [setData, setSetData] = useState(null);
-  const {isLiked, setIsLiked, toggleLike} = useFavButton();
+  const { isLiked, setIsLiked, toggleLike } = useFavButton();
 
   useEffect(() => {
     const setDataPromise = axios.get(`/api/sets/${setId}`);
@@ -30,7 +30,6 @@ const ViewSet = () => {
         console.error(err);
       });
   }, [setId]);
-
 
   if (!setData) return <h2>Loading...</h2>;
 
@@ -69,7 +68,7 @@ const ViewSet = () => {
         )}
       </section>
 
-      <Cards cards={cards}/>
+      <Cards cards={cards} isSetOwner={user.id === set.user_id} />
 
       <section className="d-flex gap-2">
         <p>{set.username}</p>

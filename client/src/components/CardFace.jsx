@@ -1,8 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faVolumeHigh, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
-const CardFace = ({ position, text }) => {
+const CardFace = ({ position, text, isSetOwner }) => {
+  const handleCardEdit = (e) => {
+    e.stopPropagation();
+    console.log("open modal");
+    // to be updated
+  };
   
   const speakText = (e) => {
     e.stopPropagation();
@@ -20,6 +25,11 @@ const CardFace = ({ position, text }) => {
   return (
     <div className={`card-${position}`}>
       <div className="card__icons-container">
+        {isSetOwner && (
+          <Button variant="link" onClick={handleCardEdit}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
+        )}
         <Button variant="link" onClick={speakText}>
           <FontAwesomeIcon icon={faVolumeHigh} />
         </Button>

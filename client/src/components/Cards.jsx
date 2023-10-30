@@ -6,7 +6,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import "../assets/styles/cards.scss";
 
-const Cards = (props) => {
+const Cards = ({ cards, isSetOwner }) => {
   const [currCard, setCurrCard] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
 
@@ -21,7 +21,7 @@ const Cards = (props) => {
 
   const nextCard = () => {
     setCurrCard((prevIndex) => {
-      if (prevIndex + 1 <= props.cards.length) {
+      if (prevIndex + 1 <= cards.length) {
         return prevIndex + 1;
       } else {
         setIsFinished(true);
@@ -31,9 +31,15 @@ const Cards = (props) => {
   };
 
   const cardsElement =
-    Array.isArray(props.cards) &&
-    props.cards.map((card, index) => (
-      <CardItem key={card.id} currCard={currCard} seq={index + 1} {...card} />
+    Array.isArray(cards) &&
+    cards.map((card, index) => (
+      <CardItem
+        key={card.id}
+        currCard={currCard}
+        seq={index + 1}
+        isSetOwner={isSetOwner}
+        {...card}
+      />
     ));
 
   return (
@@ -64,7 +70,7 @@ const Cards = (props) => {
         </Button>
 
         <span>
-          {currCard}/{props.cards.length}
+          {currCard}/{cards.length}
         </span>
         <Button variant="link">
           <FontAwesomeIcon icon={faArrowRight} onClick={nextCard} />

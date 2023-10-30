@@ -3,7 +3,7 @@ import CardFace from "./CardFace";
 
 const CardItem = (props) => {
   const [isFlip, setIsFlip] = useState(false);
-  const { front, back, currCard, seq } = props;
+  const { front, back, currCard, seq, isSetOwner } = props;
 
   useEffect(() => {
     if (isFlip) {
@@ -18,8 +18,8 @@ const CardItem = (props) => {
       }`}
       onClick={() => setIsFlip(!isFlip)}
     >
-      <CardFace position="front" text={front} />
-      <CardFace position="back" text={back} />
+      <CardFace position="front" isSetOwner={isSetOwner} text={front} />
+      <CardFace position="back" isSetOwner={isSetOwner} text={back} />
     </div>
   );
 };
