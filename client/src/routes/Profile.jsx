@@ -10,38 +10,33 @@ const Profile = () => {
 
   const [name, setName] = useState('')
   const [sets, setSets] = useState([])
-  const [favoriteSets, setFavoriteSets] = useState([])
 
   useEffect(() => {
     const userDataCall = axios.get(`/api/users/${user.id}`)
     const setDataCall = axios.get(`/api/sets/user/${user.id}`)
-    const favoritesDataCall = axios.get(`/api/favorites/${user.id}`)
 
-    Promise.all([userDataCall, setDataCall, favoritesDataCall])
-      .then(([userData, setData, favoritesData]) => {
+    Promise.all([userDataCall, setDataCall])
+      .then(([userData, setData]) => {
         setName(userData.data)
         setSets(setData.data);
-        setFavoriteSets(favoritesData.data)
       })
       .catch(err => {
         console.error(err)
       })
   }, [])
-  
 
   return (
     <div className="profile-container">
       <h3>{name.username}</h3>
       <Tabs defaultActiveKey='my-sets'>
         <Tab eventKey="my-sets" title="My Sets">
+          <p>Hello</p>
           {sets.map(set => (
-            <SetItem key={set.id} set={set} user={name.username}/>
+            <SetItem set={set} user={name.username}/>
           ))}
         </Tab>
         <Tab eventKey="favorite-sets" title="Favorite Sets">
-          {favoriteSets.map(favorite => (
-            <SetItem key={favorite.id} set={favorite} user={name.username} />
-          ))}
+          <p>Favorites</p>
         </Tab>
       </Tabs>
     </div>
