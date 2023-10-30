@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ const SearchBar = () => {
           onChange={(e) => setQueryString(e.target.value)}
         />
         <Button onClick={handleSearch}>
-          <i className="fa-solid fa-magnifying-glass"></i>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
         </Button>
       </InputGroup>
     </div>

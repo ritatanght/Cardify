@@ -3,8 +3,10 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-// To be updated to use cookies
+// To be updated
 const user = { id: 1, username: "testUser1", email: "rick.sandchez@gmail.com" };
 
 const Header = () => {
@@ -40,7 +42,7 @@ const Header = () => {
           {user.id ? (
             <>
               <Button variant="link" href={`/users/${user.id}`}>
-                <i className="fa-solid fa-user"></i>
+                <FontAwesomeIcon icon={faUser} />
               </Button>
               <Button variant="primary" href="#">
                 Sign Out
