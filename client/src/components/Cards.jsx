@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardItem from "./CardItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,21 @@ import "../assets/styles/cards.scss";
 const Cards = ({ cards, isSetOwner }) => {
   const [currCard, setCurrCard] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
+  const [voice, setVoice] = useState(null);
+
+  useEffect(() => {
+    const initializeVoices = () => {
+      const voices = speechSynthesis.getVoices();
+      console.log("render");
+      // Change voice for speech; 7 - Google US English
+      if (voices[7]) {
+        setVoice(voices[7]);
+      } else {
+        setTimeout(initializeVoices, 200);
+      }
+    };
+    initializeVoices();
+  }, []);
 
   const resetCard = () => {
     setCurrCard(1);
@@ -37,6 +52,7 @@ const Cards = ({ cards, isSetOwner }) => {
         key={card.id}
         currCard={currCard}
         seq={index + 1}
+        voice={voice}
         isSetOwner={isSetOwner}
         {...card}
       />
