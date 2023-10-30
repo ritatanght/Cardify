@@ -13,19 +13,6 @@ router.post('/create', (req, res) => {
     })
 });
 
-router.get("/user/:id", (req, res) => {
-  const { id } = req.params;
-
-  sets.getSetsByUserId(id)
-    .then(data => {
-      res.status(200).json(data)
-    })
-    .catch(err => {
-      res.status(500)
-      console.error(err)
-    }) 
-})
-
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   const setPromise = sets.getSetInfoById(id);
