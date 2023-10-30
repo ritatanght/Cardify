@@ -16,7 +16,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Add routes here */}
         <Route index element={<Home />} />
-        <Route path="/category" element={<Category />} />
+        <Route path="/categories/:categoryId" element={<Category />} />
         <Route path="/sets/create" element={<Sets />} />
         <Route path="/sets/:setId" element={<ViewSet />} />
         <Route path="/users/:userId" element={<Profile />} />
