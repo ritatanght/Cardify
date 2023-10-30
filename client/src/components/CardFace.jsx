@@ -14,7 +14,6 @@ const CardFace = ({ position, text }) => {
           <FontAwesomeIcon icon={faVolumeHigh} />
         </Button>
       </div>
-      {position}
       <p className="card__text">{text}</p>
     </div>
   );
