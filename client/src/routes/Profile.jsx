@@ -35,12 +35,12 @@ const Profile = () => {
       <Tabs defaultActiveKey='my-sets'>
         <Tab eventKey="my-sets" title="My Sets">
           {sets.map(set => (
-            <SetItem key={set.id} set={set} user={name.username}/>
+            <SetItem key={set.id} set={set} user={name} initiallyLiked={favoriteSets.some(favorite => favorite.id === set.id)}/>
           ))}
         </Tab>
         <Tab eventKey="favorite-sets" title="Favorite Sets">
           {favoriteSets.map(favorite => (
-            <SetItem key={favorite.id} set={favorite} user={name.username} />
+            <SetItem key={favorite.id} set={favorite} user={name} initiallyLiked={true}/>
           ))}
         </Tab>
       </Tabs>
