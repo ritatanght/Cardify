@@ -4,12 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
+import "../assets/styles/cards.scss";
 
 const Cards = (props) => {
   const [currCard, setCurrCard] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
-
-  const { front, back } = props.cards[currCard - 1];
 
   const resetCard = () => {
     setCurrCard(1);
@@ -55,19 +54,22 @@ const Cards = (props) => {
         cardsElement
       )}
 
-      {!isFinished && (
-        <div className="cards-navigation">
-          <Button variant="link" onClick={prevCard}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </Button>
-          <span>
-            {currCard}/{props.cards.length}
-          </span>
-          <Button variant="link">
-            <FontAwesomeIcon icon={faArrowRight} onClick={nextCard} />
-          </Button>
-        </div>
-      )}
+      <div className={`cards-navigation${isFinished ? " hide" : ""}`}>
+        <Button
+          className={currCard === 1 ? "hide" : ""}
+          variant="link"
+          onClick={prevCard}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button>
+
+        <span>
+          {currCard}/{props.cards.length}
+        </span>
+        <Button variant="link">
+          <FontAwesomeIcon icon={faArrowRight} onClick={nextCard} />
+        </Button>
+      </div>
     </div>
   );
 };
