@@ -1,37 +1,25 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import CardFace from "./CardFace";
 
-const CardItem = ({ front, back }) => {
+const CardItem = (props) => {
   const [isFlip, setIsFlip] = useState(false);
+  const { front, back, currCard, seq } = props;
 
-  const speakText = (e) => {
-    e.stopPropagation();
-    console.log("play speech");
-  };
+  useEffect(() => {
+    if (isFlip) {
+      setIsFlip(false);
+    }
+  }, [currCard]);
 
   return (
     <div
-      className={`Card ${isFlip ? "flip" : ""}`}
+      className={`Card${isFlip ? " flip" : ""}${
+        seq === currCard ? " active" : ""
+      }`}
       onClick={() => setIsFlip(!isFlip)}
     >
-      <div className="card-front">
-        <div className="card__icons-container">
-          <Button variant="link" onClick={speakText}>
-            <FontAwesomeIcon icon={faVolumeHigh} />
-          </Button>
-        </div>
-        <p className="card__text">{front}</p>
-      </div>
-      <div className="card-back">
-        <div className="card__icons-container">
-          <Button variant="link" onClick={speakText}>
-            <FontAwesomeIcon icon={faVolumeHigh} />
-          </Button>
-        </div>
-        <p className="card__text">{back}</p>
-      </div>
+      <CardFace position="front" text={front} />
+      <CardFace position="back" text={back} />
     </div>
   );
 };
