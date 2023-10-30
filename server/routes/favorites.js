@@ -4,11 +4,13 @@ const favorites = require("../db/queries/favorites");
 
 router.get("/:userId", (req, res) => {
   const { userId } = req.params;
-  favorites.getFavoritesByUserId(userId).then((data) => {
-    const favoritedSets = data.map((item) => item.set_id);
-    // return an array of all the favorited set_id
-    return res.json(favoritedSets);
-  });
+  favorites.getFavoritesByUserId(userId)
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => {
+      console.log(err)
+    });
 });
 
 router.post("/", (req, res) => {
