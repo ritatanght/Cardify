@@ -14,7 +14,6 @@ const Cards = ({ cards, isSetOwner }) => {
   useEffect(() => {
     const initializeVoices = () => {
       const voices = speechSynthesis.getVoices();
-      console.log("render");
       // Change voice for speech; 7 - Google US English
       if (voices[7]) {
         setVoice(voices[7]);

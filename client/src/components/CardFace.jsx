@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeHigh, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
 
 const CardFace = ({ position, text, voice, isSetOwner }) => {
   const handleCardEdit = (e) => {
