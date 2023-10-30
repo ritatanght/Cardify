@@ -32,7 +32,7 @@ const Cards = (props) => {
 
   return (
     <div className="cards-container">
-      <CardItem/>
+      <CardItem front={front} back={back} resetCard={resetCard} />
       {!isFinished && (
         <div className="cards-navigation">
           <Button variant="link" onClick={prevCard}>
