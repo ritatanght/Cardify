@@ -4,7 +4,7 @@ import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
 const CardItem = ({ front, back }) => {
-  const [isFront, setIsFront] = useState(true);
+  const [isFlip, setIsFlip] = useState(false);
 
   const speakText = (e) => {
     e.stopPropagation();
@@ -12,11 +12,26 @@ const CardItem = ({ front, back }) => {
   };
 
   return (
-    <div className="Card" onClick={() => setIsFront(!isFront)}>
-      <Button variant="link" onClick={speakText}>
-        <FontAwesomeIcon icon={faVolumeHigh} />
-      </Button>
-      {isFront ? front : back}
+    <div
+      className={`Card ${isFlip ? "flip" : ""}`}
+      onClick={() => setIsFlip(!isFlip)}
+    >
+      <div className="card-front">
+        <div className="card__icons-container">
+          <Button variant="link" onClick={speakText}>
+            <FontAwesomeIcon icon={faVolumeHigh} />
+          </Button>
+        </div>
+        <p className="card__text">{front}</p>
+      </div>
+      <div className="card-back">
+        <div className="card__icons-container">
+          <Button variant="link" onClick={speakText}>
+            <FontAwesomeIcon icon={faVolumeHigh} />
+          </Button>
+        </div>
+        <p className="card__text">{back}</p>
+      </div>
     </div>
   );
 };
