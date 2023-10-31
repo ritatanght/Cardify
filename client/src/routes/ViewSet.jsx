@@ -14,11 +14,11 @@ import { useUser } from "../context/UserProvider";
 const ViewSet = () => {
   const { setId } = useParams();
   const [setData, setSetData] = useState(null);
-  const { isLiked, checkLiked, toggleLike } = useFavButton();
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingCard, setEditingCard] = useState(null);
+  const { isLiked, checkLiked, toggleLike } = useFavButton();
   const { user, favoriteSets } = useUser();
-console.log(favoriteSets);
+
   useEffect(() => {
     axios
       .get(`/api/sets/${setId}`)
@@ -26,8 +26,8 @@ console.log(favoriteSets);
       .catch((err) => {
         console.error(err);
       });
-
-    checkLiked(favoriteSets, setId);
+    // check whether the current set is liked by the logged in user
+    checkLiked(favoriteSets, Number(setId));
   }, [setId]);
 
   const handleCardEdit = (card) => {
@@ -85,7 +85,7 @@ console.log(favoriteSets);
       <Cards cards={cards} isSetOwner={user && user.id === set.user_id} />
 
       {/* Display the list of cards with an edit button */}
-      {cards.map(card => (
+      {cards.map((card) => (
         <div key={card.id}>
           <Card card={card} />
           <Button onClick={() => handleCardEdit(card)}>Edit Card</Button>
