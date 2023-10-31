@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { useUser } from "../context/UserProvider";
 
-const useFavButton = (initialState = false) => {
-  const [isLiked, setIsLiked] = useState(initialState);
+
+const useFavButton = () => {
+  const [isLiked, setIsLiked] = useState(false);
+  const { updateFavoriteSets } = useUser();
+
 
   const toggleLike = (userId, setId) => {
     if (isLiked) {
@@ -11,6 +15,7 @@ const useFavButton = (initialState = false) => {
         .put("/api/favorites", { userId, setId })
         .then(({ status }) => {
           if (status === 200) {
+            updateFavoriteSets();
             setIsLiked(false);
           }
         })
@@ -23,6 +28,7 @@ const useFavButton = (initialState = false) => {
         .post("/api/favorites", { userId, setId })
         .then(({ status }) => {
           if (status === 201) {
+            updateFavoriteSets();
             setIsLiked(true);
           }
         })
@@ -32,7 +38,11 @@ const useFavButton = (initialState = false) => {
     }
   };
 
-  return { isLiked, setIsLiked, toggleLike };
+  const checkLiked = (favoriteSets, currentSetId) => {
+    setIsLiked(favoriteSets.some((set) => set.id === currentSetId));
+  };
+
+  return { isLiked, setIsLiked, toggleLike, checkLiked };
 };
 
 export default useFavButton;

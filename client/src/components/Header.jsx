@@ -5,13 +5,12 @@ import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../context/UserProvider";
 import axios from "axios";
-
-// To be updated
-const user = { id: 1, username: "testUser1", email: "rick.sandchez@gmail.com" };
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
+  const { user, login, logout } = useUser();
 
   useEffect(() => {
     axios.get("/api/categories").then((res) => setCategories(res.data));
@@ -38,18 +37,18 @@ const Header = () => {
         </Navbar.Collapse>
 
         <Navbar.Collapse className="justify-content-end">
-          {user.id ? (
+          {user ? (
             <>
               <Button variant="link" href={`/users/${user.id}`}>
                 <FontAwesomeIcon icon={faUser} />
               </Button>
-              <Button variant="primary" href="#">
+              <Button variant="primary" onClick={logout}>
                 Sign Out
               </Button>
             </>
           ) : (
             <>
-              <Button variant="primary" href="#">
+              <Button variant="primary" onClick={login}>
                 Login
               </Button>
               <Button variant="primary" href="#">
