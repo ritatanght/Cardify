@@ -1,51 +1,60 @@
-import React from "react";
 import { useEffect, useState } from "react";
-import SetItem from '../components/SetItem'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
-import axios from 'axios'
+import SetItem from "../components/SetItem";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import axios from "axios";
+import { useUser } from "../context/UserProvider";
+import { Navigate } from "react-router-dom";
 
 const Profile = () => {
-  const user = { id: 1 } //hardcoded for testing
-
-  const [name, setName] = useState('')
-  const [sets, setSets] = useState([])
-  const [favoriteSets, setFavoriteSets] = useState([])
+  const { user, favoriteSets } = useUser();
+  const [sets, setSets] = useState([]);
 
   useEffect(() => {
-    const userDataCall = axios.get(`/api/users/${user.id}`)
-    const setDataCall = axios.get(`/api/sets/user/${user.id}`)
-    const favoritesDataCall = axios.get(`/api/favorites/${user.id}`)
+    if (user) {
+      axios
+        .get(`/api/sets/user/${user.id}`)
+        .then((res) => {
+          setSets(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [user]);
 
-    Promise.all([userDataCall, setDataCall, favoritesDataCall])
-      .then(([userData, setData, favoritesData]) => {
-        setName(userData.data)
-        setSets(setData.data);
-        setFavoriteSets(favoritesData.data)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }, [])
-  
+  // Redirect to homepage for now
+  if (!user) return <Navigate to="/" replace={true} />;
 
   return (
     <div className="profile-container">
-      <h3>{name.username}</h3>
-      <Tabs defaultActiveKey='my-sets'>
+      <h3>{user.username}</h3>
+      <Tabs defaultActiveKey="my-sets">
         <Tab eventKey="my-sets" title="My Sets">
-          {sets.map(set => (
-            <SetItem key={set.id} set={set} user={name} initiallyLiked={favoriteSets.some(favorite => favorite.id === set.id)}/>
+          {sets.map((set) => (
+            <SetItem
+              key={set.id}
+              set={set}
+              user={user}
+              initiallyLiked={favoriteSets.some(
+                (favorite) => favorite.id === set.id
+              )}
+            />
           ))}
         </Tab>
         <Tab eventKey="favorite-sets" title="Favorite Sets">
-          {favoriteSets.map(favorite => (
-            <SetItem key={favorite.id} set={favorite} user={name} initiallyLiked={true}/>
+          {favoriteSets.map((favorite) => (
+            <SetItem
+              key={favorite.id}
+              set={favorite}
+              user={user}
+              initiallyLiked={true}
+            />
           ))}
         </Tab>
       </Tabs>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
