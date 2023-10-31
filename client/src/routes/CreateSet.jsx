@@ -8,18 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const categories = [
-  { id: 1, name: 'Category1' },
-  { id: 2, name: 'Category2' }
-];
-
-const Sets = () => {
-
+const CreateSet = () => {
+  const user = { id: 1 }
   const navigate = useNavigate()
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState({});
+  const [categories, setCategories] = useState([])
   const [isPrivate, setIsPrivate] = useState(false);
   const [cards, setCards] = useState([
     { front: '', back: '' },
@@ -27,17 +23,26 @@ const Sets = () => {
     { front: '', back: '' }
   ]);
 
-  // const currentUserId = getUserId()
 
   const setformData = {
     title,
     description,
     category_id: selectedCategory.id,
-    private: isPrivate
-    // user_id: currentUserId
+    private: isPrivate,
+    user_id: user.id
   }
 
   const cardFormData = cards;
+
+  useEffect(() => {
+    axios.get('/api/categories/')
+      .then(response => {
+        setCategories(response.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -135,4 +140,4 @@ const Sets = () => {
   )
 }
 
-export default Sets;
+export default CreateSet;
