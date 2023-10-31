@@ -6,15 +6,14 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/UserProvider";
+import axios from "axios";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
   const { user, login, logout } = useUser();
 
   useEffect(() => {
-    fetch("/api/categories")
-      .then((res) => res.json())
-      .then(setCategories);
+    axios.get("/api/categories").then((res) => setCategories(res.data));
   }, []);
 
   const dropDownItems =

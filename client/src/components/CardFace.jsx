@@ -2,11 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeHigh, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
-const CardFace = ({ position, text, voice, isSetOwner }) => {
+const CardFace = ({ position, text, voice, isSetOwner, onEdit }) => {
   const handleCardEdit = (e) => {
     e.stopPropagation();
-    console.log("open modal");
-    // to be updated
+    console.log("Click handle edit");
+    // if (onEdit) {
+      onEdit();
+    // }
   };
 
   const speakText = (e) => {
