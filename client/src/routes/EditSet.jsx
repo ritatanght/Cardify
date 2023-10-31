@@ -65,10 +65,20 @@ const EditSet = () => {
     axios.put(`/api/sets/edit/${setId}`, setformData)
       .then(result => {
         const setId = result.data.data.rows[0].id
-        axios.put(`/api/cards/edit/${setId}`, cardFormData); // TODO: Adjust this endpoint
+        const cardDataWithSetId = cards.map(card => ({ ...card, set_id: setId }));
+        axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
       })
-      .then(() => { navigate('/') })
+      // .then(() => { navigate('/') })
       .catch(err => { console.error(err) })
+  }
+
+  const addCard = () => {
+    const newCards = [...cards, {
+      front: "",
+      back: "",
+      deleted: false
+    }]
+    setCards(newCards)
   }
 
   const handleDelete = (cardIndex) => {
@@ -128,36 +138,36 @@ const EditSet = () => {
 
         {cards.map((card, index) => (
           !card.deleted && (
-          <div key={index} className='card-container'>
-            <FloatingLabel label='Front'>
-              <Form.Control
-                type='text'
-                placeholder='Front'
-                value={card.front}
-                onChange={e => {
-                  const updatedCards = [...cards];
-                  updatedCards[index].front = e.target.value;
-                  setCards(updatedCards)
-                }}
-              />
-            </FloatingLabel>
-            <FloatingLabel label='Back'>
-              <Form.Control
-                type='text'
-                placeholder='Back'
-                value={card.back}
-                onChange={e => {
-                  const updatedCards = [...cards];
-                  updatedCards[index].back = e.target.value;
-                  setCards(updatedCards)
-                }}
-              />
-            </FloatingLabel>
-            <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
-          </div>
+            <div key={index} className='card-container'>
+              <FloatingLabel label='Front'>
+                <Form.Control
+                  type='text'
+                  placeholder='Front'
+                  value={card.front}
+                  onChange={e => {
+                    const updatedCards = [...cards];
+                    updatedCards[index].front = e.target.value;
+                    setCards(updatedCards)
+                  }}
+                />
+              </FloatingLabel>
+              <FloatingLabel label='Back'>
+                <Form.Control
+                  type='text'
+                  placeholder='Back'
+                  value={card.back}
+                  onChange={e => {
+                    const updatedCards = [...cards];
+                    updatedCards[index].back = e.target.value;
+                    setCards(updatedCards)
+                  }}
+                />
+              </FloatingLabel>
+              <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
+            </div>
           )
         ))}
-        <Button onClick={() => setCards([...cards, { front: "", back: "" }])}>Add Card</Button>
+        <Button onClick={() => addCard()}>Add Card</Button>
       </Form>
     </div>
   )

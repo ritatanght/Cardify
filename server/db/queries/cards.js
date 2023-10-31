@@ -17,22 +17,37 @@ const postCardsData = (cardsData) => {
 
 const updateCardsData = (cardsData) => {
   const promises = cardsData.map(cardData => {
-    const query = `
-    UPDATE cards
-    SET front = $1,
-    back = $2,
-    deleted = $3
-    WHERE id = $4;
-    `;
-    return db.query(query, [
-      cardData.front,
-      cardData.back,
-      cardData.deleted,
-      cardData.id
-    ]);
-  })
-  return Promise.all(promises)
-}
+    if (cardData.id) {
+      const query = `
+      UPDATE cards
+      SET front = $1,
+      back = $2,
+      deleted = $3
+      WHERE id = $4;
+      `;
+      return db.query(query, [
+        cardData.front,
+        cardData.back,
+        cardData.deleted,
+        cardData.id
+      ]);
+    } else {
+      const query = `
+      INSERT INTO cards (front, back, deleted, set_id)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id;
+      `;
+      return db.query(query, [
+        cardData.front,
+        cardData.back,
+        cardData.deleted,
+        cardData.set_id
+      ]);
+    }
+  });
+
+  return Promise.all(promises);
+};
 
 const getCardsBySetId = (setId) => {
   return db
