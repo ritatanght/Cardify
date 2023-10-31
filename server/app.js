@@ -9,6 +9,7 @@ const categoriesRouter = require("./routes/categories");
 const setsRouter = require("./routes/sets");
 const cardsRouter = require('./routes/cards')
 const favoritesRouter = require("./routes/favorites");
+const searchesRouter = require("./routes/searches")
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/api/sets', setsRouter);
 app.use('/api/cards', cardsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use("/api/favorites", favoritesRouter);
+app.use('/api/search', searchesRouter);
 
 module.exports = app;

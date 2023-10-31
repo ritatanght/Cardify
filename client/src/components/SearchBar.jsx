@@ -12,7 +12,7 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (queryString) return navigate(`/search/${queryString}`);
+    if (queryString) return navigate(`/search?query=${encodeURIComponent(queryString)}`);
   };
 
   return (
