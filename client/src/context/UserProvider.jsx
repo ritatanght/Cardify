@@ -11,8 +11,12 @@ export const useUser = () => {
 const userId = 1;
 
 const UserProvider = (props) => {
-  const [user, setUser] = useState(null);
-  const [favoriteSets, setFavoriteSets] = useState([]);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("loggedInUser")) || null
+  );
+  const [favoriteSets, setFavoriteSets] = useState(
+    JSON.parse(localStorage.getItem("favoriteSets")) || []
+  );
 
   useEffect(() => {
     if (user) {
@@ -20,6 +24,7 @@ const UserProvider = (props) => {
         .get(`/api/favorites/${user.id}`)
         .then((res) => {
           setFavoriteSets(res.data);
+          localStorage.setItem("favoriteSets", JSON.stringify(res.data));
         })
         .catch((err) => {
           console.error(err);
@@ -31,7 +36,10 @@ const UserProvider = (props) => {
   const login = () => {
     axios
       .get(`/api/users/${userId}`)
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        setUser(res.data);
+        localStorage.setItem("loggedInUser", JSON.stringify(res.data));
+      })
       .catch((err) => {
         console.error(err);
       });
@@ -39,6 +47,9 @@ const UserProvider = (props) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("loggedInUser");
+    setFavoriteSets([]);
+    localStorage.removeItem("favoriteSets");
   };
 
   const userData = { user, favoriteSets, login, logout };
