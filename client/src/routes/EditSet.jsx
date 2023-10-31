@@ -32,7 +32,8 @@ const EditSet = () => {
     description,
     category_id: selectedCategory.id,
     private: isPrivate,
-    set_id: setId
+    set_id: setId,
+    user_id: userId
   }
 
   const cardFormData = cards;
@@ -45,11 +46,15 @@ const EditSet = () => {
       .then(([setData, categoryData]) => {
         const set = setData.data.set
         const cards = setData.data.cards
+        console.log(set)
 
         setUserId(set.user_id)
         setTitle(set.title)
         setDescription(set.description)
-        setSelectedCategory({ name: set.category_name }) //Category state is stored as an object
+        setSelectedCategory({
+          name: set.category_name,
+          id: set.category_id
+        }) //Category state is stored as an object. ID is required for submitting
         setIsPrivate(set.private)
         setCards(cards)
         setCategories(categoryData.data)
@@ -61,13 +66,13 @@ const EditSet = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put("/api/sets/edit", setformData)
+    axios.put(`/api/sets/edit/${setId}`, setformData)
       .then(result => {
         const setId = result.data.data.rows[0].id
-        const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
-        axios.put("/api/cards/edit", cardDataWithSetId); // TODO: Adjust this endpoint
+        // const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
+        // axios.put("/api/cards/edit", cardDataWithSetId); // TODO: Adjust this endpoint
       })
-      .then(() => { navigate('/') })
+      // .then(() => { navigate('/') })
       .catch(err => { console.error(err) })
   }
 

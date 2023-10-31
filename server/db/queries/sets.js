@@ -19,8 +19,9 @@ const updateSetData = (setData) => {
   SET title = $1,
   description = $2,
   private = $3,
-  category_id = $4
-  WHERE set_id = $5
+  category_id = $4,
+  user_id = $5
+  WHERE id = $6
   RETURNING id;
   `; //Must return sets.id. Used for cards set_id field when updating
 
@@ -29,6 +30,7 @@ const updateSetData = (setData) => {
     setData.description,
     setData.private,
     setData.category_id,
+    setData.user_id,
     setData.set_id])
 }
 
@@ -47,7 +49,7 @@ const getSetInfoById = (setId) => {
   return db
     .query(
       `
-      SELECT sets.*, categories.name AS category_name, username
+      SELECT sets.*, categories.name AS category_name, categories.id AS category_id, username
       FROM sets
       JOIN categories ON category_id = categories.id
       JOIN users ON user_id = users.id
