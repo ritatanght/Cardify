@@ -33,7 +33,7 @@ const useFavButton = () => {
   };
 
   const checkLiked = (favoriteSets, currentSetId) => {
-    setIsLiked(favoriteSets.some((set) => set.id === Number(currentSetId)));
+    setIsLiked(favoriteSets.some((set) => set.id === currentSetId));
   };
 
   return { isLiked, setIsLiked, toggleLike, checkLiked };
