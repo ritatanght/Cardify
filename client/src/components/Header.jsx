@@ -5,12 +5,11 @@ import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
-// To be updated
-const user = { id: 1, username: "testUser1", email: "rick.sandchez@gmail.com" };
+import { useUser } from "../context/UserProvider";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
+  const { user, login, logout } = useUser();
 
   useEffect(() => {
     fetch("/api/categories")
@@ -39,18 +38,18 @@ const Header = () => {
         </Navbar.Collapse>
 
         <Navbar.Collapse className="justify-content-end">
-          {user.id ? (
+          {user ? (
             <>
               <Button variant="link" href={`/users/${user.id}`}>
                 <FontAwesomeIcon icon={faUser} />
               </Button>
-              <Button variant="primary" href="#">
+              <Button variant="primary" href="#" onClick={logout}>
                 Sign Out
               </Button>
             </>
           ) : (
             <>
-              <Button variant="primary" href="#">
+              <Button variant="primary" href="#" onClick={login}>
                 Login
               </Button>
               <Button variant="primary" href="#">
