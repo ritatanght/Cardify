@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./routes/Home";
 import Category from "./routes/Category";
 import CreateSet from "./routes/CreateSet";
+import EditSet from "./routes/EditSet";
 import ViewSet from "./routes/ViewSet";
 import Search from "./routes/Search";
 import Profile from "./routes/Profile";
@@ -19,6 +20,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/category" element={<Category />} />
         <Route path="/sets/create" element={<CreateSet />} />
+        <Route path="/sets/edit/:setId" element={<EditSet />} />
         <Route path="/sets/:setId" element={<ViewSet />} />
         <Route path="/search" element={<Search />} />
         <Route path="/users/:userId" element={<Profile />} />
