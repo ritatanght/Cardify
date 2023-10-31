@@ -84,13 +84,6 @@ const ViewSet = () => {
 
 
       <Cards cards={cards} isSetOwner={user && user.id === set.user_id} onEdit={handleCardEdit} />
-      {/* Display the list of cards with an edit button */}
-      {cards.map((card) => (
-        <div key={card.id}>
-          <Card card={card} />
-          <Button onClick={() => handleCardEdit(card)}>Edit Card</Button>
-        </div>
-      ))}
 
       {/* Edit Card Modal */}
       {editingCard && <EditCardModal
