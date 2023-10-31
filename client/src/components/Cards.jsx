@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import CardItem from "./CardItem";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import "../assets/styles/cards.scss";
 
-const Cards = ({ cards, isSetOwner }) => {
+const Cards = ({ cards, isSetOwner, onEdit }) => {
   const [currCard, setCurrCard] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
   const [voice, setVoice] = useState(null);
@@ -53,9 +54,12 @@ const Cards = ({ cards, isSetOwner }) => {
         seq={index + 1}
         voice={voice}
         isSetOwner={isSetOwner}
+        onEdit={ () => onEdit(card) }
         {...card}
       />
     ));
+
+    
 
   return (
     <div className="cards-container">

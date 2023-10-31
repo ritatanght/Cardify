@@ -22,4 +22,13 @@ const getCardsBySetId = (setId) => {
     .then((data) => data.rows);
 };
 
-module.exports = { postCardsData, getCardsBySetId };
+const updateCardById = (id, cardData) => {
+  const query = `
+    UPDATE cards
+    SET front = $1, back = $2
+    WHERE id = $3
+  `;
+  return db.query(query, [cardData.front, cardData.back, id]);
+};
+
+module.exports = { postCardsData, getCardsBySetId, updateCardById };

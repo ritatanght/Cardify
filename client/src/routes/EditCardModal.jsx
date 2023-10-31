@@ -8,8 +8,20 @@ const EditCardModal = ({ show, onHide, card, onUpdate }) => {
   const [back, setBack] = useState(card.back);
 
   const handleSubmit = () => {
-    onUpdate({ ...card, front, back });
-    onHide();
+    // Update the card data on the backend first
+    axios.put(`/api/cards/update/${card.id}`, { front, back })
+      .then(response => {
+        if (response.data.success) {
+          // If successful, update the UI
+          onUpdate({ ...card, front, back });
+          onHide();
+        } else {
+          console.error("Error updating card: ", response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error("API Error: ", error);
+      });
   };
 
   return (
