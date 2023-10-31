@@ -18,9 +18,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Add routes here */}
         <Route index element={<Home />} />
-        <Route path="/category" element={<Category />} />
         <Route path="/sets/create" element={<CreateSet />} />
         <Route path="/sets/edit/:setId" element={<EditSet />} />
+        <Route path="/categories/:categoryId" element={<Category />} />
         <Route path="/sets/:setId" element={<ViewSet />} />
         <Route path="/search" element={<Search />} />
         <Route path="/users/:userId" element={<Profile />} />

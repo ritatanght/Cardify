@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
-const useFavButton = () => {
-  const [isLiked, setIsLiked] = useState(false);
+const useFavButton = (initialState = false) => {
+  const [isLiked, setIsLiked] = useState(initialState);
 
   const toggleLike = (userId, setId) => {
     if (isLiked) {
