@@ -7,7 +7,8 @@ const getFavoritesByUserId = (userId) => {
     SELECT sets.* FROM favorites
     JOIN sets ON favorites.set_id = sets.id
     WHERE favorites.user_id = $1 
-    AND sets.deleted = false;`,
+    AND sets.deleted = false
+    AND favorites.deleted = false;`,
       [userId]
     )
     .then((data) => data.rows);
