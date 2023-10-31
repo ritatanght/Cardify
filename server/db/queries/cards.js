@@ -20,13 +20,15 @@ const updateCardsData = (cardsData) => {
     const query = `
     UPDATE cards
     SET front = $1,
-    back = $2
-    WHERE set_id = $3;
+    back = $2,
+    deleted = $3
+    WHERE id = $4;
     `;
     return db.query(query, [
       cardData.front,
       cardData.back,
-      cardData.setId
+      cardData.deleted,
+      cardData.id
     ]);
   })
   return Promise.all(promises)
