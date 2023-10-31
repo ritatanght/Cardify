@@ -13,6 +13,17 @@ router.post('/create', (req, res) => {
     })
 });
 
+router.put('/edit/:id', (req, res) => {
+  sets.updateSetData(req.body)
+    .then(response => {
+      res.status(200).json({ message: "Set update successfully", data: response })
+    })
+    .catch(err => {
+      res.status(500)
+      console.error(err)
+    })
+})
+
 router.get("/user/:id", (req, res) => {
   const { id } = req.params;
 
@@ -23,7 +34,7 @@ router.get("/user/:id", (req, res) => {
     .catch(err => {
       res.status(500)
       console.error(err)
-    }) 
+    })
 })
 
 router.get("/:id", (req, res) => {
