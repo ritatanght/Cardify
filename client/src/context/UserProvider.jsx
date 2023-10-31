@@ -20,15 +20,7 @@ const UserProvider = (props) => {
 
   useEffect(() => {
     if (user) {
-      axios
-        .get(`/api/favorites/${user.id}`)
-        .then((res) => {
-          setFavoriteSets(res.data);
-          localStorage.setItem("favoriteSets", JSON.stringify(res.data));
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      updateFavoriteSets()
     }
   }, [user]);
 
@@ -52,7 +44,19 @@ const UserProvider = (props) => {
     localStorage.removeItem("favoriteSets");
   };
 
-  const userData = { user, favoriteSets, login, logout };
+  const updateFavoriteSets = () => {
+    axios
+      .get(`/api/favorites/${user.id}`)
+      .then((res) => {
+        setFavoriteSets(res.data);
+        localStorage.setItem("favoriteSets", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const userData = { user, favoriteSets, updateFavoriteSets, login, logout };
 
   return (
     <userContext.Provider value={userData}>
