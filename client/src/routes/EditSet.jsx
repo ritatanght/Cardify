@@ -123,6 +123,8 @@ const EditSet = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Form.Check
+            type="checkbox"
+            checked={isPrivate}
             onChange={() => setIsPrivate(!isPrivate)}
             reverse
             label='Private?'
