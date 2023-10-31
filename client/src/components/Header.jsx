@@ -43,13 +43,13 @@ const Header = () => {
               <Button variant="link" href={`/users/${user.id}`}>
                 <FontAwesomeIcon icon={faUser} />
               </Button>
-              <Button variant="primary" href="#" onClick={logout}>
+              <Button variant="primary" onClick={logout}>
                 Sign Out
               </Button>
             </>
           ) : (
             <>
-              <Button variant="primary" href="#" onClick={login}>
+              <Button variant="primary" onClick={login}>
                 Login
               </Button>
               <Button variant="primary" href="#">
