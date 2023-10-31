@@ -18,7 +18,7 @@ function App() {
         <Route path="/category" element={<Category />} />
         <Route path="/sets/create" element={<Sets />} />
         <Route path="/sets/:setId" element={<ViewSet />} />
-        <Route path="/search/:query" element={<Search />} />
+        <Route path="/search" element={<Search />} />
       </Route>
     </Routes>
   );
