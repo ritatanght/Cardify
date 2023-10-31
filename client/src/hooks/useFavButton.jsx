@@ -32,7 +32,11 @@ const useFavButton = () => {
     }
   };
 
-  return { isLiked, setIsLiked, toggleLike };
+  const checkLiked = (favoriteSets, currentSetId) => {
+    setIsLiked(favoriteSets.some((set) => set.id === Number(currentSetId)));
+  };
+
+  return { isLiked, setIsLiked, toggleLike, checkLiked };
 };
 
 export default useFavButton;
