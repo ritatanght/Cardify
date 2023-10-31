@@ -20,11 +20,7 @@ const EditSet = () => {
   const [selectedCategory, setSelectedCategory] = useState({});
   const [categories, setCategories] = useState([])
   const [isPrivate, setIsPrivate] = useState(false);
-  const [cards, setCards] = useState([
-    { front: '', back: '' },
-    { front: '', back: '' },
-    { front: '', back: '' }
-  ]);
+  const [cards, setCards] = useState([]);
 
 
   const setformData = {
@@ -69,16 +65,15 @@ const EditSet = () => {
     axios.put(`/api/sets/edit/${setId}`, setformData)
       .then(result => {
         const setId = result.data.data.rows[0].id
-        const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
-        axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId); // TODO: Adjust this endpoint
+        axios.put(`/api/cards/edit/${setId}`, cardFormData); // TODO: Adjust this endpoint
       })
-      // .then(() => { navigate('/') })
+      .then(() => { navigate('/') })
       .catch(err => { console.error(err) })
   }
 
   const handleDelete = (cardIndex) => {
     const updatedCards = [...cards];
-    updatedCards.splice(cardIndex, 1);
+    updatedCards[cardIndex].deleted = true;
     setCards(updatedCards);
   }
 
@@ -132,6 +127,7 @@ const EditSet = () => {
         </div>
 
         {cards.map((card, index) => (
+          !card.deleted && (
           <div key={index} className='card-container'>
             <FloatingLabel label='Front'>
               <Form.Control
@@ -159,6 +155,7 @@ const EditSet = () => {
             </FloatingLabel>
             <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
           </div>
+          )
         ))}
         <Button onClick={() => setCards([...cards, { front: "", back: "" }])}>Add Card</Button>
       </Form>
