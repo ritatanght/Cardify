@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import Card from "../components/Card";
+import Cards from "../components/Cards";
 import EditCardModal from './EditCardModal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +16,7 @@ const user = { id: 1 };
 const ViewSet = () => {
   const { setId } = useParams();
   const [setData, setSetData] = useState(null);
-  const {isLiked, setIsLiked, toggleLike} = useFavButton();
+  const { isLiked, setIsLiked, toggleLike } = useFavButton();
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingCard, setEditingCard] = useState(null);
 
@@ -34,6 +34,7 @@ const ViewSet = () => {
       });
   }, [setId]);
 
+
   const handleCardEdit = (card) => {
     setEditingCard(card);
     setShowEditModal(true);
@@ -48,6 +49,7 @@ const ViewSet = () => {
     setShowEditModal(false);
   }
 
+  
   if (!setData) return <h2>Loading...</h2>;
 
   const { set, cards } = setData;
@@ -69,7 +71,7 @@ const ViewSet = () => {
             <Badge bg="secondary">{set.category_name}</Badge>
           </h2>
           {user.id && (
-            <Button variant="link" onClick={()=>toggleLike(user.id, setId)}>
+            <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
               {isLiked ? (
                 <FontAwesomeIcon icon={fillHeart} />
               ) : (
@@ -85,24 +87,26 @@ const ViewSet = () => {
         )}
       </section>
 
+
+      <Cards cards={cards} isSetOwner={user.id === set.user_id} onEdit={handleCardEdit} />
+
       {/* Display the list of cards with an edit button */}
-      {cards.map(card => (
+      {/* {cards.map(card => (
         <div key={card.id}>
           <Card card={card} />
           <Button onClick={() => handleCardEdit(card)}>Edit Card</Button>
         </div>
-      ))}
+      ))} */}
 
       {/* Edit Card Modal */}
-      <EditCardModal
+      {editingCard && <EditCardModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
         card={editingCard}
         onUpdate={handleCardUpdate}
-      />
-
-      <Card />
-
+      />}
+        
+        
       <section className="d-flex gap-2">
         <p>{set.username}</p>
         <p>{set.description}</p>

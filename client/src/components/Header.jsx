@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 // To be updated
 const user = { id: 1, username: "testUser1", email: "rick.sandchez@gmail.com" };
@@ -13,9 +14,7 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("/api/categories")
-      .then((res) => res.json())
-      .then(setCategories);
+    axios.get("/api/categories").then((res) => setCategories(res.data));
   }, []);
 
   const dropDownItems =
