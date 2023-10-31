@@ -15,7 +15,6 @@ const Category = () => {
   const [favoriteSets, setFavoriteSets] = useState([]);
   const { categoryId } = useParams();
 
-
   useEffect(() => {
     const setDataPromise = axios.get(`/api/categories/${categoryId}`);
     const userFavPromise = axios.get(`/api/favorites/${currentUser.id}`);
@@ -31,6 +30,7 @@ const Category = () => {
       });
   }, [categoryId]);
 
+  if (!category) return <h1>Category Not Found</h1>;
   if (!setsData) return <>Loading...</>;
 
   const setsElements =
