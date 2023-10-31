@@ -1,8 +1,8 @@
 const router = require("express").Router()
 const searches = require("../db/queries/searches")
 
-router.get("/:query", (req, res) => {
-  searches.searchByText(req.params.query)
+router.get("/", (req, res) => {
+  searches.searchByText(req.query.query)
     .then(data => {
       res.json(data.rows)
     })
