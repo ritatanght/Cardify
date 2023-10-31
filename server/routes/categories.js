@@ -13,6 +13,7 @@ router.get("/:id", (req, res) => {
 
   Promise.all([categoryPromise, setsPromise]).then(
     ([category, sets]) => {
+      if (!category) return res.status(404).json({message: "Category not found"});
       res.json({ category: category.name, sets });
     }
 
