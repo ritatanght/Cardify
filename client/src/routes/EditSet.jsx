@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
@@ -8,10 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const CreateSet = () => {
+const EditSet = () => {
   const user = { id: 1 }
   const navigate = useNavigate()
+  const { setId } = useParams()
 
+  const [userId, setUserId] = useState("")
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState({});
@@ -29,15 +32,27 @@ const CreateSet = () => {
     description,
     category_id: selectedCategory.id,
     private: isPrivate,
-    user_id: user.id
+    set_id: setId
   }
 
   const cardFormData = cards;
 
   useEffect(() => {
-    axios.get('/api/categories/')
-      .then(response => {
-        setCategories(response.data)
+    const getSetPromise = axios.get(`/api/sets/${setId}`)
+    const categoriesPromise = axios.get('/api/categories/')
+
+    Promise.all([getSetPromise, categoriesPromise])
+      .then(([setData, categoryData]) => {
+        const set = setData.data.set
+        const cards = setData.data.cards
+
+        setUserId(set.user_id)
+        setTitle(set.title)
+        setDescription(set.description)
+        setSelectedCategory({ name: set.category_name }) //Category state is stored as an object
+        setIsPrivate(set.private)
+        setCards(cards)
+        setCategories(categoryData.data)
       })
       .catch(err => {
         console.error(err)
@@ -46,28 +61,32 @@ const CreateSet = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("/api/sets/create", setformData)
+    axios.put("/api/sets/edit", setformData)
       .then(result => {
         const setId = result.data.data.rows[0].id
         const cardDataWithSetId = cardFormData.map(card => ({ ...card, setId }));
-        axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
+        axios.put("/api/cards/edit", cardDataWithSetId); // TODO: Adjust this endpoint
       })
-      .then(() => {navigate('/')})
-      .catch(err => {console.error(err)})
+      .then(() => { navigate('/') })
+      .catch(err => { console.error(err) })
   }
 
   const handleDelete = (cardIndex) => {
     const updatedCards = [...cards];
     updatedCards.splice(cardIndex, 1);
     setCards(updatedCards);
-}
+  }
+
+  if (user.id !== userId) {
+    return <h1>Sorry, you don't have permission to edit this set!</h1>
+  }
 
   return (
     <div className="create-container">
       <Form>
         <div className='set-container'>
-          <h1>Create a New Set</h1>
-          <Button variant='primary' type='submit' onClick={handleSubmit}>Create</Button>
+          <h1>Edit: {title}</h1>
+          <Button variant='primary' type='submit' onClick={handleSubmit}>Edit</Button>
           <FloatingLabel label='Title'>
             <Form.Control
               type='text'
@@ -140,4 +159,4 @@ const CreateSet = () => {
   )
 }
 
-export default CreateSet;
+export default EditSet;
