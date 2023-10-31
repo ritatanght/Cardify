@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 const EditCardModal = ({ show, onHide, card, onUpdate }) => {
   const [front, setFront] = useState(card.front);
