@@ -23,4 +23,17 @@ router.put('/edit/:id', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  console.log(id)
+  cards.getCardsBySetId(id)
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => {
+      res.status(500)
+      console.error(err)
+    })
+})
+
 module.exports = router;
