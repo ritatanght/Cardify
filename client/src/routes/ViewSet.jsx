@@ -90,7 +90,7 @@ const ViewSet = () => {
           <Card card={card} />
           <Button onClick={() => handleCardEdit(card)}>Edit Card</Button>
         </div>
-      ))} */}
+      ))}
 
       {/* Edit Card Modal */}
       {editingCard && <EditCardModal
