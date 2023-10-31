@@ -19,9 +19,8 @@ const updateSetData = (setData) => {
   SET title = $1,
   description = $2,
   private = $3,
-  category_id = $4,
-  user_id = $5
-  WHERE id = $6
+  category_id = $4
+  WHERE id = $5
   RETURNING id;
   `; //Must return sets.id. Used for cards set_id field when updating
 
@@ -30,7 +29,6 @@ const updateSetData = (setData) => {
     setData.description,
     setData.private,
     setData.category_id,
-    setData.user_id,
     setData.set_id])
 }
 

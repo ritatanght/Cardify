@@ -28,8 +28,7 @@ const EditSet = () => {
     description,
     category_id: selectedCategory.id,
     private: isPrivate,
-    set_id: setId,
-    user_id: userId
+    set_id: setId
   }
 
   const cardFormData = cards;
