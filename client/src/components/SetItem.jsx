@@ -7,7 +7,8 @@ import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons"
 import Button from "react-bootstrap/esm/Button";
-import '../assets/styles/setItem.scss'
+import '../assets/styles/SetItem.scss'
+import '../assets/styles/icons.scss'
 
 const SetItem = (props) => {
   const { set, user, setOwner, initiallyLiked } = props;
@@ -35,18 +36,18 @@ const SetItem = (props) => {
       <div className="set-item-right">
         <Button variant="link" onClick={() => handleLikeClick()}>
           {isLiked ? (
-            <FontAwesomeIcon icon={fillHeart} />
+            <FontAwesomeIcon icon={fillHeart} className="icon-primary heart-icon" />
           ) : (
-            <FontAwesomeIcon icon={emptyHeart} />
+            <FontAwesomeIcon icon={emptyHeart} className="icon-primary heart-icon" />
           )}
         </Button>
         {user.id === set.user_id ? (
           <div className="set-icons">
             <Button variant="link" href={`/sets/edit/${set.id}`}>
-              <FontAwesomeIcon icon={faPenToSquare} />
+              <FontAwesomeIcon icon={faPenToSquare} className="icon-primary" />
             </Button>
             <Button variant="link" onClick={handleDeleteClick}>
-              <FontAwesomeIcon icon={faTrashCan} />
+              <FontAwesomeIcon icon={faTrashCan} className="icon-primary" />
             </Button>
           </div>
         ) : (
