@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
+import "../assets/styles/Header.scss";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
