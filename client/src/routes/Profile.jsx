@@ -10,7 +10,6 @@ const Profile = () => {
   const { user, favoriteSets } = useUser();
   const [sets, setSets] = useState([]);
   
-
   useEffect(() => {
     if (user) {
       axios
