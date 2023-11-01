@@ -71,10 +71,21 @@ const getSetsByCategoryId = (categoryId) => {
     .then((data) => data.rows);
 };
 
+const setSetToDeleted = (setId) => {
+  const query = `
+   UPDATE sets
+   SET deleted = true
+   WHERE id = $1;
+  `;
+  
+  return db.query(query, [setId])
+}
+
 module.exports = {
   postSetData,
   updateSetData,
   getSetsByUserId,
   getSetInfoById,
   getSetsByCategoryId,
+  setSetToDeleted
 };
