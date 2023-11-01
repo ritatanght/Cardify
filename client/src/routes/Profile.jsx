@@ -58,6 +58,7 @@ const Profile = () => {
               user={user}
               setOwner={favorite.username}
               initiallyLiked={true}
+              onDelete={handleDelete}
             />
           ))}
         </Tab>
