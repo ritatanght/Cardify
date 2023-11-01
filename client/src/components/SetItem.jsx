@@ -40,7 +40,7 @@ const SetItem = (props) => {
             <FontAwesomeIcon icon={emptyHeart} />
           )}
         </Button>
-        {user.username === setOwner ? (
+        {user.id === set.user_id ? (
           <div className="set-icons">
             <Button variant="link" href={`/sets/edit/${set.id}`}>
               <FontAwesomeIcon icon={faPenToSquare} />
