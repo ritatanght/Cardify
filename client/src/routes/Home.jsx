@@ -1,11 +1,17 @@
-import React from 'react';
+
+import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../assets/styles/home.css';  
+import '../assets/styles/home.scss';  
+import '../assets/styles/BackgroundStyles.scss'
+import BackgroundChanger from '../components/BackgroundChanger';
 
 const Home = () => {
+    const homeContainerRef = useRef(null); // Create a ref
     return (
-        <div className="home-container">
+        <div className="home-container" ref={homeContainerRef}>
+            <BackgroundChanger containerRef={homeContainerRef} />
+        
             <Link to="/sets/create">
                 <Button variant="primary" as="span">Create</Button>
             </Link>
@@ -24,6 +30,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        
     );
 };
 
