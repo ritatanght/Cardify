@@ -42,7 +42,7 @@ const Header = () => {
             <>
               <Button
                 variant="link"
-                className="header__profile-btn"
+                className="profile-btn"
                 href={`/users/${user.id}`}
               >
                 <FontAwesomeIcon icon={faUser} />
