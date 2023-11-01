@@ -16,14 +16,20 @@ const Search = () => {
   useEffect(() => {
     setIsLoading(true)
     axios.get(`/api/search?query=${encodeURIComponent(query)}`)
-      .then(response => {
-        setSearchSets(response.data)
+      .then(res => {
+        const userSets = (res.data).filter(set => set.deleted !== true)
+        setSearchSets(userSets)
         setIsLoading(false)
       })
       .catch(err => {
         console.error(err)
       })
   }, [query])
+
+  const handleDelete = (setId) => {
+    const updatedSets = searchSets.filter(set => set.id !== setId);
+    setSearchSets(updatedSets);
+  };
 
   if (isLoading) {
     return <h1>Searching...</h1>
@@ -40,6 +46,7 @@ const Search = () => {
             user={user}
             setOwner={set.username}
             initiallyLiked={favoriteSets.some(favorite => favorite.id === set.id)}
+            onDelete={handleDelete}
           />
         ))
         :
