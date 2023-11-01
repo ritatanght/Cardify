@@ -3,8 +3,8 @@ import axios from "axios";
 import { useUser } from "../context/UserProvider";
 
 
-const useFavButton = () => {
-  const [isLiked, setIsLiked] = useState(false);
+const useFavButton = (initialState = false) => {
+  const [isLiked, setIsLiked] = useState(initialState);
   const { updateFavoriteSets } = useUser();
 
 
