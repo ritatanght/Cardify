@@ -65,12 +65,11 @@ const ViewSet = () => {
         <div className="d-flex gap-2 align-items-center">
           <h1>{set.title}</h1>
           <h2>
-            <Badge bg="secondary">{set.category_name}</Badge>
+            {set.category_name}
           </h2>
           {user && (
             <Button
               variant="link"
-              className="icon-primary"
               onClick={() => toggleLike(user.id, setId)}
             >
               {isLiked ? (

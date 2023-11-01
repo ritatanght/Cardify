@@ -1,0 +1,23 @@
+@use "./variables" as var;
+
+.ViewSet {
+  max-width: 800px;
+  margin: 0 auto;
+
+  h1,
+  h2 {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    background-color: var.$color-3;
+    padding: 0.5em;
+    border-radius: 5px;
+    font-size: 1rem;
+    align-self: flex-end;
+  }
+
+  .heart-icon {
+    font-size: 1.8rem;
+  }
+}
