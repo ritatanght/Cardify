@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useUser } from '../context/UserProvider'
 import axios from 'axios'
+import "../assets/styles/EditSet.scss"
 
 const EditSet = () => {
   const navigate = useNavigate()
@@ -95,45 +96,54 @@ const EditSet = () => {
     <div className="create-container">
       <Form>
         <div className='set-container'>
-          <h1>Edit: {title}</h1>
-          <Button variant='primary' type='submit' onClick={handleSubmit}>Edit</Button>
-          <FloatingLabel label='Title'>
-            <Form.Control
-              type='text'
-              placeholder='Title'
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
-          </FloatingLabel>
-          <FloatingLabel label='Description'>
-            <Form.Control
-              type='textarea'
-              placeholder='Description'
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-            />
-          </FloatingLabel>
-          <Dropdown>
-            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-              {selectedCategory.name || "Select a category"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {categories.map(category => (
-                <Dropdown.Item
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category)}>
-                  {category.name}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Form.Check
-            type="checkbox"
-            checked={isPrivate}
-            onChange={() => setIsPrivate(!isPrivate)}
-            reverse
-            label='Private?'
-          />
+          <div className='set-header-container'>
+            <h1>Edit: {title}</h1>
+            <Button variant='primary' type='submit' onClick={handleSubmit}>Edit</Button>
+          </div>
+          <div className='set-info-container'>
+            <FloatingLabel label='Title'>
+              <Form.Control
+                type='text'
+                placeholder='Title'
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </FloatingLabel>
+            <div className='set-info-details'>
+              <FloatingLabel label='Description'>
+                <Form.Control
+                  as='textarea'
+                  placeholder='Description'
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  style={{ height: '100px' }}
+                />
+              </FloatingLabel>
+              <div className='set-info-options'>
+                <Dropdown>
+                  <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                    {selectedCategory.name || "Select a category"}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {categories.map(category => (
+                      <Dropdown.Item
+                        key={category.id}
+                        onClick={() => setSelectedCategory(category)}>
+                        {category.name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Form.Check
+                  type="checkbox"
+                  checked={isPrivate}
+                  onChange={() => setIsPrivate(!isPrivate)}
+                  reverse
+                  label='Private?'
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {cards.map((card, index) => (
