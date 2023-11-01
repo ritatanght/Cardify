@@ -9,19 +9,25 @@ import { Navigate } from "react-router-dom";
 const Profile = () => {
   const { user, favoriteSets } = useUser();
   const [sets, setSets] = useState([]);
-  
+
   useEffect(() => {
     if (user) {
       axios
         .get(`/api/sets/user/${user.id}`)
         .then((res) => {
-          setSets(res.data);
+          const userSets = (res.data).filter(set => set.deleted !== true)
+          setSets(userSets);
         })
         .catch((err) => {
           console.error(err);
         });
     }
   }, [user]);
+
+  const handleDelete = (setId) => {
+    const updatedSets = sets.filter(set => set.id !== setId);
+    setSets(updatedSets);
+  };
 
   // Redirect to homepage for now
   if (!user) return <Navigate to="/" replace={true} />;
@@ -40,6 +46,7 @@ const Profile = () => {
               initiallyLiked={favoriteSets.some(
                 (favorite) => favorite.id === set.id
               )}
+              onDelete={handleDelete}
             />
           ))}
         </Tab>
