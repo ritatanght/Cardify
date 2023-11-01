@@ -10,6 +10,7 @@ import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import '../assets/styles/ViewSet.scss'
 
 const ViewSet = () => {
   const { setId } = useParams();
