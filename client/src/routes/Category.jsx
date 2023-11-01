@@ -31,9 +31,9 @@ const Category = () => {
       <SetItem
         key={set.id}
         set={set}
-        user={{ username: set.username }}
+        setOwner={set.username}
+        user={user}
         initiallyLiked={favoriteSets.some((favorite) => favorite.id === set.id)}
-        currentUser={user}
       />
     ));
 
