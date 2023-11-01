@@ -10,7 +10,7 @@ import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
-import '../assets/styles/ViewSet.scss'
+import "../assets/styles/ViewSet.scss";
 import "../assets/styles/icons.scss";
 
 const ViewSet = () => {
@@ -64,18 +64,19 @@ const ViewSet = () => {
       <section className="d-flex justify-content-between align-items-center">
         <div className="d-flex gap-2 align-items-center">
           <h1>{set.title}</h1>
-          <h2>
-            {set.category_name}
-          </h2>
+          <h2>{set.category_name}</h2>
           {user && (
-            <Button
-              variant="link"
-              onClick={() => toggleLike(user.id, setId)}
-            >
+            <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
               {isLiked ? (
-                <FontAwesomeIcon icon={fillHeart} className="icon-primary heart-icon"/>
+                <FontAwesomeIcon
+                  icon={fillHeart}
+                  className="icon-primary heart-icon"
+                />
               ) : (
-                <FontAwesomeIcon icon={emptyHeart} className="icon-primary heart-icon"/>
+                <FontAwesomeIcon
+                  icon={emptyHeart}
+                  className="icon-primary heart-icon"
+                />
               )}
             </Button>
           )}
@@ -103,9 +104,12 @@ const ViewSet = () => {
         />
       )}
 
-      <section className="d-flex gap-2">
+      <section className="set-info d-flex gap-2">
         <p>{set.username}</p>
-        <p>{set.description}</p>
+        <div className="description">
+          <h3>Decription:</h3>
+          <p>{set.description}</p>
+        </div>
       </section>
     </main>
   );

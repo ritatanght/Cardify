@@ -28,9 +28,30 @@
     font-size: 1.2rem;
     letter-spacing: 5px;
     .btn {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var.$color-5;
       margin: 0;
+    }
+  }
+
+  .set-info {
+    padding-inline: 2em;
+    justify-content: space-between;
+    > * {
+      margin: 0;
+      padding: 1em;
+      border-radius: 10px;
+    }
+    > p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      flex-basis: 20%;
+    }
+    div.description {
+      flex-basis: 70%;
+      h3 {
+        font-size: 1.2rem;
+      }
     }
   }
 
