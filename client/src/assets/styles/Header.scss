@@ -10,7 +10,7 @@ nav {
     transition: all 0.3s ease;
     & a::after {
       color: var.$color-5;
-      animation: 5s infinite arrowDown;
+      animation: 4s infinite arrowDown;
     }
   }
   .btn-primary {
