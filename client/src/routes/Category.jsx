@@ -22,6 +22,11 @@ const Category = () => {
       });
   }, [categoryId]);
 
+  const handleDelete = (setId) => {
+    const updatedSets = setsData.filter(set => set.id !== setId);
+    setSetsData(updatedSets);
+  };
+
   if (!category) return <h1>Category Not Found</h1>;
   if (!setsData) return <h1>Loading...</h1>;
 
@@ -34,6 +39,7 @@ const Category = () => {
         setOwner={set.username}
         user={user}
         initiallyLiked={favoriteSets.some((favorite) => favorite.id === set.id)}
+        onDelete={handleDelete}
       />
     ));
 
