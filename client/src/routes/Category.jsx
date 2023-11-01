@@ -2,28 +2,20 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import axios from "axios";
-
-const currentUser = {
-  id: 1,
-  username: "testUser1",
-  email: "rick.sandchez@gmail.com",
-};
+import { useUser } from "../context/UserProvider";
 
 const Category = () => {
   const [setsData, setSetsData] = useState(null);
   const [category, setCategory] = useState("");
-  const [favoriteSets, setFavoriteSets] = useState([]);
   const { categoryId } = useParams();
+  const { user, favoriteSets } = useUser();
 
   useEffect(() => {
-    const setDataPromise = axios.get(`/api/categories/${categoryId}`);
-    const userFavPromise = axios.get(`/api/favorites/${currentUser.id}`);
-
-    Promise.all([setDataPromise, userFavPromise])
-      .then(([setsData, userFavData]) => {
-        setCategory(setsData.data.category);
-        setSetsData(setsData.data.sets);
-        setFavoriteSets(userFavData.data);
+    axios
+      .get(`/api/categories/${categoryId}`)
+      .then((res) => {
+        setCategory(res.data.category);
+        setSetsData(res.data.sets);
       })
       .catch((err) => {
         console.error(err);
@@ -31,7 +23,7 @@ const Category = () => {
   }, [categoryId]);
 
   if (!category) return <h1>Category Not Found</h1>;
-  if (!setsData) return <>Loading...</>;
+  if (!setsData) return <h1>Loading...</h1>;
 
   const setsElements =
     Array.isArray(setsData) &&
@@ -39,16 +31,15 @@ const Category = () => {
       <SetItem
         key={set.id}
         set={set}
-        user={{ username: set.username }}
+        setOwner={set.username}
+        user={user}
         initiallyLiked={favoriteSets.some((favorite) => favorite.id === set.id)}
-        currentUser={currentUser}
       />
     ));
 
   return (
     <div className="Category-container">
       <h1>Category: {category}</h1>
-
       {setsData.length === 0 ? (
         <h2>There are currently no sets in this category.</h2>
       ) : (
