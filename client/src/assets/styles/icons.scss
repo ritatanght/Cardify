@@ -1,0 +1,7 @@
+.icon-primary {
+  color: #000000;
+
+  &.heart-icon{
+    color: darken($color: red, $amount: 15);
+  }
+}
