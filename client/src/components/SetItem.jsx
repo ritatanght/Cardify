@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons"
 import Button from "react-bootstrap/esm/Button";
 import '../assets/styles/setItem.scss'
 
@@ -18,7 +19,7 @@ const SetItem = (props) => {
   const handleLikeClick = () => {
     toggleLike(user.id, set.id);
   }
-  
+
   return (
     <div className="set-item-container">
       <Link to={`/sets/${set.id}`}>
@@ -32,7 +33,18 @@ const SetItem = (props) => {
             <FontAwesomeIcon icon={emptyHeart} />
           )}
         </Button>
-        <h2>{setOwner}</h2>
+        {user.username === setOwner ? (
+          <div className="set-icons">
+            <Button variant="link" href={`/sets/edit/${set.id}`}>
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>
+            <Button variant="link" href={`/sets/edit/${set.id}`}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </Button>
+          </div>
+        ) : (
+          <h2>{setOwner}</h2>
+        )}
       </div>
     </div>
   )
