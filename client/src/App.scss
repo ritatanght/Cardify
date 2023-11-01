@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
   min-height: 100vh;
 }
