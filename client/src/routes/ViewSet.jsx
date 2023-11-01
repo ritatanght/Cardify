@@ -11,6 +11,7 @@ import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import '../assets/styles/ViewSet.scss'
+import "../assets/styles/icons.scss";
 
 const ViewSet = () => {
   const { setId } = useParams();
@@ -67,11 +68,15 @@ const ViewSet = () => {
             <Badge bg="secondary">{set.category_name}</Badge>
           </h2>
           {user && (
-            <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
+            <Button
+              variant="link"
+              className="icon-primary"
+              onClick={() => toggleLike(user.id, setId)}
+            >
               {isLiked ? (
-                <FontAwesomeIcon icon={fillHeart} />
+                <FontAwesomeIcon icon={fillHeart} className="icon-primary heart-icon"/>
               ) : (
-                <FontAwesomeIcon icon={emptyHeart} />
+                <FontAwesomeIcon icon={emptyHeart} className="icon-primary heart-icon"/>
               )}
             </Button>
           )}
@@ -83,18 +88,22 @@ const ViewSet = () => {
         )}
       </section>
 
-
-      <Cards cards={cards} isSetOwner={user && user.id === set.user_id} onEdit={handleCardEdit} />
+      <Cards
+        cards={cards}
+        isSetOwner={user && user.id === set.user_id}
+        onEdit={handleCardEdit}
+      />
 
       {/* Edit Card Modal */}
-      {editingCard && <EditCardModal
-        show={showEditModal}
-        onHide={() => setShowEditModal(false)}
-        card={editingCard}
-        onUpdate={handleCardUpdate}
-      />}
-        
-        
+      {editingCard && (
+        <EditCardModal
+          show={showEditModal}
+          onHide={() => setShowEditModal(false)}
+          card={editingCard}
+          onUpdate={handleCardUpdate}
+        />
+      )}
+
       <section className="d-flex gap-2">
         <p>{set.username}</p>
         <p>{set.description}</p>
