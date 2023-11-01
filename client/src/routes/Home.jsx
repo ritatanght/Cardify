@@ -2,8 +2,8 @@
 import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../assets/styles/home.css';  
-import '../assets/styles/BackgroundStyles.css'
+import '../assets/styles/home.scss';  
+import '../assets/styles/BackgroundStyles.scss'
 import BackgroundChanger from '../components/BackgroundChanger';
 
 const Home = () => {
