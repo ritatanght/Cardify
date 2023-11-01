@@ -5,6 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import { Navigate } from "react-router-dom";
+import "../assets/styles/profile.scss";
 
 const Profile = () => {
   const { user, favoriteSets } = useUser();
