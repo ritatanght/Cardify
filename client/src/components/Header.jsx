@@ -26,7 +26,7 @@ const Header = () => {
     ));
 
   return (
-    <header className="px-4 border-bottom">
+    <header className="px-4">
       <Navbar>
         <Navbar.Brand href="/">FlashCards</Navbar.Brand>
         <NavDropdown title="Categories" id="nav-dropdown">
@@ -37,10 +37,14 @@ const Header = () => {
           <SearchBar />
         </Navbar.Collapse>
 
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-end right">
           {user ? (
             <>
-              <Button variant="link" href={`/users/${user.id}`}>
+              <Button
+                variant="link"
+                className="header__profile-btn"
+                href={`/users/${user.id}`}
+              >
                 <FontAwesomeIcon icon={faUser} />
               </Button>
               <Button variant="primary" onClick={logout}>
