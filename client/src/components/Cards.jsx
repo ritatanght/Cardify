@@ -63,7 +63,7 @@ const Cards = ({ cards, isSetOwner, onEdit }) => {
     <div className="cards-container">
       {isFinished ? (
         <div className="card-finish">
-          <Confetti width={600} height={300} gravity={0.2} opacity={0.7} />
+          <Confetti width={760} height={380} gravity={0.2} opacity={0.7} />
           <p className="card__text">
             Congratulations! You&apos;ve finished the set!
           </p>
