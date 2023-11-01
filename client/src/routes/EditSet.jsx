@@ -7,12 +7,13 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useUser } from '../context/UserProvider'
 import axios from 'axios'
 
 const EditSet = () => {
-  const user = { id: 1 }
   const navigate = useNavigate()
   const { setId } = useParams()
+  const { user } = useUser()
 
   const [userId, setUserId] = useState("")
   const [title, setTitle] = useState("");
@@ -67,7 +68,7 @@ const EditSet = () => {
         const cardDataWithSetId = cards.map(card => ({ ...card, set_id: setId }));
         axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
       })
-      // .then(() => { navigate('/') })
+      .then(() => { navigate(`/users/${user.id}`) })
       .catch(err => { console.error(err) })
   }
 
