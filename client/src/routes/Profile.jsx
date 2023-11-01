@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 const Profile = () => {
   const { user, favoriteSets } = useUser();
   const [sets, setSets] = useState([]);
-
+  
   useEffect(() => {
     if (user) {
       axios
@@ -36,6 +36,7 @@ const Profile = () => {
               key={set.id}
               set={set}
               user={user}
+              setOwner={user.username}
               initiallyLiked={favoriteSets.some(
                 (favorite) => favorite.id === set.id
               )}
@@ -48,6 +49,7 @@ const Profile = () => {
               key={favorite.id}
               set={favorite}
               user={user}
+              setOwner={favorite.username}
               initiallyLiked={true}
             />
           ))}

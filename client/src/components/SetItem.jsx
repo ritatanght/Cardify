@@ -8,7 +8,7 @@ import Button from "react-bootstrap/esm/Button";
 import '../assets/styles/setItem.scss'
 
 const SetItem = (props) => {
-  const { set, user, initiallyLiked } = props;
+  const { set, user, setOwner, initiallyLiked } = props;
   const { isLiked, setIsLiked, toggleLike } = useFavButton();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const SetItem = (props) => {
             <FontAwesomeIcon icon={emptyHeart} />
           )}
         </Button>
-        <h2>{user.username}</h2>
+        <h2>{setOwner}</h2>
       </div>
     </div>
   )
