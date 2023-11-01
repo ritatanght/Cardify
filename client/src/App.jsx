@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import "./App.css";
+import "./App.scss";
 import Home from "./routes/Home";
 import Category from "./routes/Category";
 import CreateSet from "./routes/CreateSet";
