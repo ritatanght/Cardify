@@ -20,8 +20,9 @@ nav {
   .right .btn {
     margin-left: 0.5em;
   }
-  .header__profile-btn {
+  .profile-btn {
     font-size: 1.3rem;
+    padding: 0 0.5em;
     transition: transform 0.3s ease;
     &:hover {
       transform: translateY(-3px);
