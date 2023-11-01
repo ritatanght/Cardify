@@ -1,0 +1,42 @@
+@use "./variables" as var;
+
+header {
+  background-color: var.$color-3;
+}
+
+nav {
+  .nav-item.dropdown {
+    border: 5px var.$color-5;
+    transition: all 0.3s ease;
+    & a::after {
+      color: var.$color-5;
+      animation: 5s infinite arrowDown;
+    }
+  }
+  .btn-primary {
+    background-color: var.$color-5;
+    border-color: var.$color-5;
+  }
+  .right .btn {
+    margin-left: 0.5em;
+  }
+  .header__profile-btn {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+}
+
+@keyframes arrowDown {
+  from,
+  10%,
+  to {
+    transform: translateY(0);
+  }
+  50%,
+  60% {
+    transform: translateY(4px);
+  }
+}
