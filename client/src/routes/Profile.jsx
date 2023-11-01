@@ -9,8 +9,7 @@ import { Navigate } from "react-router-dom";
 const Profile = () => {
   const { user, favoriteSets } = useUser();
   const [sets, setSets] = useState([]);
-
-  console.log(favoriteSets)
+  
 
   useEffect(() => {
     if (user) {
