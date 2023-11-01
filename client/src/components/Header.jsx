@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
+import "../assets/styles/Header.scss";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -25,7 +26,7 @@ const Header = () => {
     ));
 
   return (
-    <header className="px-4 border-bottom">
+    <header className="px-4">
       <Navbar>
         <Navbar.Brand href="/">FlashCards</Navbar.Brand>
         <NavDropdown title="Categories" id="nav-dropdown">
@@ -36,10 +37,14 @@ const Header = () => {
           <SearchBar />
         </Navbar.Collapse>
 
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-end right">
           {user ? (
             <>
-              <Button variant="link" href={`/users/${user.id}`}>
+              <Button
+                variant="link"
+                className="profile-btn"
+                href={`/users/${user.id}`}
+              >
                 <FontAwesomeIcon icon={faUser} />
               </Button>
               <Button variant="primary" onClick={logout}>
