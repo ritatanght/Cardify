@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import "../assets/styles/Category.scss"
 
 const Category = () => {
   const [setsData, setSetsData] = useState(null);
