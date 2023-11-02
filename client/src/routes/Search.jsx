@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation } from "react-router-dom";
 import SetItem from '../components/SetItem'
 import { useUser } from "../context/UserProvider";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Search.scss";
 
 const Search = () => {
@@ -33,7 +34,11 @@ const Search = () => {
   };
 
   if (isLoading) {
-    return <h1>Searching...</h1>
+    return (
+      <Spinner animation="border" variant="primary" role="status">
+        <span className="visually-hidden">Searching...</span>
+      </Spinner>
+    );
   }
 
   return (

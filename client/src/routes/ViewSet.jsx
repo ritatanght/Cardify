@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
+import Spinner from "react-bootstrap/Spinner";
 import Cards from "../components/Cards";
 import EditCardModal from "./EditCardModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +17,7 @@ import "../assets/styles/icons.scss";
 const ViewSet = () => {
   const { setId } = useParams();
   const [setData, setSetData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingCard, setEditingCard] = useState(null);
   const { isLiked, checkLiked, toggleLike } = useFavButton();
@@ -27,7 +29,8 @@ const ViewSet = () => {
       .then((res) => setSetData(res.data))
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
     // check whether the current set is liked by the logged in user
     checkLiked(favoriteSets, Number(setId));
   }, [setId]);
@@ -47,7 +50,21 @@ const ViewSet = () => {
     setShowEditModal(false);
   };
 
-  if (!setData) return <h2>Loading...</h2>;
+  if (isLoading) {
+    return (
+      <Spinner animation="border" variant="primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
+  if (!setData) {
+    return (
+      <main className="SetNotFound">
+        <h2>Set Not Found</h2>
+      </main>
+    );
+  }
 
   const { set, cards } = setData;
 
@@ -103,7 +120,7 @@ const ViewSet = () => {
           onUpdate={handleCardUpdate}
         />
       )}
-
+      
       <section className="set-info d-flex gap-2">
         <p>{set.username}</p>
         <div className="description">

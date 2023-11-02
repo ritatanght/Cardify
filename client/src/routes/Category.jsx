@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Category.scss"
 
 const Category = () => {
   const [setsData, setSetsData] = useState(null);
   const [category, setCategory] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { categoryId } = useParams();
   const { user, favoriteSets } = useUser();
 
@@ -20,16 +22,24 @@ const Category = () => {
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [categoryId]);
 
   const handleDelete = (setId) => {
-    const updatedSets = setsData.filter(set => set.id !== setId);
+    const updatedSets = setsData.filter((set) => set.id !== setId);
     setSetsData(updatedSets);
   };
 
+  if (isLoading) {
+    return (
+      <Spinner animation="border" variant="primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   if (!category) return <h1>Category Not Found</h1>;
-  if (!setsData) return <h1>Loading...</h1>;
 
   const setsElements =
     Array.isArray(setsData) &&
