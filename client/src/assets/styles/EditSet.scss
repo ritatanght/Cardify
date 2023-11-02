@@ -29,7 +29,6 @@
       >div {
         flex: 1;
       }
-
     }
 
     .set-info-options {
@@ -72,5 +71,16 @@
 
 .card-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+
+  >div {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  .fa-trash:hover {
+    cursor: pointer;
+  }
 }
