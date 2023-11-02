@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Spinner from "react-bootstrap/Spinner";
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -22,6 +23,7 @@ const EditSet = () => {
   const [categories, setCategories] = useState([])
   const [isPrivate, setIsPrivate] = useState(false);
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   const setformData = {
@@ -58,6 +60,7 @@ const EditSet = () => {
       .catch(err => {
         console.error(err)
       })
+      .finally(() => setIsLoading(false))
   }, [])
 
   const handleSubmit = (event) => {
@@ -85,6 +88,14 @@ const EditSet = () => {
     const updatedCards = [...cards];
     updatedCards[cardIndex].deleted = true;
     setCards(updatedCards);
+  }
+
+  if (isLoading) {
+    return (
+      <Spinner animation="border" variant="primary" role="status">
+        <span className="visually-hidden">Searching...</span>
+      </Spinner>
+    );
   }
 
   if (user.id !== userId) {
