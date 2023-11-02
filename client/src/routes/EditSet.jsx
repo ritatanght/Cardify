@@ -149,35 +149,39 @@ const EditSet = () => {
         {cards.map((card, index) => (
           !card.deleted && (
             <div key={index} className='card-container'>
-              <FloatingLabel label='Front'>
-                <Form.Control
-                  type='text'
-                  placeholder='Front'
-                  value={card.front}
-                  onChange={e => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].front = e.target.value;
-                    setCards(updatedCards)
-                  }}
-                />
-              </FloatingLabel>
-              <FloatingLabel label='Back'>
-                <Form.Control
-                  type='text'
-                  placeholder='Back'
-                  value={card.back}
-                  onChange={e => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].back = e.target.value;
-                    setCards(updatedCards)
-                  }}
-                />
-              </FloatingLabel>
-              <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
+              <div className='card-frontback-container'>
+                <FloatingLabel label='Front' className='card-container-front'>
+                  <Form.Control
+                    type='text'
+                    placeholder='Front'
+                    value={card.front}
+                    onChange={e => {
+                      const updatedCards = [...cards];
+                      updatedCards[index].front = e.target.value;
+                      setCards(updatedCards)
+                    }}
+                  />
+                </FloatingLabel>
+                <FloatingLabel label='Back' className='card-container-back'>
+                  <Form.Control
+                    type='text'
+                    placeholder='Back'
+                    value={card.back}
+                    onChange={e => {
+                      const updatedCards = [...cards];
+                      updatedCards[index].back = e.target.value;
+                      setCards(updatedCards)
+                    }}
+                  />
+                  <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(index)} />
+                </FloatingLabel>
+              </div>
             </div>
           )
         ))}
-        <Button onClick={() => addCard()}>Add Card</Button>
+        <div className='footer-button-container'>
+          <Button onClick={() => addCard()}>Add Card</Button>
+        </div>
       </Form>
     </div>
   )
