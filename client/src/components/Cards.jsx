@@ -5,7 +5,6 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Confetti from "react-confetti";
-import "../assets/styles/cards.scss";
 
 const Cards = ({ cards, isSetOwner, onEdit }) => {
   const [currCard, setCurrCard] = useState(1);
@@ -90,8 +89,8 @@ const Cards = ({ cards, isSetOwner, onEdit }) => {
         <span>
           {currCard}/{cards.length}
         </span>
-        <Button variant="link">
-          <FontAwesomeIcon icon={faArrowRight} onClick={nextCard} />
+        <Button variant="link" onClick={nextCard}>
+          <FontAwesomeIcon icon={faArrowRight} />
         </Button>
       </div>
     </div>
