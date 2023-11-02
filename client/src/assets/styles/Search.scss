@@ -1,0 +1,25 @@
+@use "./variables" as var;
+
+.search-container {
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 50px;
+
+  h1 {
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    
+  }
+
+  // If you want to distinguish between the main title and "Couldn't find anything!" message
+  h1:not(.no-results) {
+    font-size: 24px;
+    
+  }
+
+  h1.no-results {
+    font-size: 22px;
+    color: var.$color-5; // A different color to make the no results message distinct
+  }
+}

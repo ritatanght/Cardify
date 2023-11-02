@@ -5,7 +5,6 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Confetti from "react-confetti";
-import "../assets/styles/cards.scss";
 
 const Cards = ({ cards, isSetOwner, onEdit }) => {
   const [currCard, setCurrCard] = useState(1);
@@ -63,7 +62,7 @@ const Cards = ({ cards, isSetOwner, onEdit }) => {
     <div className="cards-container">
       {isFinished ? (
         <div className="card-finish">
-          <Confetti width={600} height={300} gravity={0.2} opacity={0.7} />
+          <Confetti width={760} height={380} gravity={0.2} opacity={0.7} />
           <p className="card__text">
             Congratulations! You&apos;ve finished the set!
           </p>
@@ -90,8 +89,8 @@ const Cards = ({ cards, isSetOwner, onEdit }) => {
         <span>
           {currCard}/{cards.length}
         </span>
-        <Button variant="link">
-          <FontAwesomeIcon icon={faArrowRight} onClick={nextCard} />
+        <Button variant="link" onClick={nextCard}>
+          <FontAwesomeIcon icon={faArrowRight} />
         </Button>
       </div>
     </div>

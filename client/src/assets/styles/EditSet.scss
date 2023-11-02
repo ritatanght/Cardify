@@ -1,0 +1,112 @@
+@use "./variables" as var;
+
+.set-container {
+  .set-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    Button {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .set-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 2px dashed;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    .set-info-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      >div {
+        flex: 1;
+      }
+    }
+
+    .set-info-options {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+
+      >div {
+        flex: 1;
+      }
+
+      .dropdown {
+        width: 100%;
+        padding-left: 20px;
+
+        .dropdown-toggle {
+          width: 100%;
+        }
+
+        .dropdown-menu {
+          width: 97%;
+        }
+      }
+
+      .form-check {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 20px;
+
+        input[type="checkbox"] {
+          order: 2;
+        }
+      }
+    }
+  }
+}
+
+.card-container {
+  .card-frontback-container {
+    display: flex;
+    width: 100%;
+    border: solid 1px;
+    margin-bottom: 20px;
+
+    >div {
+      flex: 1;
+    }
+  }
+
+  .card-container-front {
+    background-color: #F78888;
+  }
+
+  .card-container-back {
+    background-color: #90CCF4;
+    position: relative;
+  }
+
+  .fa-trash {
+    position: absolute;
+    right: 10px; 
+    top: 10px;
+  }
+
+  .fa-trash:hover {
+    cursor: pointer;
+  }
+}
+
+.footer-button-container {
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding-left: 25rem;
+    padding-right: 25rem;
+  }
+}
