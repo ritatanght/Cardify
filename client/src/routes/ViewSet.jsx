@@ -10,6 +10,8 @@ import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import "../assets/styles/ViewSet.scss";
+import "../assets/styles/icons.scss";
 
 const ViewSet = () => {
   const { setId } = useParams();
@@ -59,18 +61,22 @@ const ViewSet = () => {
 
   return (
     <main className="ViewSet">
-      <section className="d-flex justify-content-between align-items-center">
-        <div className="d-flex gap-2 align-items-center">
+      <section className="d-flex justify-content-between align-items-end">
+        <div className="d-flex gap-2 align-items-end">
           <h1>{set.title}</h1>
-          <h2>
-            <Badge bg="secondary">{set.category_name}</Badge>
-          </h2>
+          <h2>{set.category_name}</h2>
           {user && (
             <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
               {isLiked ? (
-                <FontAwesomeIcon icon={fillHeart} />
+                <FontAwesomeIcon
+                  icon={fillHeart}
+                  className="icon-primary heart-icon"
+                />
               ) : (
-                <FontAwesomeIcon icon={emptyHeart} />
+                <FontAwesomeIcon
+                  icon={emptyHeart}
+                  className="icon-primary heart-icon"
+                />
               )}
             </Button>
           )}
@@ -82,21 +88,28 @@ const ViewSet = () => {
         )}
       </section>
 
-
-      <Cards cards={cards} isSetOwner={user && user.id === set.user_id} onEdit={handleCardEdit} />
+      <Cards
+        cards={cards}
+        isSetOwner={user && user.id === set.user_id}
+        onEdit={handleCardEdit}
+      />
 
       {/* Edit Card Modal */}
-      {editingCard && <EditCardModal
-        show={showEditModal}
-        onHide={() => setShowEditModal(false)}
-        card={editingCard}
-        onUpdate={handleCardUpdate}
-      />}
-        
-        
-      <section className="d-flex gap-2">
+      {editingCard && (
+        <EditCardModal
+          show={showEditModal}
+          onHide={() => setShowEditModal(false)}
+          card={editingCard}
+          onUpdate={handleCardUpdate}
+        />
+      )}
+
+      <section className="set-info d-flex gap-2">
         <p>{set.username}</p>
-        <p>{set.description}</p>
+        <div className="description">
+          <h3>Decription:</h3>
+          <p>{set.description}</p>
+        </div>
       </section>
     </main>
   );
