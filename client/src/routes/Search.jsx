@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation } from "react-router-dom";
 import SetItem from '../components/SetItem'
 import { useUser } from "../context/UserProvider";
+import "../assets/styles/Search.scss";
 
 const Search = () => {
   const location = useLocation()
@@ -50,7 +51,7 @@ const Search = () => {
           />
         ))
         :
-        <h1>Couldn't find anything!</h1>
+        <h1 className="no-results">Couldn't find anything!</h1>
       }
     </div>
   )
