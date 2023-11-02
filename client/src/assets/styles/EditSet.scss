@@ -70,17 +70,43 @@
 }
 
 .card-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  .card-frontback-container {
+    display: flex;
+    width: 100%;
+    border: solid 1px;
+    margin-bottom: 20px;
 
-  >div {
-    flex: 1;
-    margin-bottom: 10px;
+    >div {
+      flex: 1;
+    }
+  }
+
+  .card-container-front {
+    background-color: #F78888;
+  }
+
+  .card-container-back {
+    background-color: #90CCF4;
+    position: relative;
+  }
+
+  .fa-trash {
+    position: absolute;
+    right: 10px; 
+    top: 10px;
   }
 
   .fa-trash:hover {
     cursor: pointer;
+  }
+}
+
+.footer-button-container {
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding-left: 25rem;
+    padding-right: 25rem;
   }
 }
