@@ -163,7 +163,10 @@
     align-items: center;
     position: relative;
     box-shadow: 0px 5px 5px #ccc;
-
+  }
+  .card-finish {
+    margin-inline: auto;
+    background-color: lighten(var.$color-2, 5%);
     .card-finish__icons-container {
       position: absolute;
       left: 1em;
@@ -181,10 +184,6 @@
         }
       }
     }
-  }
-  .card-finish {
-    margin-inline: auto;
-    background-color: lighten(var.$color-2, 5%);
   }
 }
 
@@ -223,4 +222,10 @@
     background-color: var.$color-5;
     border-color: var.$color-5;
   }
+}
+
+main.PrivateSet,
+main.SetNotFound {
+  margin-top: 2em;
+  text-align: center;
 }
