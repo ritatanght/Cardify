@@ -52,6 +52,6 @@ This application aids users in creating flashcards for effective and efficient l
 
 # Team
 
-- ## Rita
-- ## Ralph
-- ## Justin
+-  Rita
+-  Ralph
+-  Justin
