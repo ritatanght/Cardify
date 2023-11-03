@@ -8,50 +8,50 @@ This application aids users in creating flashcards for effective and efficient l
 
 ## Target Audience
 
-Students
-Educators
-Professionals
-Lifelong learners
+1. Students,
+2. Educators,
+3. Professionals,
+4. Lifelong learners
 
 ## Features
 
-Create flashcards with text.
-Flip flashcards to view the front and back.
-Edit flashcards anytime.
-Organize flashcards into categories.
-Save flashcards into sets.
-Use text-to-speech for better auditory learning.
-Mark favorite sets for quick access.
-Public sets can be accessed by everyone.
+1. Create flashcards with text.,
+2. Flip flashcards to view the front and back.,
+3. Edit flashcards anytime.,
+4. Organize flashcards into categories.,
+5. Save flashcards into sets.,
+6. Use text-to-speech for better auditory learning.,
+7. Mark favorite sets for quick access.,
+8. Public sets can be accessed by everyone.
 
 
 ## Getting Started
 
-Clone the repository: git clone
-Navigate to the directory: cd flashcards
-Install dependencies: npm install
-Start the server: npm start
+1. Clone the repository: git clone,
+2. Navigate to the directory: cd flashcards,
+3. Install dependencies: npm install,
+4. Start the server: npm start,
 
 ## Stack
 
 ### Frontend
 
-React
-React-Bootstrap
-React-Router
-SASS
-Bootstrap
+- React
+- React-Bootstrap
+- React-Router
+- SASS
+- Bootstrap
 
 ### Backend
 
-Node.js
-Express.js
-Database
-PostgreSQL
+- Node.js
+- Express.js
+- Database
+- PostgreSQL
 
 
 # Team
 
-Rita
-Ralph
-Justin
+- Rita
+- Ralph
+- Justin
