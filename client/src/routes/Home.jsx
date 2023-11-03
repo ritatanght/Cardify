@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
 import "../assets/styles/home.scss";
-import "../assets/styles/BackgroundStyles.scss";
 import BackgroundChanger from "../components/BackgroundChanger";
 
 const Home = () => {
