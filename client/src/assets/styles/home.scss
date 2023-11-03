@@ -1,29 +1,64 @@
-.home-container {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+@use "./variables" as var;
 
-.button {
-  padding: 10px 20px;
-  margin-bottom: 20px;
+.home-container {
+
+  .banner-container {
+    min-height: 50vh;
+    border-radius: 10px;
+    background-image: url("../images/Background_img4.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;
+    box-shadow: inset 0 0 0 50vw rgba(0, 0, 0, 0.6);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5em;
+    .banner__content {
+      text-align: center;
+      color: var.$color-3;
+      h2 {
+        font-family: "Playpen Sans", cursive;
+        font-weight: bold;
+        text-shadow: 0 2px 5px black;
+        margin-bottom: 0.5em;
+      }
+    }
+  }
+  .btn {
+    background-color: var.$color-5;
+    border: inherit;
+  }
 }
 
 .columns-container {
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  margin: 1.5em auto 1em;
+  width: 90%;
+
+  .column:first-child {
+    background-color: lighten(var.$color-1, 10%);
+  }
+  .column:nth-child(2) {
+    background-color: lighten(var.$color-4, 10%);
+  }
+  .column:last-child {
+    background-color: lighten(var.$color-2, 10%);
+  }
 }
 
 .column {
-  flex: 1;
-  margin: 0 10px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  flex-basis: 30%;
+  padding: 1em;
   border-radius: 10px;
+  background-color: var.$color-3;
+
+  h3 {
+    font-family: "Playpen Sans", cursive;
+    font-weight: bold;
+    text-align: center;
+  }
 }
