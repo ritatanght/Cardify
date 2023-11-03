@@ -35,7 +35,7 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <h3>{user.username}</h3>
+      <h1>{user.username}</h1>
       <Tabs defaultActiveKey="my-sets">
         <Tab eventKey="my-sets" title="My Sets">
           {sets.map((set) => (
