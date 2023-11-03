@@ -4,22 +4,22 @@
   width: 100%;
   max-width: 1200px; 
   margin: 0 auto;
-  padding: 50px;
+  padding: 20px;
 
   h1 {
-    font-size: 24px; 
-    margin-bottom: 20px; 
-    
+    margin-bottom: 1.2em; 
+    span{
+      color: var.$color-5;
+    }
   }
 
   // If you want to distinguish between the main title and "Couldn't find anything!" message
   h1:not(.no-results) {
-    font-size: 24px;
-    
+    margin-bottom: 1em; 
   }
 
   h1.no-results {
-    font-size: 22px;
-    color: var.$color-5; // A different color to make the no results message distinct
+    font-size: 28px;
+    color: darken(var.$color-5, 10%); // A different color to make the no results message distinct
   }
 }

@@ -7,13 +7,10 @@
   padding: 20px;
 
   h1 {
-    font-size: 24px;  // Matched the font size to the profile page
-    margin-bottom: 30px; // Space below the category title
-     
+    margin-bottom: 1.2em; // Space below the category title
+    span{
+      color:var.$color-5;
+    }
   }
 
-  h2 {
-    font-size: 24px;
-    color: black; // Text color for "There are currently no sets in this category."
-  }
 }
