@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFavButton from "../hooks/useFavButton";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import Spinner from "react-bootstrap/Spinner";
 import Cards from "../components/Cards";
 import EditCardModal from "./EditCardModal";
