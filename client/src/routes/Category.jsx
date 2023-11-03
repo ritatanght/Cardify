@@ -56,7 +56,9 @@ const Category = () => {
 
   return (
     <div className="Category-container">
-      <h1>Category: {category}</h1>
+      <h1>
+        Category: <span>{category}</span>
+      </h1>
       {setsData.length === 0 ? (
         <h2>There are currently no sets in this category.</h2>
       ) : (
