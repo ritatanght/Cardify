@@ -1,6 +1,8 @@
-INSERT INTO users (username, email, password) VALUES ('testUser1', 'rick.sandchez@gmail.com', 'picklerick');
-INSERT INTO users (username, email, password) VALUES ('testUser2', 'lisa.simpson@gmail.com', 'ehhhhh');
-INSERT INTO users (username, email, password) VALUES ('testUser3', 'link@yahoo.com', 'hyrule');
-INSERT INTO users (username, email, password) VALUES ('testUser4', 'simon_bel123@mail.ca', 'dracula');
-INSERT INTO users (username, email, password) VALUES ('testUser5', 'all_might@academia.jp', 'plusUltra');
-INSERT INTO users (username, email, password) VALUES ('testUser6', 'mario@mushroomkindom.jp', 'plumber79');
+INSERT INTO users (username, email, password)
+VALUES 
+('john_doe', 'john.doe@example.com', 'johnssecurepassword'),
+('jane_smith', 'jane.smith@example.com', 'janessecurepassword'),
+('will_lee', 'will.lee@example.com', 'willssecurepassword'),
+('sarah_connor', 'sarah.connor@example.com', 'noFateButWhatWeMake'),
+('kyle_reese', 'kyle.reese@example.com', 'comeWithMeIfYouWantToLive'),
+('ellen_ripley', 'ellen.ripley@example.com', 'getAwayFromHerYou');
