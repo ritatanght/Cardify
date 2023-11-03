@@ -1,9 +1,8 @@
 @use "./variables" as var;
 
 .home-container {
-
   .banner-container {
-    min-height: 50vh;
+    min-height: min(500px, 50vh);
     border-radius: 10px;
     background-image: url("../images/Background_img4.png");
     background-size: cover;
@@ -55,10 +54,11 @@
   padding: 1em;
   border-radius: 10px;
   background-color: var.$color-3;
+  text-align: center;
 
   h3 {
     font-family: "Playpen Sans", cursive;
     font-weight: bold;
-    text-align: center;
+    line-height: 1.3;
   }
 }
