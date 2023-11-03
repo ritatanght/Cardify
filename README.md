@@ -55,3 +55,8 @@ This application aids users in creating flashcards for effective and efficient l
 -  Rita
 -  Ralph
 -  Justin
+
+## Planning Docs
+
+!["Wireframes and Routes"](https://github.com/jhaoY/flashcards/blob/Readme/client/src/assets/images/Flashcards-Wireframes.drawio.png)
+!["ERD"](https://github.com/jhaoY/flashcards/blob/Readme/client/src/assets/images/Flashcards-ERD.drawio.png)
