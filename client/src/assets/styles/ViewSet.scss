@@ -109,6 +109,7 @@
     .card-back {
       grid-column: 1 / span 1;
       grid-row: 1 / span 1;
+      background-color: #fff;
       backface-visibility: hidden;
       transition: all 0.3s ease-in-out;
       cursor: pointer;
@@ -125,8 +126,9 @@
       }
     }
     .card-front {
-      background-color: var.$color-1;
+      border: 15px solid var.$color-1;
       .card__icons-container button {
+        color: var.$color-1;
         &:hover {
           color: darken(var.$color-1, 20%);
         }
@@ -138,8 +140,9 @@
 
     .card-back {
       transform: rotateY(180deg);
-      background-color: var.$color-4;
+      border: 15px solid var.$color-4;
       .card__icons-container button {
+        color: var.$color-4;
         &:hover {
           color: darken(var.$color-4, 20%);
         }
@@ -156,7 +159,7 @@
     font-family: "Playpen Sans", cursive;
     border-radius: 10px;
     padding: 0.5em;
-    width: 760px;
+    width: 730px;
     aspect-ratio: 2/1;
     display: flex;
     justify-content: center;
@@ -166,7 +169,7 @@
   }
   .card-finish {
     margin-inline: auto;
-    background-color: lighten(var.$color-2, 5%);
+    border: 15px solid var.$color-2;
     .card-finish__icons-container {
       position: absolute;
       left: 1em;
@@ -178,7 +181,7 @@
         text-decoration: none;
         font-size: 1.2rem;
         transition: transform 0.3s ease;
-        color: darken(var.$color-5, 5%);
+        color: darken(var.$color-5, 10%);
         &:hover {
           transform: translateX(-5px);
         }
