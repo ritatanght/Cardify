@@ -1,8 +1,12 @@
 INSERT INTO categories (name)
-VALUES ('School'),
-('Coding'),
+VALUES 
+('Education'),
+('Programming'),
 ('Languages'),
-('Hobbies'),
-('Health'),
+('Wellness'),
 ('Sports'),
-('Other');
+('History'),
+('Art'),
+('Science'),
+('Music'),
+('Literature');
