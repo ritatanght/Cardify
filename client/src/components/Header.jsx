@@ -8,6 +8,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
 import "../assets/styles/Header.scss";
+import Logo from "../assets/images/logo.png";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -28,7 +29,9 @@ const Header = () => {
   return (
     <header className="px-4">
       <Navbar>
-        <Navbar.Brand href="/">FlashCards</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <img src={Logo} alt="cardify" />
+        </Navbar.Brand>
         <NavDropdown title="Categories" id="nav-dropdown">
           {dropDownItems}
         </NavDropdown>
