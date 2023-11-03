@@ -1,8 +1,7 @@
 @use "./variables" as var;
 
 .set-item-container {
-  display:flex;
-  border: solid 1px;
+  display: flex;
   border-radius: 20px;
   justify-content: space-between;
   padding: 25px;
@@ -12,10 +11,17 @@
   margin-top: 25px;
   margin-bottom: 25px;
   background-color: lighten($color: var.$color-2, $amount: 15);
-
-  a {
+  box-shadow: 0px 5px 5px #ccc;
+    
+  > a:first-child {
     text-decoration: none;
     color: inherit;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateX(5px);
+      color: darken(var.$color-5, 10%);
+    }
   }
 
   .icon-primary {
@@ -34,7 +40,7 @@
     align-items: center;
 
     h2 {
-      margin-left: 30px;
+      margin-left: 25px;
     }
 
     .fav-icon:hover {
