@@ -2,12 +2,25 @@
 
 header {
   background-color: var.$color-3;
+  .navbar-brand img {
+    height: 50px;
+  }
+  .navbar {
+    padding: 0;
+  }
 }
 
 nav {
   .nav-item.dropdown {
-    border: 5px var.$color-5;
     transition: all 0.3s ease;
+    margin-left: 0.5em;
+    padding: 1em 0.2em;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-radius: 2px;
+    &:hover {
+      border-bottom-color: var.$color-5;
+    }
     & a::after {
       color: var.$color-5;
       animation: 4s infinite arrowDown;
