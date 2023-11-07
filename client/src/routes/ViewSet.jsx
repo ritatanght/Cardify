@@ -123,7 +123,7 @@ const ViewSet = () => {
       <section className="set-info d-flex gap-2">
         <p>{set.username}</p>
         <div className="description">
-          <h3>Decription:</h3>
+          <h3>Description:</h3>
           <p>{set.description}</p>
         </div>
       </section>
