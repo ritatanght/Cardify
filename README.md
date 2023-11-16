@@ -1,10 +1,22 @@
 # Cardify
 
-Cardify is an intuitive and user-friendly platform that allows users to create, edit, and manage flashcards. Whether you're a student, professional, or just someone eager to learn, our application is designed to cater to all your flashcard needs.
+Cardify is an intuitive and user-friendly platform that allows users to create, edit, and manage flashcards. Whether you're a student, professional, or just someone eager to learn, our application is designed to cater to all your flashcard needs. This application aids users in creating flashcards for effective and efficient learning. Users can flip the flashcards, edit them, organize them into categories, and save them as a set. There's also a text-to-speech feature, making learning even more accessible.
 
-## Description
+## Screenshots
+Landing Page
+!["Homepage"](./docs/cardify_homepage.png)
 
-This application aids users in creating flashcards for effective and efficient learning. Users can flip the flashcards, edit them, organize them into categories, and save them as a set. There's also a text-to-speech feature, making learning even more accessible.
+Create Set Page
+!["Create Set"](./docs/cardify_set-create.png)
+
+View Set Page
+!["View Set"](./docs/cardify_set-view.png)
+
+Search Page
+!["Search Set"](./docs/cardify_search.png)
+
+Profile Page (Favorites tab)
+!["Profile Page with the favorites tab active"](./docs/cardify_profile-favorites.png)
 
 ## Target Audience
 
@@ -27,10 +39,23 @@ This application aids users in creating flashcards for effective and efficient l
 
 ## Getting Started
 
-1. Clone the repository: git clone
-2. Navigate to the directory: cd flashcards
-3. Install dependencies: npm install
-4. Start the server: npm start
+Install dependencies with `npm install` in each respective `/client` and `/server`.
+
+### [Frontend] Running Development Server
+
+```sh
+cd client
+npm run dev
+```
+
+### [Backend] Running Backend Server
+
+Read `server/readme` for further setup details.
+
+```sh
+cd server
+npm start
+```
 
 ## Stack
 
@@ -40,7 +65,6 @@ This application aids users in creating flashcards for effective and efficient l
 - React-Bootstrap
 - React-Router
 - SASS
-- Bootstrap
 
 ### Backend
 
@@ -49,14 +73,8 @@ This application aids users in creating flashcards for effective and efficient l
 - Database
 - PostgreSQL
 
-
 # Team
 
 -  Rita
 -  Ralph
 -  Justin
-
-## Planning Docs
-
-!["Wireframes and Routes"](https://github.com/jhaoY/flashcards/blob/Readme/client/src/assets/images/Flashcards-Wireframes.drawio.png)
-!["ERD"](https://github.com/jhaoY/flashcards/blob/Readme/client/src/assets/images/Flashcards-ERD.drawio.png)
