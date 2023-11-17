@@ -10,7 +10,8 @@ const postSetData = (setData) => {
     setData.description,
     setData.private,
     setData.category_id,
-    setData.user_id])
+    setData.user_id,
+  ]);
 };
 
 const updateSetData = (setData) => {
@@ -29,15 +30,17 @@ const updateSetData = (setData) => {
     setData.description,
     setData.private,
     setData.category_id,
-    setData.set_id])
-}
+    setData.set_id,
+  ]);
+};
 
 const getSetsByUserId = (userId) => {
   const query = `
     SELECT sets.*
     FROM sets
     JOIN users ON user_id = users.id
-    WHERE sets.user_id = $1;
+    WHERE sets.user_id = $1
+    AND sets.deleted = false;
   `;
   return db.query(query, [userId]).then((data) => data.rows);
 };
@@ -77,9 +80,9 @@ const setSetToDeleted = (setId) => {
    SET deleted = true
    WHERE id = $1;
   `;
-  
-  return db.query(query, [setId])
-}
+
+  return db.query(query, [setId]);
+};
 
 module.exports = {
   postSetData,
@@ -87,5 +90,5 @@ module.exports = {
   getSetsByUserId,
   getSetInfoById,
   getSetsByCategoryId,
-  setSetToDeleted
+  setSetToDeleted,
 };
