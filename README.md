@@ -75,6 +75,6 @@ npm start
 
 # Team
 
--  Rita
--  Ralph
--  Justin
+-  [Rita Tang](https://github.com/ritatanght)
+-  [Ralph D'Couto](https://github.com/ironmaiden59)
+-  [Justin Hao](https://github.com/jhaoY)
