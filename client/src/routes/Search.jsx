@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useLocation } from "react-router-dom";
 import SetItem from '../components/SetItem'
@@ -19,8 +19,7 @@ const Search = () => {
     setIsLoading(true)
     axios.get(`/api/search?query=${encodeURIComponent(query)}`)
       .then(res => {
-        const userSets = (res.data).filter(set => set.deleted !== true)
-        setSearchSets(userSets)
+        setSearchSets(res.data);
         setIsLoading(false)
       })
       .catch(err => {
