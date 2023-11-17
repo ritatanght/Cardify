@@ -20,18 +20,24 @@ const UserProvider = (props) => {
 
   useEffect(() => {
     if (user) {
-      updateFavoriteSets()
+      updateFavoriteSets();
     }
   }, [user]);
+
+  /**
+   * store the userObject in state and local storage
+   * @param {id, username, email} userInfo 
+   */
+  const storeUserInfo = (userInfo) => {
+    setUser(userInfo);
+    localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
+  };
 
   // Perform login process for the user using the userId hardcoded above
   const login = () => {
     axios
       .get(`/api/users/${userId}`)
-      .then((res) => {
-        setUser(res.data);
-        localStorage.setItem("loggedInUser", JSON.stringify(res.data));
-      })
+      .then((res) => storeUserInfo(res.data))
       .catch((err) => {
         console.error(err);
       });
@@ -56,7 +62,14 @@ const UserProvider = (props) => {
       });
   };
 
-  const userData = { user, favoriteSets, updateFavoriteSets, login, logout };
+  const userData = {
+    user,
+    favoriteSets,
+    updateFavoriteSets,
+    login,
+    logout,
+    storeUserInfo,
+  };
 
   return (
     <userContext.Provider value={userData}>

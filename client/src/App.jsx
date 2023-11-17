@@ -8,6 +8,8 @@ import EditSet from "./routes/EditSet";
 import ViewSet from "./routes/ViewSet";
 import Search from "./routes/Search";
 import Profile from "./routes/Profile";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="/sets/:setId" element={<ViewSet />} />
         <Route path="/search" element={<Search />} />
         <Route path="/users/:userId" element={<Profile />} />
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Route>
     </Routes>
   );

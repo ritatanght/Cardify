@@ -59,7 +59,7 @@ const Header = () => {
               <Button variant="primary" onClick={login}>
                 Login
               </Button>
-              <Button variant="primary" href="#">
+              <Button variant="primary" href="/register">
                 Sign Up
               </Button>
             </>

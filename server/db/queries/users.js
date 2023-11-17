@@ -10,6 +10,17 @@ const getUserUsername = (userId) => {
   return db.query(query, [userId]).then((data) => data.rows[0]);
 };
 
+const createUser = (email, username, hash) => {
+  const query = `
+  INSERT INTO users (username, email, hashed_password)
+  VALUES 
+  ($1, $2, $3)
+  RETURNING id, username, email
+  `;
+  return db.query(query, [username, email, hash]).then((data) => data.rows[0]);
+};
+
 module.exports = {
   getUserUsername,
+  createUser
 };
