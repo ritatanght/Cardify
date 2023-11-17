@@ -20,22 +20,24 @@ const UserProvider = (props) => {
 
   useEffect(() => {
     if (user) {
-      updateFavoriteSets()
+      updateFavoriteSets();
     }
   }, [user]);
 
-  const storeUserInfo = (userInfo)=>{
+  /**
+   * store the userObject in state and local storage
+   * @param {id, username, email} userInfo 
+   */
+  const storeUserInfo = (userInfo) => {
     setUser(userInfo);
     localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
-  }
+  };
 
   // Perform login process for the user using the userId hardcoded above
   const login = () => {
     axios
       .get(`/api/users/${userId}`)
-      .then((res) => {
-        storeUserInfo(res.data)
-      })
+      .then((res) => storeUserInfo(res.data))
       .catch((err) => {
         console.error(err);
       });
