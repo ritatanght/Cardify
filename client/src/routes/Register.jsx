@@ -5,12 +5,14 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserProvider";
 
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { storeUserInfo } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ const Register = () => {
       .post("/api/users", { email, username, password })
       .then((res) => {
         if (res.status === 200) {
-          //res.data is the user data
+          storeUserInfo(res.data);
           navigate(`/users/${res.data.id}`);
         }
       })
