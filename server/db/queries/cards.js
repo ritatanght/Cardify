@@ -54,7 +54,9 @@ const getCardsBySetId = (setId) => {
     .query(
       `
       SELECT * FROM cards
-      WHERE set_id = $1;`,
+      WHERE set_id = $1 
+      AND deleted = false
+      ORDER BY cards.id;`,
       [setId]
     )
     .then((data) => data.rows);
