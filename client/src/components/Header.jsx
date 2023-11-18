@@ -12,7 +12,7 @@ import Logo from "../assets/images/logo.png";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
-  const { user, login, logout } = useUser();
+  const { user, logout } = useUser();
 
   useEffect(() => {
     axios.get("/api/categories").then((res) => setCategories(res.data));
@@ -56,7 +56,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Button variant="primary" onClick={login}>
+              <Button variant="primary" href="/login">
                 Login
               </Button>
               <Button variant="primary" href="/register">
