@@ -7,9 +7,6 @@ export const useUser = () => {
   return useContext(userContext);
 };
 
-// the user to login when login button is clicked
-const userId = 1;
-
 const UserProvider = (props) => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("loggedInUser")) || null
@@ -31,16 +28,6 @@ const UserProvider = (props) => {
   const storeUserInfo = (userInfo) => {
     setUser(userInfo);
     localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
-  };
-
-  // Perform login process for the user using the userId hardcoded above
-  const login = () => {
-    axios
-      .get(`/api/users/${userId}`)
-      .then((res) => storeUserInfo(res.data))
-      .catch((err) => {
-        console.error(err);
-      });
   };
 
   const logout = () => {
@@ -66,7 +53,6 @@ const UserProvider = (props) => {
     user,
     favoriteSets,
     updateFavoriteSets,
-    login,
     logout,
     storeUserInfo,
   };
