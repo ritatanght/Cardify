@@ -20,7 +20,18 @@ const createUser = (email, username, hash) => {
   return db.query(query, [username, email, hash]).then((data) => data.rows[0]);
 };
 
+const getUserByEmail = (email) => {
+  const query = `
+   SELECT *
+   FROM users
+   WHERE email = $1
+   AND deleted = false;
+  `;
+  return db.query(query, [email]).then((data) => data.rows[0]);
+};
+
 module.exports = {
   getUserUsername,
-  createUser
+  createUser,
+  getUserByEmail,
 };
