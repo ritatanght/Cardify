@@ -2,9 +2,9 @@ const router = require("express").Router();
 const users = require("../db/queries/users");
 const bcrypt = require("bcrypt");
 
+// User accesses the profile page
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-
   users
     .getUserUsername(id)
     .then((data) => {
@@ -18,11 +18,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// Register a new user
 router.post("/", (req, res) => {
   const { email, username, password } = req.body;
-  const saltRounds = 10;
-  bcrypt.genSalt(saltRounds, function(err, salt) {
-    bcrypt.hash(password, salt, function(err, hash) {
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
       users
         .createUser(email, username, hash)
         .then((data) => res.json(data))
