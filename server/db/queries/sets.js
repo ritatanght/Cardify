@@ -74,6 +74,18 @@ const getSetsByCategoryId = (categoryId) => {
     .then((data) => data.rows);
 };
 
+const getSetOwnerBySetId = (setId) => {
+  return db
+    .query(
+      `
+      SELECT user_id
+      FROM sets
+      WHERE sets.id = $1;`,
+      [setId]
+    )
+    .then((data) => data.rows[0]);
+};
+
 const setSetToDeleted = (setId) => {
   const query = `
    UPDATE sets
@@ -90,5 +102,6 @@ module.exports = {
   getSetsByUserId,
   getSetInfoById,
   getSetsByCategoryId,
+  getSetOwnerBySetId,
   setSetToDeleted,
 };

@@ -46,7 +46,7 @@ const Header = () => {
               <Button
                 variant="link"
                 className="profile-btn"
-                href={`/users/${user.id}`}
+                href="/profile"
               >
                 <FontAwesomeIcon icon={faUser} />
               </Button>

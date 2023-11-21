@@ -2,52 +2,80 @@ const router = require("express").Router();
 const sets = require("../db/queries/sets");
 const cards = require("../db/queries/cards");
 
-router.post('/create', (req, res) => {
-  sets.postSetData(req.body)
-    .then(result => {
-      res.status(201).json({ success: true, message: "Set created successfully", data: result });
+router.post("/create", (req, res) => {
+  sets
+    .postSetData(req.body)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Set created successfully",
+        data: result,
+      });
     })
-    .catch(err => {
-      res.status(500)
-      console.error(err)
-    })
+    .catch((err) => {
+      res.status(500);
+      console.error(err);
+    });
 });
 
-router.put('/edit/:id', (req, res) => {
-  sets.updateSetData(req.body)
-    .then(response => {
-      res.status(200).json({ message: "Set update successfully", data: response })
-    })
-    .catch(err => {
-      res.status(500)
-      console.error(err)
-    })
-})
+router.put("/edit/:id", (req, res) => {
+  const setId = req.params.id;
+  // make sure the user who edits the set is the set owner
+  const userId = req.session.userId;
+  sets.getSetOwnerBySetId(setId).then((data) => {
+    if (data.user_id !== userId)
+      return res.json(401).json({ message: "You can only edit your own set." });
+
+    sets
+      .updateSetData(setId)
+      .then((response) => {
+        res
+          .status(200)
+          .json({ message: "Set update successfully", data: response });
+      })
+      .catch((err) => {
+        res.status(500);
+        console.error(err);
+      });
+  });
+});
 
 router.delete("/delete/:id", (req, res) => {
-  const setId = req.params.id
-  sets.setSetToDeleted(setId)
-    .then((response) => {
-      res.status(200).json({message: "Set deleted", data: response})
-    })
-    .catch(err => {
-      res.status(500)
-      console.error(err)
-    })
-})
+  const setId = req.params.id;
+  // make sure the user who deletes the set is the set owner
+  const userId = req.session.userId;
+  sets.getSetOwnerBySetId(setId).then((data) => {
+    if (data.user_id !== userId)
+      return res
+        .json(401)
+        .json({ message: "You can only delete your own set." });
+
+    // set the set as deleted in the database
+    sets
+      .setSetToDeleted(setId)
+      .then((response) => {
+        res.status(200).json({ message: "Set deleted", data: response });
+      })
+      .catch((err) => {
+        res.status(500);
+        console.error(err);
+      });
+  });
+});
 
 router.get("/user/:id", (req, res) => {
   const { id } = req.params;
 
-  sets.getSetsByUserId(id)
-    .then(data => {
-      res.status(200).json(data)
+  sets
+    .getSetsByUserId(id)
+    .then((data) => {
+      res.status(200).json(data);
     })
-    .catch(err => {
-      res.status(500)
-      console.error(err)
-    })
-})
+    .catch((err) => {
+      res.status(500);
+      console.error(err);
+    });
+});
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;

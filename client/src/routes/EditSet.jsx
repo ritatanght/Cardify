@@ -72,7 +72,7 @@ const EditSet = () => {
         const cardDataWithSetId = cards.map(card => ({ ...card, set_id: setId }));
         axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
       })
-      .then(() => { navigate(`/users/${user.id}`) })
+      .then(() => { navigate("/profile") })
       .catch(err => { console.error(err) })
   }
 

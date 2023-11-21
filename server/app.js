@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cookieSession = require("cookie-session");
 
 const usersRouter = require("./routes/users");
 const categoriesRouter = require("./routes/categories");
@@ -16,8 +16,14 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ['coffee','bagel'],
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+);
 
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);

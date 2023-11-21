@@ -1,22 +1,18 @@
 const db = require("../../configs/db.config");
 
 const postCardsData = (cardsData) => {
-  const promises = cardsData.map(cardData => {
+  const promises = cardsData.map((cardData) => {
     const query = `
       INSERT INTO cards(front, back, set_id)
       VALUES($1, $2, $3)
     `;
-    return db.query(query, [
-      cardData.front,
-      cardData.back,
-      cardData.setId
-    ]);
+    return db.query(query, [cardData.front, cardData.back, cardData.setId]);
   });
   return Promise.all(promises);
 };
 
 const updateCardsData = (cardsData) => {
-  const promises = cardsData.map(cardData => {
+  const promises = cardsData.map((cardData) => {
     if (cardData.id) {
       const query = `
       UPDATE cards
@@ -29,7 +25,7 @@ const updateCardsData = (cardsData) => {
         cardData.front,
         cardData.back,
         cardData.deleted,
-        cardData.id
+        cardData.id,
       ]);
     } else {
       const query = `
@@ -41,7 +37,7 @@ const updateCardsData = (cardsData) => {
         cardData.front,
         cardData.back,
         cardData.deleted,
-        cardData.set_id
+        cardData.set_id,
       ]);
     }
   });
@@ -71,4 +67,23 @@ const updateCardById = (id, cardData) => {
   return db.query(query, [cardData.front, cardData.back, id]);
 };
 
-module.exports = { postCardsData, updateCardsData, getCardsBySetId, updateCardById };
+const getCardOwnerByCardId = (cardId) => {
+  return db
+    .query(
+      `
+      SELECT user_id
+      FROM sets
+      JOIN cards ON sets.id = set_id
+      WHERE cards.id = $1;`,
+      [cardId]
+    )
+    .then((data) => data.rows[0]);
+};
+
+module.exports = {
+  postCardsData,
+  updateCardsData,
+  getCardsBySetId,
+  updateCardById,
+  getCardOwnerByCardId,
+};

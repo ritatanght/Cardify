@@ -25,7 +25,7 @@ function App() {
         <Route path="/categories/:categoryId" element={<Category />} />
         <Route path="/sets/:setId" element={<ViewSet />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/users/:userId" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
       </Route>

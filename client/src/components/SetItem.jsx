@@ -15,7 +15,7 @@ const SetItem = (props) => {
   const { deleteSet } = useDeleteButton()
 
   const handleLikeClick = () => {
-    toggleLike(user.id, set.id);
+    toggleLike(set.id);
   }
 
   const handleDeleteClick = () => {

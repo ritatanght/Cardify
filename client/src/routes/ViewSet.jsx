@@ -82,7 +82,7 @@ const ViewSet = () => {
           <h1>{set.title}</h1>
           <h2>{set.category_name}</h2>
           {user && (
-            <Button variant="link" onClick={() => toggleLike(user.id, setId)}>
+            <Button variant="link" onClick={() => toggleLike(setId)}>
               {isLiked ? (
                 <FontAwesomeIcon
                   icon={fillHeart}

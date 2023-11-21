@@ -30,8 +30,8 @@ const Profile = () => {
     setSets(updatedSets);
   };
 
-  // Redirect to homepage for now
-  if (!user) return <Navigate to="/" replace={true} />;
+  // Redirect to login page
+  if (!user) return <Navigate to="/login" replace={true} />;
 
   return (
     <div className="profile-container">

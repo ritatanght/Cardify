@@ -3,10 +3,12 @@ const users = require("../db/queries/users");
 const bcrypt = require("bcrypt");
 
 // User accesses the profile page
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/", (req, res) => {
+  const userId = req.session.userId;
+  if (!req.session.userId)
+    return res.status(401).json({ message: "Login to view profile" });
   users
-    .getUserUsername(id)
+    .getUserUsername(userId)
     .then((data) => {
       data
         ? res.json(data)
@@ -25,7 +27,10 @@ router.post("/", (req, res) => {
     bcrypt.hash(password, salt, (err, hash) => {
       users
         .createUser(email, username, hash)
-        .then((data) => res.json(data))
+        .then((user) => {
+          req.session.userId = user.id;
+          return res.json(user);
+        })
         .catch((err) => {
           console.error(err);
           res.status(500).json({ message: "Unable to create user" });
