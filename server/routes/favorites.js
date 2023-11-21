@@ -5,7 +5,7 @@ const favorites = require("../db/queries/favorites");
 router.get("/", (req, res) => {
   const userId = req.session.userId;
   if (!userId)
-    return res.status(400).json({ message: "Login to view favorite sets" });
+    return res.status(401).json({ message: "Login to view favorite sets" });
 
   favorites
     .getFavoritesByUserId(userId)
