@@ -1,27 +1,29 @@
-import useFavButton from '../hooks/useFavButton';
+import useFavButton from "../hooks/useFavButton";
 import useDeleteButton from "../hooks/useDeleteButton";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons"
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import Button from "react-bootstrap/esm/Button";
-import '../assets/styles/SetItem.scss'
-import '../assets/styles/icons.scss'
+import "../assets/styles/SetItem.scss";
+import "../assets/styles/icons.scss";
+import { useUser } from "../context/UserProvider";
 
 const SetItem = (props) => {
-  const { set, user, setOwner, initiallyLiked } = props;
+  const { user } = useUser();
+  const { set, setOwner, initiallyLiked } = props;
   const { isLiked, toggleLike } = useFavButton(initiallyLiked);
-  const { deleteSet } = useDeleteButton()
+  const { deleteSet } = useDeleteButton();
 
   const handleLikeClick = () => {
     toggleLike(set.id);
-  }
+  };
 
   const handleDeleteClick = () => {
-    deleteSet(set.id)
-    props.onDelete(set.id)
-  }
+    deleteSet(set.id);
+    props.onDelete(set.id);
+  };
 
   return (
     <div className="set-item-container">
@@ -31,12 +33,18 @@ const SetItem = (props) => {
       <div className="set-item-right">
         <Button variant="link" onClick={() => handleLikeClick()}>
           {isLiked ? (
-            <FontAwesomeIcon icon={fillHeart} className="icon-primary heart-icon" />
+            <FontAwesomeIcon
+              icon={fillHeart}
+              className="icon-primary heart-icon"
+            />
           ) : (
-            <FontAwesomeIcon icon={emptyHeart} className="icon-primary heart-icon" />
+            <FontAwesomeIcon
+              icon={emptyHeart}
+              className="icon-primary heart-icon"
+            />
           )}
         </Button>
-        {user.id === set.user_id ? (
+        {user && user.id === set.user_id ? (
           <div className="set-icons">
             <Button variant="link" href={`/sets/edit/${set.id}`}>
               <FontAwesomeIcon icon={faPenToSquare} className="icon-primary" />
@@ -50,7 +58,7 @@ const SetItem = (props) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SetItem;
