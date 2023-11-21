@@ -42,11 +42,7 @@ const Profile = () => {
             <SetItem
               key={set.id}
               set={set}
-          
               setOwner={user.username}
-              initiallyLiked={favoriteSets.some(
-                (favorite) => favorite.id === set.id
-              )}
               onDelete={handleDelete}
             />
           ))}
@@ -56,9 +52,7 @@ const Profile = () => {
             <SetItem
               key={favorite.id}
               set={favorite}
-    
               setOwner={favorite.username}
-              initiallyLiked={true}
               onDelete={handleDelete}
             />
           ))}

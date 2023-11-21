@@ -9,12 +9,17 @@ import Button from "react-bootstrap/esm/Button";
 import "../assets/styles/SetItem.scss";
 import "../assets/styles/icons.scss";
 import { useUser } from "../context/UserProvider";
+import { useEffect } from "react";
 
 const SetItem = (props) => {
-  const { user } = useUser();
-  const { set, setOwner, initiallyLiked } = props;
-  const { isLiked, toggleLike } = useFavButton(initiallyLiked);
+  const { user, favoriteSets } = useUser();
+  const { set, setOwner } = props;
+  const { isLiked, toggleLike, checkLiked } = useFavButton();
   const { deleteSet } = useDeleteButton();
+
+  useEffect(() => {
+    checkLiked(favoriteSets, set.id);
+  }, [checkLiked,favoriteSets, set.id]);
 
   const handleLikeClick = () => {
     toggleLike(set.id);
