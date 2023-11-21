@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
   users.getUserByEmail(email).then((user) => {
-    if (!user) return res.json({ message: "User not found" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     bcrypt.compare(password, user.hashed_password, (err, result) => {
       // return the userObject when the password is correct
