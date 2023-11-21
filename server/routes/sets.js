@@ -19,17 +19,25 @@ router.post("/create", (req, res) => {
 });
 
 router.put("/edit/:id", (req, res) => {
-  sets
-    .updateSetData(req.body)
-    .then((response) => {
-      res
-        .status(200)
-        .json({ message: "Set update successfully", data: response });
-    })
-    .catch((err) => {
-      res.status(500);
-      console.error(err);
-    });
+  const setId = req.params.id;
+  // make sure the user who edits the set is the set owner
+  const userId = req.session.userId;
+  sets.getSetOwnerBySetId(setId).then((data) => {
+    if (data.user_id !== userId)
+      return res.json(401).json({ message: "You can only edit your own set." });
+
+    sets
+      .updateSetData(setId)
+      .then((response) => {
+        res
+          .status(200)
+          .json({ message: "Set update successfully", data: response });
+      })
+      .catch((err) => {
+        res.status(500);
+        console.error(err);
+      });
+  });
 });
 
 router.delete("/delete/:id", (req, res) => {
