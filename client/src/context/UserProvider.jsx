@@ -30,13 +30,17 @@ const UserProvider = (props) => {
     localStorage.setItem("loggedInUser", JSON.stringify(userInfo));
   };
 
+  const clearUserInfo = () => {
+    setUser(null);
+    localStorage.removeItem("loggedInUser");
+    setFavoriteSets([]);
+    localStorage.removeItem("favoriteSets");
+  };
+
   const logout = () => {
     axios.post(`/api/auth/logout`).then((res) => {
       if (res.status === 200) {
-        setUser(null);
-        localStorage.removeItem("loggedInUser");
-        setFavoriteSets([]);
-        localStorage.removeItem("favoriteSets");
+        clearUserInfo();
       }
     });
   };
@@ -49,7 +53,12 @@ const UserProvider = (props) => {
         localStorage.setItem("favoriteSets", JSON.stringify(res.data));
       })
       .catch((err) => {
-        console.error(err);
+        if (err.response.status === 401) {
+          console.log(err.response.data.message);
+          clearUserInfo();
+        } else {
+          console.error(err);
+        }
       });
   };
 
