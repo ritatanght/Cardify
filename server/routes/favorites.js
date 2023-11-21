@@ -4,17 +4,26 @@ const favorites = require("../db/queries/favorites");
 
 router.get("/:userId", (req, res) => {
   const { userId } = req.params;
-  favorites.getFavoritesByUserId(userId)
-    .then(data => {
-      res.json(data)
+  if (req.session.userId !== userId)
+    return res
+      .status(401)
+      .json({ message: "You can only view your own favorites." });
+
+  favorites
+    .getFavoritesByUserId(userId)
+    .then((data) => {
+      res.json(data);
     })
-    .catch(err => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
 });
 
 router.post("/", (req, res) => {
-  const { userId, setId } = req.body;
+  const { setId } = req.body;
+  const userId = req.session.userId;
+  if (!userId)
+    return res.status(401).json({ message: "Login to favorite set" });
 
   favorites
     .addFavoriteByUserAndSet(userId, setId)
@@ -22,7 +31,12 @@ router.post("/", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  const { userId, setId } = req.body;
+  const { setId } = req.body;
+  const userId = req.session.userId;
+  if (!userId)
+    return res
+      .status(401)
+      .json({ message: "Login to make changes to favorite set." });
 
   favorites
     .removeFavoriteByUserAndSet(userId, setId)
