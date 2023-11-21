@@ -18,7 +18,7 @@ const Login = () => {
     axios.post("/api/auth/login", { email, password }).then(({ data }) => {
       if (data.user) {
         storeUserInfo(data.user);
-        navigate(`/users/${data.user.id}`);
+        navigate("/profile");
       }
       if (data.message) {
         console.log(data.message);

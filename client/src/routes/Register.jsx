@@ -21,7 +21,7 @@ const Register = () => {
       .then((res) => {
         if (res.status === 200) {
           storeUserInfo(res.data);
-          navigate(`/users/${res.data.id}`);
+          navigate("/profile");
         }
       })
       .catch((err) => console.error(err.response.data.message));
