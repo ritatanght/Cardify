@@ -2,17 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
 
-
 const useFavButton = (initialState = false) => {
   const [isLiked, setIsLiked] = useState(initialState);
   const { updateFavoriteSets } = useUser();
 
-
-  const toggleLike = (userId, setId) => {
+  const toggleLike = (setId) => {
     if (isLiked) {
       // Unlike a set
       axios
-        .put("/api/favorites", { userId, setId })
+        .put("/api/favorites", { setId })
         .then(({ status }) => {
           if (status === 200) {
             updateFavoriteSets();
@@ -25,7 +23,7 @@ const useFavButton = (initialState = false) => {
     } else {
       // Like a set
       axios
-        .post("/api/favorites", { userId, setId })
+        .post("/api/favorites", { setId })
         .then(({ status }) => {
           if (status === 201) {
             updateFavoriteSets();
