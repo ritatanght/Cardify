@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import useFavButton from '../hooks/useFavButton';
 import useDeleteButton from "../hooks/useDeleteButton";
 import { Link } from "react-router-dom";
@@ -12,12 +11,8 @@ import '../assets/styles/icons.scss'
 
 const SetItem = (props) => {
   const { set, user, setOwner, initiallyLiked } = props;
-  const { isLiked, setIsLiked, toggleLike } = useFavButton();
+  const { isLiked, toggleLike } = useFavButton(initiallyLiked);
   const { deleteSet } = useDeleteButton()
-
-  useEffect(() => {
-    setIsLiked(initiallyLiked)
-  }, [setIsLiked])
 
   const handleLikeClick = () => {
     toggleLike(user.id, set.id);
