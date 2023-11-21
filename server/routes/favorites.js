@@ -2,12 +2,10 @@ const express = require("express");
 const router = express.Router();
 const favorites = require("../db/queries/favorites");
 
-router.get("/:userId", (req, res) => {
-  const { userId } = req.params;
-  if (req.session.userId !== userId)
-    return res
-      .status(401)
-      .json({ message: "You can only view your own favorites." });
+router.get("/", (req, res) => {
+  const userId = req.session.userId;
+  if (!userId)
+    return res.status(400).json({ message: "Login to view favorite sets" });
 
   favorites
     .getFavoritesByUserId(userId)
