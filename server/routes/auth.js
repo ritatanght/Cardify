@@ -30,4 +30,9 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.post("/logout", (req, res) => {
+  req.session = null;
+  return res.status(200).end();
+});
+
 module.exports = router;
