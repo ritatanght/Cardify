@@ -4,7 +4,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
 
 const Register = () => {
@@ -12,7 +12,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { storeUserInfo } = useUser();
+  const { user, storeUserInfo } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +26,10 @@ const Register = () => {
       })
       .catch((err) => console.error(err.response.data.message));
   };
+
+  // redirect to profile if user has already logged-in
+  if (user) return <Navigate to="/profile" replace={true} />;
+
   return (
     <main>
       <h1>Register</h1>
