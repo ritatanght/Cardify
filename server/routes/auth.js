@@ -9,7 +9,9 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, user.hashed_password, (err, result) => {
       // return the userObject when the password is correct
-      if (result)
+      if (result) {
+        // set the cookie
+        req.session.userId = user.id;
         return res.json({
           user: {
             id: user.id,
@@ -17,6 +19,7 @@ router.post("/login", (req, res) => {
             username: user.username,
           },
         });
+      }
 
       if (err) {
         return res.json({ message: err });
