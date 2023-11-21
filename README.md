@@ -36,7 +36,6 @@ Profile Page (Favorites tab)
 7. Mark favorite sets for quick access.
 8. Public sets can be accessed by everyone.
 
-
 ## Getting Started
 
 Install dependencies with `npm install` in each respective `/client` and `/server`.
@@ -57,24 +56,29 @@ cd server
 npm start
 ```
 
-## Stack
+## Dependencies
 
 ### Frontend
 
 - React
 - React-Bootstrap
 - React-Router
+- React-Confetti
 - SASS
+- Fontawesome
+- Axios
 
 ### Backend
 
 - Node.js
 - Express.js
-- Database
 - PostgreSQL
+- Bcrypt
+- Cookie-session
+- Dotenv
 
 # Team
 
--  [Rita Tang](https://github.com/ritatanght)
--  [Ralph D'Couto](https://github.com/ironmaiden59)
--  [Justin Hao](https://github.com/jhaoY)
+- [Rita Tang](https://github.com/ritatanght)
+- [Ralph D'Couto](https://github.com/ironmaiden59)
+- [Justin Hao](https://github.com/jhaoY)

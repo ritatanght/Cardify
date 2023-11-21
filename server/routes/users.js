@@ -5,7 +5,8 @@ const bcrypt = require("bcrypt");
 // User accesses the profile page
 router.get("/", (req, res) => {
   const userId = req.session.userId;
-  if (!req.session.userId)
+
+  if (!userId)
     return res.status(401).json({ message: "Login to view profile" });
   users
     .getUserUsername(userId)

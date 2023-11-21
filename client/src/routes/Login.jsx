@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
 
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { storeUserInfo } = useUser();
+  const { user, storeUserInfo } = useUser();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -25,6 +25,9 @@ const Login = () => {
       }
     });
   };
+
+  // redirect to profile if user has already logged-in
+  if (user) return <Navigate to="/profile" replace={true} />;
 
   return (
     <main>
