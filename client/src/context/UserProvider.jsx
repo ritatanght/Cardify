@@ -23,7 +23,7 @@ const UserProvider = (props) => {
 
   /**
    * store the userObject in state and local storage
-   * @param {id, username, email} userInfo 
+   * @param {id, username, email} userInfo
    */
   const storeUserInfo = (userInfo) => {
     setUser(userInfo);
@@ -31,15 +31,19 @@ const UserProvider = (props) => {
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem("loggedInUser");
-    setFavoriteSets([]);
-    localStorage.removeItem("favoriteSets");
+    axios.post(`/api/auth/logout`).then((res) => {
+      if (res.status === 200) {
+        setUser(null);
+        localStorage.removeItem("loggedInUser");
+        setFavoriteSets([]);
+        localStorage.removeItem("favoriteSets");
+      }
+    });
   };
 
   const updateFavoriteSets = () => {
     axios
-      .get(`/api/favorites/${user.id}`)
+      .get("/api/favorites/")
       .then((res) => {
         setFavoriteSets(res.data);
         localStorage.setItem("favoriteSets", JSON.stringify(res.data));
