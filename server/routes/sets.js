@@ -22,9 +22,12 @@ router.put("/edit/:id", (req, res) => {
   const setId = req.params.id;
   // make sure the user who edits the set is the set owner
   const userId = req.session.userId;
+  if (!userId) return res.status(401).json({ message: "Please log in first." });
   sets.getSetOwnerBySetId(setId).then((data) => {
     if (data.user_id !== userId)
-      return res.json(401).json({ message: "You can only edit your own set." });
+      return res
+        .status(403)
+        .json({ message: "You can only edit your own set." });
 
     sets
       .updateSetData(setId)
@@ -42,12 +45,16 @@ router.put("/edit/:id", (req, res) => {
 
 router.delete("/delete/:id", (req, res) => {
   const setId = req.params.id;
-  // make sure the user who deletes the set is the set owner
+
   const userId = req.session.userId;
+  // make sure the user is logged-in
+  if (!userId) return res.status(401).json({ message: "Please log in first." });
+
+  // make sure the user who deletes the set is the set owner
   sets.getSetOwnerBySetId(setId).then((data) => {
     if (data.user_id !== userId)
       return res
-        .json(401)
+        .status(403)
         .json({ message: "You can only delete your own set." });
 
     // set the set as deleted in the database
