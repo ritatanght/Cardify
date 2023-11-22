@@ -42,7 +42,7 @@ const Profile = () => {
       <div className="profile-container">
         <h1>{user.username}</h1>
         <Spinner animation="border" variant="primary" role="status">
-          <span className="visually-hidden">Searching...</span>
+          <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
     );
