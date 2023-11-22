@@ -21,10 +21,6 @@ const SetItem = (props) => {
     checkLiked(favoriteSets, set.id);
   }, [checkLiked,favoriteSets, set.id]);
 
-  const handleLikeClick = () => {
-    toggleLike(set.id);
-  };
-
   const handleDeleteClick = () => {
     deleteSet(set.id);
     props.onDelete(set.id);
@@ -36,7 +32,7 @@ const SetItem = (props) => {
         <h2>{set.title}</h2>
       </Link>
       <div className="set-item-right">
-        <Button variant="link" onClick={() => handleLikeClick()}>
+        <Button variant="link" onClick={() => toggleLike(set.id)}>
           {isLiked ? (
             <FontAwesomeIcon
               icon={fillHeart}
