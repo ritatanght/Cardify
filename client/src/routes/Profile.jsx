@@ -63,7 +63,9 @@ const Profile = () => {
               />
             ))
           ) : (
-            <p>You have not created any sets yet.</p>
+            <p className="text-center empty">
+              You have not created any sets yet.
+            </p>
           )}
         </Tab>
         <Tab eventKey="favorite-sets" title="Favorite Sets">
@@ -77,7 +79,9 @@ const Profile = () => {
               />
             ))
           ) : (
-            <p>You have not favorited any sets yet.</p>
+            <p className="text-center empty">
+              You have not favorited any sets yet.
+            </p>
           )}
         </Tab>
       </Tabs>
