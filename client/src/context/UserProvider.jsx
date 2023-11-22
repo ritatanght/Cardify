@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 export const userContext = createContext();
@@ -54,7 +55,7 @@ const UserProvider = (props) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          console.log(err.response.data.message);
+          toast.error(err.response.data.message);
           clearUserInfo();
         } else {
           console.error(err);
