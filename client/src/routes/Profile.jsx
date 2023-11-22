@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SetItem from "../components/SetItem";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import { Navigate } from "react-router-dom";
@@ -50,9 +51,14 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <h1>{user.username}</h1>
+      <div className="d-flex justify-content-between align-items-center">
+        <h1>{user.username}</h1>
+        <Button className="create-set" variant="primary" href="/sets/create">
+          Create Set
+        </Button>
+      </div>
       <Tabs defaultActiveKey="my-sets">
-        <Tab eventKey="my-sets" title="My Sets">
+        <Tab eventKey="my-sets" title="My Sets" className="text-center">
           {sets.length > 0 ? (
             sets.map((set) => (
               <SetItem
@@ -64,7 +70,7 @@ const Profile = () => {
             ))
           ) : (
             <p className="text-center empty">
-              You have not created any sets yet.
+              You don&apos;t have any sets yet.
             </p>
           )}
         </Tab>

@@ -18,4 +18,12 @@
   p.empty {
     color: darken(var.$color-3, 50%);
   }
+
+  .btn.create-set {
+    background-color: var.$color-5;
+    border: inherit;
+    &:hover {
+      background-color: darken(var.$color-5, 20%);
+    }
+  }
 }
