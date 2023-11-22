@@ -9,6 +9,8 @@ import { useUser } from "../context/UserProvider";
 import axios from "axios";
 import "../assets/styles/Header.scss";
 import Logo from "../assets/images/logo.png";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -28,6 +30,18 @@ const Header = () => {
 
   return (
     <header className="px-4">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar>
         <Navbar.Brand href="/">
           <img src={Logo} alt="cardify" />
@@ -43,11 +57,7 @@ const Header = () => {
         <Navbar.Collapse className="justify-content-end right">
           {user ? (
             <>
-              <Button
-                variant="link"
-                className="profile-btn"
-                href="/profile"
-              >
+              <Button variant="link" className="profile-btn" href="/profile">
                 <FontAwesomeIcon icon={faUser} />
               </Button>
               <Button variant="primary" onClick={logout}>
