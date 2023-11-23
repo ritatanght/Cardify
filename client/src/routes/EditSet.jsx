@@ -12,6 +12,7 @@ import { useUser } from "../context/UserProvider";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../assets/styles/EditSet.scss";
+import { toast } from "react-toastify";
 
 const EditSet = () => {
   const navigate = useNavigate();
@@ -43,7 +44,6 @@ const EditSet = () => {
       .then(([setData, categoryData]) => {
         const set = setData.data.set;
         const cards = setData.data.cards;
-        console.log(set);
 
         setUserId(set.user_id);
         setTitle(set.title);
@@ -57,7 +57,7 @@ const EditSet = () => {
         setCategories(categoryData.data);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -67,20 +67,25 @@ const EditSet = () => {
     axios
       .put(`/api/sets/edit/${setId}`, setformData)
       .then((result) => {
-        const setId = result.data.data.rows[0].id;
+        const setId = result.data.id;
         const cardDataWithSetId = cards.map((card) => ({
           ...card,
           set_id: setId,
         }));
         axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
       })
-      .then(() => navigate("/profile"))
+      .then(() => {
+        // TODO: Fix to get toast message from res.data.message
+        toast.success("Set update successfully", { position: "top-center" });
+        navigate("/profile");
+      })
       .catch((err) => {
         if (err.response.status === 401) {
-          console.log(err.response.data.message);
+          toast.info(err.response.data.message);
           clearUserInfo();
+          return navigate("/login");
         } else {
-          console.error(err);
+          toast.error(err);
         }
       });
   };
@@ -106,7 +111,7 @@ const EditSet = () => {
   if (isLoading) {
     return (
       <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Searching...</span>
+        <span className="visually-hidden">Loading...</span>
       </Spinner>
     );
   }
@@ -120,7 +125,7 @@ const EditSet = () => {
     );
 
   if (user.id !== userId) {
-    return <h1>Sorry, you don't have permission to edit this set!</h1>;
+    return <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
   }
 
   return (

@@ -1,5 +1,4 @@
 import useFavButton from "../hooks/useFavButton";
-import useDeleteButton from "../hooks/useDeleteButton";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
@@ -13,18 +12,14 @@ import { useEffect } from "react";
 
 const SetItem = (props) => {
   const { user, favoriteSets } = useUser();
-  const { set, setOwner } = props;
+  const { set, setOwner, onDelete } = props;
   const { isLiked, toggleLike, checkLiked } = useFavButton();
-  const { deleteSet } = useDeleteButton();
+  
 
   useEffect(() => {
     checkLiked(favoriteSets, set.id);
   }, [checkLiked,favoriteSets, set.id]);
 
-  const handleDeleteClick = () => {
-    deleteSet(set.id);
-    props.onDelete(set.id);
-  };
 
   return (
     <div className="set-item-container">
@@ -50,7 +45,7 @@ const SetItem = (props) => {
             <Button variant="link" href={`/sets/edit/${set.id}`}>
               <FontAwesomeIcon icon={faPenToSquare} className="icon-primary" />
             </Button>
-            <Button variant="link" onClick={handleDeleteClick}>
+            <Button variant="link" onClick={onDelete}>
               <FontAwesomeIcon icon={faTrashCan} className="icon-primary" />
             </Button>
           </div>

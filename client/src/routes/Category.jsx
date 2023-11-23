@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import useDeleteButton from "../hooks/useDeleteButton";
 import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
 import "../assets/styles/Category.scss"
 
 const Category = () => {
@@ -12,6 +14,7 @@ const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { categoryId } = useParams();
   const { user, favoriteSets } = useUser();
+  const { deleteSet } = useDeleteButton();
 
   useEffect(() => {
     axios
@@ -21,15 +24,10 @@ const Category = () => {
         setSetsData(res.data.sets);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       })
       .finally(() => setIsLoading(false));
   }, [categoryId]);
-
-  const handleDelete = (setId) => {
-    const updatedSets = setsData.filter((set) => set.id !== setId);
-    setSetsData(updatedSets);
-  };
 
   if (isLoading) {
     return (
@@ -50,7 +48,7 @@ const Category = () => {
         setOwner={set.username}
         user={user}
         initiallyLiked={favoriteSets.some((favorite) => favorite.id === set.id)}
-        onDelete={handleDelete}
+        onDelete={() => deleteSet(set.id, setsData, setSetsData)}
       />
     ));
 

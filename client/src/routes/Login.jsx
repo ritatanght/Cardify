@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const Login = () => {
@@ -15,15 +16,24 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post("/api/auth/login", { email, password }).then(({ data }) => {
-      if (data.user) {
-        storeUserInfo(data.user);
-        navigate("/profile");
-      }
-      if (data.message) {
-        console.log(data.message);
-      }
-    });
+    if (!email || !password) return toast.error("Fields cannot be empty.");
+
+    axios
+      .post("/api/auth/login", { email, password })
+      .then(({ data }) => {
+        if (data.user) {
+          toast.success("Login successful", {
+            position: "top-center",
+            autoClose: 2000,
+          });
+          storeUserInfo(data.user);
+          return navigate("/profile");
+        }
+        if (data.message) {
+          toast.error(data.message);
+        }
+      })
+      .catch((err) => toast.error(err.response.data.message));
   };
 
   // redirect to profile if user has already logged-in

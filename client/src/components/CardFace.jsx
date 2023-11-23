@@ -1,21 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeHigh, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const CardFace = ({ position, text, voice, isSetOwner, onEdit }) => {
   const handleCardEdit = (e) => {
     e.stopPropagation();
-    console.log("Click handle edit");
-    // if (onEdit) {
-      onEdit();
-    // }
+    onEdit();
   };
 
   const speakText = (e) => {
     e.stopPropagation();
     const synth = window.speechSynthesis;
     if (!synth)
-      return console.error("Your browser does not support Speech Synthesis");
+      return toast.error("Your browser does not support Speech Synthesis");
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = voice;
 

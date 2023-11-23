@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { toast } from "react-toastify";
+import { useUser } from "../context/UserProvider";
 import axios from "axios";
 
-const useDeleteButton = (initialSets = []) => {
-  const [sets, setSets] = useState(initialSets)
+const useDeleteButton = () => {
+  const { clearUserInfo } = useUser();
 
-  const deleteSet = (setId) => {
-    axios.delete(`/api/sets/delete/${setId}`)
-      .then(() => {
-        const updatedSets = sets.filter(set => set.id !== setId);
-        setSets(updatedSets)
+  const deleteSet = (setId, sets, setSets) => {
+    axios
+      .delete(`/api/sets/delete/${setId}`)
+      .then((res) => {
+        if (res.status === 200) {
+          const updatedSets = sets.filter((set) => set.id !== setId);
+          setSets(updatedSets);
+          toast.success(res.data.message);
+        }
       })
-      .catch(err => {
-        console.error('Error deleting the set: ', err)
-      })
-  }
+      .catch((err) => {
+        if (err.response.status === 401) {
+          toast.info(err.response.data.message);
+          clearUserInfo();
+        } else {
+          console.error("Error deleting the set: ", err);
+        }
+      });
+  };
 
-  return { sets, deleteSet }
-}
+  return { deleteSet };
+};
 
 export default useDeleteButton;

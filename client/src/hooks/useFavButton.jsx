@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
 
 const useFavButton = (initialState = false) => {
   const [isLiked, setIsLiked] = useState(initialState);
-  const { updateFavoriteSets } = useUser();
+  const { updateFavoriteSets, clearUserInfo } = useUser();
 
   const toggleLike = (setId) => {
     if (isLiked) {
@@ -18,7 +19,12 @@ const useFavButton = (initialState = false) => {
           }
         })
         .catch((err) => {
-          console.error(err);
+          if (err.response.status === 401) {
+            toast.info(err.response.data.message);
+            clearUserInfo();
+          } else {
+            toast.error(err);
+          }
         });
     } else {
       // Like a set
@@ -31,7 +37,12 @@ const useFavButton = (initialState = false) => {
           }
         })
         .catch((err) => {
-          console.error(err);
+          if (err.response.status === 401) {
+            toast.info(err.response.data.message);
+            clearUserInfo();
+          } else {
+            toast.error(err);
+          }
         });
     }
   };

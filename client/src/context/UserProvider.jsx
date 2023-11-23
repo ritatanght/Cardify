@@ -47,14 +47,13 @@ const UserProvider = (props) => {
 
   const updateFavoriteSets = () => {
     axios
-      .get("/api/favorites/")
+      .get("/api/favorites")
       .then((res) => {
         setFavoriteSets(res.data);
         localStorage.setItem("favoriteSets", JSON.stringify(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          console.log(err.response.data.message);
           clearUserInfo();
         } else {
           console.error(err);
@@ -68,6 +67,7 @@ const UserProvider = (props) => {
     updateFavoriteSets,
     logout,
     storeUserInfo,
+    clearUserInfo,
   };
 
   return (

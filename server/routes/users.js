@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).json({ message: "Something went wrong" });
+      return res.status(500).json({ message: "Something went wrong" });
     });
 });
 
@@ -33,8 +33,14 @@ router.post("/", (req, res) => {
           return res.json(user);
         })
         .catch((err) => {
-          console.error(err);
-          res.status(500).json({ message: "Unable to create user" });
+          if (err.code === "23505") {
+            return res.status(400).json({
+              message: "An account with this email address already exists.",
+            });
+          } else {
+            console.error(err);
+            return res.status(500).json({ message: "Unable to create user" });
+          }
         });
     });
   });
