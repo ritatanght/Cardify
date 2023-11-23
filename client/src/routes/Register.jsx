@@ -6,16 +6,23 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const { user, storeUserInfo } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (password !== confirm)
+      return toast.error(
+        "The password and confirm password fields do not match."
+      );
+
     axios
       .post("/api/users", { email, username, password })
       .then((res) => {
@@ -24,7 +31,7 @@ const Register = () => {
           navigate("/profile");
         }
       })
-      .catch((err) => console.error(err.response.data.message));
+      .catch((err) => toast.error(err.response.data.message));
   };
 
   // redirect to profile if user has already logged-in
@@ -44,6 +51,7 @@ const Register = () => {
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </FloatingLabel>
         </Form.Group>
@@ -55,6 +63,7 @@ const Register = () => {
               placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </FloatingLabel>
         </Form.Group>
@@ -66,6 +75,18 @@ const Register = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <FloatingLabel label="Confirm Password" className="mb-3">
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              required
             />
           </FloatingLabel>
         </Form.Group>
