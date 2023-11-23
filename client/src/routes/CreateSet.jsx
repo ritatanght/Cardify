@@ -63,7 +63,7 @@ const CreateSet = () => {
     axios
       .post("/api/sets/create", setformData)
       .then((result) => {
-        const setId = result.data.data.rows[0].id;
+        const setId = result.data.id;
         const cardDataWithSetId = cardFormData.map((card) => ({
           ...card,
           setId,
