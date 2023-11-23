@@ -67,12 +67,12 @@ router.delete("/delete/:id", (req, res) => {
     // set the set as deleted in the database
     sets
       .setSetToDeleted(setId)
-      .then((response) => {
-        res.status(200).json({ message: "Set deleted", data: response });
+      .then(() => {
+        return res.status(200).json({ message: "Set deleted" });
       })
       .catch((err) => {
-        res.status(500);
         console.error(err);
+        return res.status(500).end();
       });
   });
 });
@@ -84,11 +84,11 @@ router.get("/user/:id", (req, res) => {
   sets
     .getSetsByUserId(userId)
     .then((data) => {
-      res.status(200).json(data);
+      return res.status(200).json(data);
     })
     .catch((err) => {
-      res.status(500);
       console.error(err);
+      return res.status(500).end();
     });
 });
 
