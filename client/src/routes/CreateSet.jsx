@@ -10,6 +10,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import "../assets/styles/EditSet.scss";
+import { toast } from "react-toastify";
 
 const CreateSet = () => {
   const navigate = useNavigate();
@@ -33,9 +34,16 @@ const CreateSet = () => {
         setCategories(response.data);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    // display upon redirect to login page
+    if (!user) {
+      toast.info("Login to create set.");
+    }
+  }, [user]);
 
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
@@ -66,12 +74,13 @@ const CreateSet = () => {
         navigate("/profile");
       })
       .catch((err) => {
-         if (err.response.status === 401) {
-           console.log(err.response.data.message);
-           clearUserInfo();
-         } else {
-           console.error(err);
-         }
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+          clearUserInfo();
+          return navigate("/login");
+        } else {
+          toast.error(err);
+        }
       });
   };
 
