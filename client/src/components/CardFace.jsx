@@ -5,10 +5,7 @@ import { Button } from "react-bootstrap";
 const CardFace = ({ position, text, voice, isSetOwner, onEdit }) => {
   const handleCardEdit = (e) => {
     e.stopPropagation();
-    console.log("Click handle edit");
-    // if (onEdit) {
-      onEdit();
-    // }
+    onEdit();
   };
 
   const speakText = (e) => {
