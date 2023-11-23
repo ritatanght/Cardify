@@ -45,8 +45,6 @@ const Category = () => {
         key={set.id}
         set={set}
         setOwner={set.username}
-        user={user}
-        initiallyLiked={favoriteSets.some((favorite) => favorite.id === set.id)}
         onDelete={() => deleteSet(set.id)}
       />
     ));

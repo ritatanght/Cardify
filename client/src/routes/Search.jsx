@@ -41,18 +41,14 @@ const Search = () => {
   return (
     <div className="search-container">
       <h1>
-        Search Results for "<span>{query}</span>"
+        Search Results for &quot;<span>{query}</span>&quot;
       </h1>
       {sets.length > 0 ? (
         sets.map((set) => (
           <SetItem
             key={set.id}
             set={set}
-            user={user}
             setOwner={set.username}
-            initiallyLiked={favoriteSets.some(
-              (favorite) => favorite.id === set.id
-            )}
             onDelete={() => deleteSet(set.id)}
           />
         ))
