@@ -12,6 +12,7 @@ import { useUser } from "../context/UserProvider";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../assets/styles/EditSet.scss";
+import { toast } from "react-toastify";
 
 const EditSet = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const EditSet = () => {
         setCategories(categoryData.data);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -76,8 +77,9 @@ const EditSet = () => {
       .then(() => navigate("/profile"))
       .catch((err) => {
         if (err.response.status === 401) {
-          console.log(err.response.data.message);
+          toast.info(err.response.data.message);
           clearUserInfo();
+          return navigate("/login");
         } else {
           console.error(err);
         }
