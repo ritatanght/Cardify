@@ -12,6 +12,7 @@ import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import "../assets/styles/ViewSet.scss";
 import "../assets/styles/icons.scss";
+import { toast } from "react-toastify";
 
 const ViewSet = () => {
   const { setId } = useParams();
@@ -27,7 +28,7 @@ const ViewSet = () => {
       .get(`/api/sets/${setId}`)
       .then((res) => setSetData(res.data))
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       })
       .finally(() => setIsLoading(false));
     // check whether the current set is liked by the logged in user
@@ -45,7 +46,7 @@ const ViewSet = () => {
         card.id === updatedCard.id ? updatedCard : card
       );
       return { ...prevData, cards: newCards };
-    });
+    })
     setShowEditModal(false);
   };
 
@@ -119,7 +120,7 @@ const ViewSet = () => {
           onUpdate={handleCardUpdate}
         />
       )}
-      
+
       <section className="set-info d-flex gap-2">
         <p>{set.username}</p>
         <div className="description">
