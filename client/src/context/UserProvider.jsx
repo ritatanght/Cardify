@@ -69,6 +69,7 @@ const UserProvider = (props) => {
     updateFavoriteSets,
     logout,
     storeUserInfo,
+    clearUserInfo,
   };
 
   return (
