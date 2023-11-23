@@ -5,6 +5,7 @@ import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import useDeleteButton from "../hooks/useDeleteButton";
 import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
 import "../assets/styles/Category.scss"
 
 const Category = () => {
@@ -23,7 +24,7 @@ const Category = () => {
         setSetsData(res.data.sets);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error(err);
       })
       .finally(() => setIsLoading(false));
   }, [categoryId]);

@@ -1,34 +1,35 @@
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import { useLocation } from "react-router-dom";
-import SetItem from '../components/SetItem'
+import SetItem from "../components/SetItem";
 import { useUser } from "../context/UserProvider";
 import useDeleteButton from "../hooks/useDeleteButton";
 import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
 import "../assets/styles/Search.scss";
 
 const Search = () => {
-  const location = useLocation()
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const query = queryParams.get('query');
+  const query = queryParams.get("query");
 
-  const [searchSets, setSearchSets] = useState([])
+  const [searchSets, setSearchSets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user, favoriteSets } = useUser();
   const { deleteSet } = useDeleteButton();
-  
 
   useEffect(() => {
-    setIsLoading(true)
-    axios.get(`/api/search?query=${encodeURIComponent(query)}`)
-      .then(res => {
+    setIsLoading(true);
+    axios
+      .get(`/api/search?query=${encodeURIComponent(query)}`)
+      .then((res) => {
         setSearchSets(res.data);
-        setIsLoading(false)
+        setIsLoading(false);
       })
-      .catch(err => {
-        console.error(err)
-      })
-  }, [query])
+      .catch((err) => {
+        toast.error(err);
+      });
+  }, [query]);
 
   if (isLoading) {
     return (
@@ -61,6 +62,6 @@ const Search = () => {
       )}
     </div>
   );
-}
+};
 
-export default Search
+export default Search;
