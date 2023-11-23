@@ -8,6 +8,7 @@ import { useUser } from "../context/UserProvider";
 import { Navigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/profile.scss";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const { user, favoriteSets } = useUser();
@@ -24,9 +25,12 @@ const Profile = () => {
           setSets(userSets);
         })
         .catch((err) => {
-          console.error(err);
+          toast.error(err);
         })
         .finally(() => setIsLoading(false));
+    } else {
+      // display upon redirect to login page
+      toast.info("Login to view your profile.");
     }
   }, [user]);
 
