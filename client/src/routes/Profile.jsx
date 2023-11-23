@@ -12,7 +12,7 @@ import "../assets/styles/profile.scss";
 import { toast } from "react-toastify";
 
 const Profile = () => {
-  const { user, favoriteSets } = useUser();
+  const { user, favoriteSets, clearUserInfo } = useUser();
   const [sets, setSets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { deleteSet } = useDeleteButton();
@@ -21,20 +21,20 @@ const Profile = () => {
     if (user) {
       setIsLoading(true);
       axios
-        .get(`/api/sets/user/${user.id}`)
+        .get("/api/sets/user")
         .then((res) => {
           const userSets = res.data.filter((set) => set.deleted !== true);
           setSets(userSets);
         })
-        .catch((err) => {
-          toast.error(err);
-        })
+        .catch((err) =>
+          err.response.status === 401 ? clearUserInfo() : toast.error(err)
+        )
         .finally(() => setIsLoading(false));
     } else {
       // display upon redirect to login page
       toast.info("Login to view your profile.");
     }
-  }, [user]);
+  }, [user, clearUserInfo]);
 
   // Redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
