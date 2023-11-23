@@ -5,6 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import useDeleteButton from "../hooks/useDeleteButton";
 import { Navigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/profile.scss";
@@ -14,6 +15,7 @@ const Profile = () => {
   const { user, favoriteSets } = useUser();
   const [sets, setSets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { deleteSet } = useDeleteButton();
 
   useEffect(() => {
     if (user) {
@@ -33,11 +35,6 @@ const Profile = () => {
       toast.info("Login to view your profile.");
     }
   }, [user]);
-
-  const handleDelete = (setId) => {
-    const updatedSets = sets.filter((set) => set.id !== setId);
-    setSets(updatedSets);
-  };
 
   // Redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
@@ -69,7 +66,7 @@ const Profile = () => {
                 key={set.id}
                 set={set}
                 setOwner={user.username}
-                onDelete={handleDelete}
+                onDelete={() => deleteSet(set.id, sets, setSets)}
               />
             ))
           ) : (
@@ -80,12 +77,12 @@ const Profile = () => {
         </Tab>
         <Tab eventKey="favorite-sets" title="Favorite Sets">
           {favoriteSets.length > 0 ? (
-            favoriteSets.map((favorite) => (
+            favoriteSets.map((favoriteSet) => (
               <SetItem
-                key={favorite.id}
-                set={favorite}
-                setOwner={favorite.username}
-                onDelete={handleDelete}
+                key={favoriteSet.id}
+                set={favoriteSet}
+                setOwner={favoriteSet.username}
+                onDelete={() => deleteSet(favoriteSet.id, sets, setSets)}
               />
             ))
           ) : (

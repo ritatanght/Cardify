@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation } from "react-router-dom";
 import SetItem from '../components/SetItem'
 import { useUser } from "../context/UserProvider";
+import useDeleteButton from "../hooks/useDeleteButton";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Search.scss";
 
@@ -14,6 +15,8 @@ const Search = () => {
   const [searchSets, setSearchSets] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const { user, favoriteSets } = useUser();
+  const { deleteSet } = useDeleteButton();
+  
 
   useEffect(() => {
     setIsLoading(true)
@@ -27,11 +30,6 @@ const Search = () => {
       })
   }, [query])
 
-  const handleDelete = (setId) => {
-    const updatedSets = searchSets.filter(set => set.id !== setId);
-    setSearchSets(updatedSets);
-  };
-
   if (isLoading) {
     return (
       <Spinner animation="border" variant="primary" role="status">
@@ -42,23 +40,27 @@ const Search = () => {
 
   return (
     <div className="search-container">
-      <h1>Search Results for "<span>{query}</span>"</h1>
-      {searchSets.length > 0 ?
-        searchSets.map(set => (
+      <h1>
+        Search Results for "<span>{query}</span>"
+      </h1>
+      {searchSets.length > 0 ? (
+        searchSets.map((set) => (
           <SetItem
             key={set.id}
             set={set}
             user={user}
             setOwner={set.username}
-            initiallyLiked={favoriteSets.some(favorite => favorite.id === set.id)}
-            onDelete={handleDelete}
+            initiallyLiked={favoriteSets.some(
+              (favorite) => favorite.id === set.id
+            )}
+            onDelete={() => deleteSet(set.id, searchSets, setSearchSets)}
           />
         ))
-        :
+      ) : (
         <h1 className="no-results">Couldn't find anything!</h1>
-      }
+      )}
     </div>
-  )
+  );
 }
 
 export default Search
