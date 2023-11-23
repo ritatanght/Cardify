@@ -34,7 +34,7 @@ const Profile = () => {
       // display upon redirect to login page
       toast.info("Login to view your profile.");
     }
-  }, [user, clearUserInfo]);
+  }, [user]);
 
   // Redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
