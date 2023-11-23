@@ -113,10 +113,10 @@ const EditSet = () => {
 
   if (!user)
     return (
-      <>
+      <main>
         <h1>Please login to edit the set</h1>
         <Link to="/login">Login</Link>
-      </>
+      </main>
     );
 
   if (user.id !== userId) {
