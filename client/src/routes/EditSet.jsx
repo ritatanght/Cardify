@@ -81,7 +81,7 @@ const EditSet = () => {
           clearUserInfo();
           return navigate("/login");
         } else {
-          console.error(err);
+          toast.error(err);
         }
       });
   };
@@ -107,7 +107,7 @@ const EditSet = () => {
   if (isLoading) {
     return (
       <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Searching...</span>
+        <span className="visually-hidden">Loading...</span>
       </Spinner>
     );
   }
@@ -121,7 +121,7 @@ const EditSet = () => {
     );
 
   if (user.id !== userId) {
-    return <h1>Sorry, you don't have permission to edit this set!</h1>;
+    return <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
   }
 
   return (
