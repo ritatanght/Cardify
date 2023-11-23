@@ -17,8 +17,8 @@ router.post("/create", (req, res) => {
       });
     })
     .catch((err) => {
-      res.status(500);
       console.error(err);
+      return res.status(500).end();
     });
 });
 
@@ -44,8 +44,8 @@ router.put("/edit/:id", (req, res) => {
           .json({ message: "Set update successfully", data: response });
       })
       .catch((err) => {
-        res.status(500);
         console.error(err);
+        return res.status(500).end();
       });
   });
 });
@@ -77,9 +77,10 @@ router.delete("/delete/:id", (req, res) => {
   });
 });
 
-router.get("/user/:id", (req, res) => {
-  // const { id } = req.params;
+// Get the sets created by the current user in profile page
+router.get("/user", (req, res) => {
   const userId = req.session.userId;
+  if (!userId) return res.status(401).json({ message: "Please log in first." });
 
   sets
     .getSetsByUserId(userId)
@@ -92,6 +93,7 @@ router.get("/user/:id", (req, res) => {
     });
 });
 
+// Get the sets and cards for ViewSets and EditSet
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   const setPromise = sets.getSetInfoById(id);
