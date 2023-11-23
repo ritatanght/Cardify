@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import axios from "axios";
 
 export const userContext = createContext();
@@ -48,14 +47,13 @@ const UserProvider = (props) => {
 
   const updateFavoriteSets = () => {
     axios
-      .get("/api/favorites/")
+      .get("/api/favorites")
       .then((res) => {
         setFavoriteSets(res.data);
         localStorage.setItem("favoriteSets", JSON.stringify(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          toast.error(err.response.data.message);
           clearUserInfo();
         } else {
           console.error(err);
