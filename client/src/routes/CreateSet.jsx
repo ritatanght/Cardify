@@ -75,7 +75,7 @@ const CreateSet = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          toast.error(err.response.data.message);
+          toast.info(err.response.data.message);
           clearUserInfo();
           return navigate("/login");
         } else {
