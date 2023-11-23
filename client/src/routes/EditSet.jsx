@@ -74,7 +74,11 @@ const EditSet = () => {
         }));
         axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
       })
-      .then(() => navigate("/profile"))
+      .then(() => {
+        // TODO: Fix to get toast message from res.data.message
+        toast.success("Set update successfully", { position: "top-center" });
+        navigate("/profile");
+      })
       .catch((err) => {
         if (err.response.status === 401) {
           toast.info(err.response.data.message);

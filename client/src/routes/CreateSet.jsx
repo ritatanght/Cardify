@@ -71,6 +71,8 @@ const CreateSet = () => {
         axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
       })
       .then(() => {
+        // TODO: Fix to get toast message from res.data.message
+        toast.success("Set created", { position: "top-center" });
         navigate("/profile");
       })
       .catch((err) => {
