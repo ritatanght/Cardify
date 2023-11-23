@@ -1,11 +1,13 @@
 import { toast } from "react-toastify";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
+import { useState } from "react";
 
-const useDeleteButton = () => {
+const useSetsList = () => {
+  const [sets, setSets] = useState([]);
   const { clearUserInfo } = useUser();
 
-  const deleteSet = (setId, sets, setSets) => {
+  const deleteSet = (setId) => {
     axios
       .delete(`/api/sets/delete/${setId}`)
       .then((res) => {
@@ -25,7 +27,7 @@ const useDeleteButton = () => {
       });
   };
 
-  return { deleteSet };
+  return { sets, setSets, deleteSet };
 };
 
-export default useDeleteButton;
+export default useSetsList;
