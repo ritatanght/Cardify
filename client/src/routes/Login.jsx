@@ -24,7 +24,7 @@ const Login = () => {
         if (data.user) {
           toast.success("Login successful", {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 2000,
           });
           storeUserInfo(data.user);
           return navigate("/profile");
