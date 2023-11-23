@@ -27,13 +27,15 @@ const updateSetData = (setData) => {
   RETURNING id;
   `; //Must return sets.id. Used for cards set_id field when updating
 
-  return db.query(query, [
-    setData.title,
-    setData.description,
-    setData.private,
-    setData.category_id,
-    setData.set_id,
-  ]);
+  return db
+    .query(query, [
+      setData.title,
+      setData.description,
+      setData.private,
+      setData.category_id,
+      setData.set_id,
+    ])
+    .then((data) => data.rows[0]);
 };
 
 const getSetsByUserId = (userId) => {

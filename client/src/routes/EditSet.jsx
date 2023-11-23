@@ -67,7 +67,7 @@ const EditSet = () => {
     axios
       .put(`/api/sets/edit/${setId}`, setformData)
       .then((result) => {
-        const setId = result.data.data.rows[0].id;
+        const setId = result.data.id;
         const cardDataWithSetId = cards.map((card) => ({
           ...card,
           set_id: setId,
