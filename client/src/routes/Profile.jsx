@@ -5,7 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
-import useDeleteButton from "../hooks/useDeleteButton";
+import useSetsList from "../hooks/useSetsList";
 import { Navigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/profile.scss";
@@ -13,9 +13,9 @@ import { toast } from "react-toastify";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();
-  const [sets, setSets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { deleteSet } = useDeleteButton();
+  const { sets, setSets, deleteSet } = useSetsList();
+
 
   useEffect(() => {
     if (user) {
@@ -66,7 +66,7 @@ const Profile = () => {
                 key={set.id}
                 set={set}
                 setOwner={user.username}
-                onDelete={() => deleteSet(set.id, sets, setSets)}
+                onDelete={() => deleteSet(set.id)}
               />
             ))
           ) : (
@@ -82,7 +82,7 @@ const Profile = () => {
                 key={favoriteSet.id}
                 set={favoriteSet}
                 setOwner={favoriteSet.username}
-                onDelete={() => deleteSet(favoriteSet.id, sets, setSets)}
+                onDelete={() => deleteSet(favoriteSet.id)}
               />
             ))
           ) : (
