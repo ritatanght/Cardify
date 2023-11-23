@@ -43,7 +43,6 @@ const EditSet = () => {
       .then(([setData, categoryData]) => {
         const set = setData.data.set;
         const cards = setData.data.cards;
-        console.log(set);
 
         setUserId(set.user_id);
         setTitle(set.title);
