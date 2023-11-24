@@ -6,21 +6,45 @@ router.post("/create", (req, res) => {
   // make sure the user is logged-in
   const userId = req.session.userId;
   if (!userId) return res.status(401).json({ message: "Please log in first." });
-  const { title, description, category_id } = req.body;
+
+  const {
+    setFormData: { title, description, category_id },
+    cardFormData,
+  } = req.body;
+
   if (!title || !description)
     return res
       .status(400)
       .json({ message: "Title and description cannot be empty" });
+
   if (!category_id)
     return res.status(400).json({ message: "Please pick a category" });
 
+  const emptyCard = cardFormData.some((card) => !card.front || !card.back);
+  if (emptyCard)
+    return res.status(400).json({ message: "Cards cannot be empty" });
+
   sets
-    .postSetData({ ...req.body, user_id: userId })
-    .then((result) => {
-      return res.status(201).json({
-        message: "Set created successfully",
-        data: result,
-      });
+    .postSetData({ ...req.body.setFormData, user_id: userId })
+    .then((data) => {
+      // get the id returned from creating the set to create the cards
+      const setId = data.id;
+      const cardDataWithSetId = cardFormData.map((card) => ({
+        ...card,
+        setId,
+      }));
+
+      cards
+        .postCardsData(cardDataWithSetId)
+        .then(() => {
+          return res.status(201).json({
+            message: "Set created successfully",
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          return res.status(500).end();
+        });
     })
     .catch((err) => {
       console.error(err);
