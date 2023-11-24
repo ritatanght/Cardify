@@ -4,7 +4,7 @@ const searchByText = (searchQuery) => {
   const searchTerm = `%${searchQuery}%`;
 
   const query = `
-    SELECT sets.title, sets.id, users.username AS username, categories.name AS category
+    SELECT sets.title, sets.id, sets.user_id, users.username AS username, categories.name AS category
     FROM sets 
     JOIN users ON sets.user_id = users.id
     JOIN categories ON sets.category_id = categories.id 
