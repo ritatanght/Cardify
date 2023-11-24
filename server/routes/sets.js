@@ -4,14 +4,20 @@ const cards = require("../db/queries/cards");
 
 router.post("/create", (req, res) => {
   // make sure the user is logged-in
-  if (!req.session.userId)
-    return res.status(401).json({ message: "Please log in first." });
+  const userId = req.session.userId;
+  if (!userId) return res.status(401).json({ message: "Please log in first." });
+  const { title, description, category_id } = req.body;
+  if (!title || !description)
+    return res
+      .status(400)
+      .json({ message: "Title and description cannot be empty" });
+  if (!category_id)
+    return res.status(400).json({ message: "Please pick a category" });
 
   sets
-    .postSetData(req.body)
+    .postSetData({ ...req.body, user_id: userId })
     .then((result) => {
-      res.status(201).json({
-        success: true,
+      return res.status(201).json({
         message: "Set created successfully",
         data: result,
       });
