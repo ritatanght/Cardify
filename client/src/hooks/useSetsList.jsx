@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const useSetsList = () => {
   const [sets, setSets] = useState([]);
-  const { clearUserInfo } = useUser();
+  const { clearUserInfo, removeDeletedFromFavList } = useUser();
 
   const deleteSet = (setId) => {
     axios
@@ -14,6 +14,7 @@ const useSetsList = () => {
         if (res.status === 200) {
           const updatedSets = sets.filter((set) => set.id !== setId);
           setSets(updatedSets);
+          removeDeletedFromFavList(setId);
           toast.success(res.data.message);
         }
       })
