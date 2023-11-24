@@ -48,46 +48,29 @@ const CreateSet = () => {
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
 
-  
   const cardFormData = cards;
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    const setformData = {
+
+    const setFormData = {
       title,
       description,
       category_id: selectedCategory.id,
       private: isPrivate,
     };
-    
+
     // disallow empty front or back for cards
     const emptyCard = cards.some((card) => !card.front || !card.back);
     if (emptyCard) return toast.error("Cards cannot be empty");
 
     axios
-      .post("/api/sets/create", setformData)
+      .post("/api/sets/create", { setFormData, cardFormData })
       .then((res) => {
-        const setId = res.data.id;
-        const cardDataWithSetId = cardFormData.map((card) => ({
-          ...card,
-          setId,
-        }));
-        axios
-          .post("/api/cards/create", cardDataWithSetId)
-          .then(() => {
-            toast.success("Set created", { position: "top-center" });
-            navigate("/profile");
-          })
-          //.catch((err) => toast.error(err.response.data.message));
-        //axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
-      })
-      .catch((err) => toast.error(err.response.data.message))
-
-      .then(() => {
-        // TODO: Fix to get toast message from res.data.message
-        toast.success("Set created", { position: "top-center" });
-        navigate("/profile");
+        if (res.status === 201) {
+          toast.success(res.data.message, { position: "top-center" });
+          navigate("/profile");
+        }
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -95,7 +78,7 @@ const CreateSet = () => {
           clearUserInfo();
           return navigate("/login");
         } else {
-          toast.error(err);
+          toast.error(err.response.data.message);
         }
       });
   };
