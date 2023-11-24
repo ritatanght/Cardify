@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import SetItem from "../components/SetItem";
-import { useUser } from "../context/UserProvider";
 import useSetsList from "../hooks/useSetsList";
 import Spinner from "react-bootstrap/Spinner";
 import { toast } from "react-toastify";
@@ -15,7 +14,6 @@ const Search = () => {
   
   const { sets, setSets, deleteSet } = useSetsList();
   const [isLoading, setIsLoading] = useState(true);
-  const { user, favoriteSets } = useUser();
 
   useEffect(() => {
     setIsLoading(true);
