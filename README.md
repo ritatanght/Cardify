@@ -3,6 +3,7 @@
 Cardify is an intuitive and user-friendly platform that allows users to create, edit, and manage flashcards. Whether you're a student, professional, or just someone eager to learn, our application is designed to cater to all your flashcard needs. This application aids users in creating flashcards for effective and efficient learning. Users can flip the flashcards, edit them, organize them into categories, and save them as a set. There's also a text-to-speech feature, making learning even more accessible.
 
 ## Screenshots
+
 Landing Page
 !["Homepage"](./docs/cardify_homepage.png)
 
@@ -63,6 +64,7 @@ npm start
 - React
 - React-Bootstrap
 - React-Router
+- React-Toastify
 - React-Confetti
 - SASS
 - Fontawesome
