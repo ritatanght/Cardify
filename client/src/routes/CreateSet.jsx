@@ -48,19 +48,19 @@ const CreateSet = () => {
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
 
-  const setformData = {
-    title,
-    description,
-    category_id: selectedCategory.id,
-    private: isPrivate,
-    user_id: user.id,
-  };
-
+  
   const cardFormData = cards;
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    
+    const setformData = {
+      title,
+      description,
+      category_id: selectedCategory.id,
+      private: isPrivate,
+    };
+    
     // disallow empty front or back for cards
     const emptyCard = cards.some((card) => !card.front || !card.back);
     if (emptyCard) return toast.error("Cards cannot be empty");
