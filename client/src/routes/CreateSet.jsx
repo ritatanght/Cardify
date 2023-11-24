@@ -60,16 +60,30 @@ const CreateSet = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // disallow empty front or back for cards
+    const emptyCard = cards.some((card) => !card.front || !card.back);
+    if (emptyCard) return toast.error("Cards cannot be empty");
+
     axios
       .post("/api/sets/create", setformData)
-      .then((result) => {
-        const setId = result.data.id;
+      .then((res) => {
+        const setId = res.data.id;
         const cardDataWithSetId = cardFormData.map((card) => ({
           ...card,
           setId,
         }));
-        axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
+        axios
+          .post("/api/cards/create", cardDataWithSetId)
+          .then(() => {
+            toast.success("Set created", { position: "top-center" });
+            navigate("/profile");
+          })
+          //.catch((err) => toast.error(err.response.data.message));
+        //axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
       })
+      .catch((err) => toast.error(err.response.data.message))
+
       .then(() => {
         // TODO: Fix to get toast message from res.data.message
         toast.success("Set created", { position: "top-center" });
