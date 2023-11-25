@@ -98,7 +98,6 @@ const EditSet = () => {
       {
         front: "",
         back: "",
-        deleted: false,
       },
     ];
     setCards(newCards);
