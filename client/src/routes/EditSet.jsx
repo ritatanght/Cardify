@@ -225,7 +225,7 @@ const EditSet = () => {
             )
         )}
         <div className="footer-button-container">
-          <Button onClick={() => addCard()}>Add Card</Button>
+          <Button onClick={addCard}>Add Card</Button>
         </div>
       </Form>
     </div>
