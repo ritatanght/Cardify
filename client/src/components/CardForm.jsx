@@ -13,7 +13,7 @@ const CardForm = ({ card, onUpdate, onDelete }) => {
             placeholder="Front"
             name="front"
             value={card.front}
-            onChange={(e) => onUpdate(e)}
+            onChange={onUpdate}
           />
         </FloatingLabel>
         <FloatingLabel label="Back" className="card-container-back">
@@ -22,7 +22,7 @@ const CardForm = ({ card, onUpdate, onDelete }) => {
             placeholder="Back"
             name="back"
             value={card.back}
-            onChange={(e) => onUpdate(e)}
+            onChange={onUpdate}
           />
           <FontAwesomeIcon icon={faTrash} onClick={onDelete} />
         </FloatingLabel>
