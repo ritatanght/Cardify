@@ -13,8 +13,8 @@ import axios from "axios";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();
-  const [isLoading, setIsLoading] = useState(true);
   const { sets, setSets, deleteSet } = useSetsList();
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {

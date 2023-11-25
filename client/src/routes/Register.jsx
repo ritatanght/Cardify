@@ -10,11 +10,12 @@ import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { user, storeUserInfo } = useUser();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const { user, storeUserInfo } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();

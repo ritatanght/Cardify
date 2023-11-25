@@ -10,9 +10,10 @@ import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { user, storeUserInfo } = useUser();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, storeUserInfo } = useUser();
 
   const handleLogin = (e) => {
     e.preventDefault();
