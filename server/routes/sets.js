@@ -83,13 +83,16 @@ router.put("/edit/:id", (req, res) => {
         .status(403)
         .json({ message: "You can only edit your own set." });
 
-    sets
-      .updateSetData(setId)
-      .then((response) => {
-        res
-          .status(200)
-          .json({ message: "Set update successfully", data: response });
-      })
+    if (!data) return res.status(404).json({ message: "Set not found." });
+
+    // update the set and cards
+    const updateSetPromise = sets.updateSetData(setId);
+    const updateCardsPromise = cards.updateCardsData(
+      cardFormData.map((card) => (card.id ? card : { ...card, set_id: setId })) // add set_id key to new cards
+    );
+
+    Promise.all([updateSetPromise, updateCardsPromise])
+      .then(() => res.status(200).json({ message: "Set updated successfully" }))
       .catch((err) => {
         console.error(err);
         return res.status(500).end();
