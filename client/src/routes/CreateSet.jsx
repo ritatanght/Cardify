@@ -89,6 +89,14 @@ const CreateSet = () => {
     setCards(newCards);
   };
 
+  const handleCardUpdate = (e, side, index) => {
+    setCards((prevCards) => {
+      const updatedCards = [...prevCards];
+      updatedCards[index][side] = e.target.value;
+      return updatedCards;
+    });
+  };
+
   const handleDelete = (cardIndex) => {
     const updatedCards = [...cards];
     updatedCards.splice(cardIndex, 1);
@@ -160,11 +168,7 @@ const CreateSet = () => {
                   type="text"
                   placeholder="Front"
                   value={card.front}
-                  onChange={(e) => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].front = e.target.value;
-                    setCards(updatedCards);
-                  }}
+                  onChange={(e) => handleCardUpdate(e, "front", index)}
                 />
               </FloatingLabel>
               <FloatingLabel label="Back" className="card-container-back">
@@ -172,11 +176,7 @@ const CreateSet = () => {
                   type="text"
                   placeholder="Back"
                   value={card.back}
-                  onChange={(e) => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].back = e.target.value;
-                    setCards(updatedCards);
-                  }}
+                  onChange={(e) => handleCardUpdate(e, "back", index)}
                 />
                 <FontAwesomeIcon
                   icon={faTrash}
