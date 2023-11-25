@@ -48,32 +48,23 @@ const CreateSet = () => {
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
 
-  const setformData = {
-    title,
-    description,
-    category_id: selectedCategory.id,
-    private: isPrivate,
-    user_id: user.id,
-  };
-
-  const cardFormData = cards;
-
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const setFormData = {
+      title,
+      description,
+      category_id: selectedCategory.id,
+      private: isPrivate,
+    };
+
     axios
-      .post("/api/sets/create", setformData)
-      .then((result) => {
-        const setId = result.data.id;
-        const cardDataWithSetId = cardFormData.map((card) => ({
-          ...card,
-          setId,
-        }));
-        axios.post("/api/cards/create", cardDataWithSetId); // TODO: Adjust this endpoint
-      })
-      .then(() => {
-        // TODO: Fix to get toast message from res.data.message
-        toast.success("Set created", { position: "top-center" });
-        navigate("/profile");
+      .post("/api/sets/create", { setFormData, cardFormData: cards })
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success(res.data.message, { position: "top-center" });
+          navigate("/profile");
+        }
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -81,7 +72,7 @@ const CreateSet = () => {
           clearUserInfo();
           return navigate("/login");
         } else {
-          toast.error(err);
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -92,10 +83,17 @@ const CreateSet = () => {
       {
         front: "",
         back: "",
-        deleted: false,
       },
     ];
     setCards(newCards);
+  };
+
+  const handleCardUpdate = (e, side, index) => {
+    setCards((prevCards) => {
+      const updatedCards = [...prevCards];
+      updatedCards[index][side] = e.target.value;
+      return updatedCards;
+    });
   };
 
   const handleDelete = (cardIndex) => {
@@ -169,11 +167,7 @@ const CreateSet = () => {
                   type="text"
                   placeholder="Front"
                   value={card.front}
-                  onChange={(e) => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].front = e.target.value;
-                    setCards(updatedCards);
-                  }}
+                  onChange={(e) => handleCardUpdate(e, "front", index)}
                 />
               </FloatingLabel>
               <FloatingLabel label="Back" className="card-container-back">
@@ -181,11 +175,7 @@ const CreateSet = () => {
                   type="text"
                   placeholder="Back"
                   value={card.back}
-                  onChange={(e) => {
-                    const updatedCards = [...cards];
-                    updatedCards[index].back = e.target.value;
-                    setCards(updatedCards);
-                  }}
+                  onChange={(e) => handleCardUpdate(e, "back", index)}
                 />
                 <FontAwesomeIcon
                   icon={faTrash}
@@ -196,7 +186,7 @@ const CreateSet = () => {
           </div>
         ))}
         <div className="footer-button-container">
-          <Button onClick={() => addCard()}>Add Card</Button>
+          <Button onClick={addCard}>Add Card</Button>
         </div>
       </Form>
     </div>

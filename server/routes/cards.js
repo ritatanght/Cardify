@@ -1,21 +1,21 @@
 const router = require("express").Router();
 const cards = require("../db/queries/cards");
 
-router.post("/create", (req, res) => {
-  cards
-    .postCardsData(req.body)
-    .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: "Cards created successfully",
-        data: result,
-      });
-    })
-    .catch((err) => {
-      res.status(500);
-      console.error(err);
-    });
-});
+// router.post("/create", (req, res) => {
+//   cards
+//     .postCardsData(req.body)
+//     .then((result) => {
+//       res.status(201).json({
+//         success: true,
+//         message: "Cards created successfully",
+//         data: result,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500);
+//       console.error(err);
+//     });
+// });
 
 router.put("/edit/:id", (req, res) => {
   cards
@@ -57,7 +57,7 @@ router.put("/update/:id", (req, res) => {
   const userId = req.session.userId;
   // make sure the user is logged-in
   if (!userId) return res.status(401).json({ message: "Please log in first." });
-  
+
   // make sure the user who edits the card is the owner
   cards.getCardOwnerByCardId(id).then((data) => {
     if (data.user_id !== userId)
