@@ -46,7 +46,7 @@ const ViewSet = () => {
         card.id === updatedCard.id ? updatedCard : card
       );
       return { ...prevData, cards: newCards };
-    })
+    });
     setShowEditModal(false);
   };
 
@@ -68,7 +68,7 @@ const ViewSet = () => {
 
   const { set, cards } = setData;
 
-  if (set.private) {
+  if (set.private && (!user || user.id !== set.user_id)) {
     return (
       <main className="PrivateSet">
         <h2>This set is marked as private.</h2>
