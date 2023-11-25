@@ -24,6 +24,11 @@ router.get("/", (req, res) => {
 // Register a new user
 router.post("/", (req, res) => {
   const { email, username, password } = req.body;
+  if (password.trim().length < 4)
+    return res
+      .status(400)
+      .json({ message: "Password must be at least 4 in length" });
+      
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(password, salt, (err, hash) => {
       users
