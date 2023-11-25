@@ -20,6 +20,9 @@ router.post("/create", (req, res) => {
   if (!category_id)
     return res.status(400).json({ message: "Please pick a category" });
 
+  if (cardFormData.length === 0)
+    return res.status(400).json({ message: "There should be at least one card" });
+
   const emptyCard = cardFormData.some((card) => !card.front || !card.back);
   if (emptyCard)
     return res.status(400).json({ message: "Cards cannot be empty" });
@@ -71,6 +74,9 @@ router.put("/edit/:id", (req, res) => {
 
   if (!category_id)
     return res.status(400).json({ message: "Please pick a category" });
+
+  if (cardFormData.length === 0)
+    return res.status(400).json({ message: "There should be at least one card" });
 
   const emptyCard = cardFormData.some((card) => !card.front || !card.back);
   if (emptyCard)
