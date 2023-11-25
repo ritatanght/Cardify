@@ -5,12 +5,12 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import "../assets/styles/EditSet.scss";
 import { toast } from "react-toastify";
+import CardForm from "../components/CardForm";
 
 const CreateSet = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const CreateSet = () => {
 
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
-
+  console.log(cards);
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -88,10 +88,10 @@ const CreateSet = () => {
     setCards(newCards);
   };
 
-  const handleCardUpdate = (e, side, index) => {
+  const handleCardUpdate = (index, e) => {
     setCards((prevCards) => {
       const updatedCards = [...prevCards];
-      updatedCards[index][side] = e.target.value;
+      updatedCards[index][e.target.name] = e.target.value;
       return updatedCards;
     });
   };
@@ -160,30 +160,12 @@ const CreateSet = () => {
         </div>
 
         {cards.map((card, index) => (
-          <div key={index} className="card-container">
-            <div className="card-frontback-container">
-              <FloatingLabel label="Front" className="card-container-front">
-                <Form.Control
-                  type="text"
-                  placeholder="Front"
-                  value={card.front}
-                  onChange={(e) => handleCardUpdate(e, "front", index)}
-                />
-              </FloatingLabel>
-              <FloatingLabel label="Back" className="card-container-back">
-                <Form.Control
-                  type="text"
-                  placeholder="Back"
-                  value={card.back}
-                  onChange={(e) => handleCardUpdate(e, "back", index)}
-                />
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleDelete(index)}
-                />
-              </FloatingLabel>
-            </div>
-          </div>
+          <CardForm
+            key={index}
+            card={card}
+            onUpdate={(e) => handleCardUpdate(index, e)}
+            onDelete={() => handleDelete(index)}
+          />
         ))}
         <div className="footer-button-container">
           <Button onClick={addCard}>Add Card</Button>
