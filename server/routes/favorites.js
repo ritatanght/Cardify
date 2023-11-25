@@ -17,19 +17,22 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
-  const { setId } = req.body;
+router.post("/:setId", (req, res) => {
+  const { setId } = req.params;
   const userId = req.session.userId;
   if (!userId)
     return res.status(401).json({ message: "Login to favorite set" });
 
   favorites
     .addFavoriteByUserAndSet(userId, setId)
-    .then(() => res.status(201).end());
+    .then(() => res.status(201).end())
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
-router.delete("/", (req, res) => {
-  const { setId } = req.body;
+router.delete("/:setId", (req, res) => {
+  const { setId } = req.params;
   const userId = req.session.userId;
   if (!userId)
     return res
@@ -38,7 +41,10 @@ router.delete("/", (req, res) => {
 
   favorites
     .removeFavoriteByUserAndSet(userId, setId)
-    .then(() => res.status(200).end());
+    .then(() => res.status(200).end())
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;
