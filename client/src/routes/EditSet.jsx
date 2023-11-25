@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -28,18 +28,11 @@ const EditSet = () => {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const setformData = {
-    title,
-    description,
-    category_id: selectedCategory.id,
-    private: isPrivate,
-    set_id: setId,
-  };
-
   useEffect(() => {
     const getSetPromise = axios.get(`/api/sets/${setId}`);
     const categoriesPromise = axios.get("/api/categories/");
 
+    setIsLoading(true);
     Promise.all([getSetPromise, categoriesPromise])
       .then(([setData, categoryData]) => {
         const set = setData.data.set;
@@ -60,24 +53,26 @@ const EditSet = () => {
         toast.error(err);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [setId]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const setFormData = {
+      title,
+      description,
+      category_id: selectedCategory.id,
+      private: isPrivate,
+      set_id: setId,
+    };
+
     axios
-      .put(`/api/sets/edit/${setId}`, setformData)
-      .then((result) => {
-        const setId = result.data.id;
-        const cardDataWithSetId = cards.map((card) => ({
-          ...card,
-          set_id: setId,
-        }));
-        axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
-      })
-      .then(() => {
-        // TODO: Fix to get toast message from res.data.message
-        toast.success("Set update successfully", { position: "top-center" });
-        navigate("/profile");
+      .put(`/api/sets/edit/${setId}`, { setFormData, cardFormData: cards })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data.message, { position: "top-center" });
+          navigate("/profile");
+        }
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -85,7 +80,7 @@ const EditSet = () => {
           clearUserInfo();
           return navigate("/login");
         } else {
-          toast.error(err);
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -96,23 +91,41 @@ const EditSet = () => {
       {
         front: "",
         back: "",
-        deleted: false,
       },
     ];
     setCards(newCards);
   };
 
+  const handleCardUpdate = (e, side, index) => {
+    setCards((prevCards) => {
+      const updatedCards = [...prevCards];
+      updatedCards[index][side] = e.target.value;
+      return updatedCards;
+    });
+  };
+
   const handleDelete = (cardIndex) => {
     const updatedCards = [...cards];
-    updatedCards[cardIndex].deleted = true;
-    setCards(updatedCards);
+    // A card has an id means it's been created in the database previously
+    // we have to keep it to update the database
+    if (cards[cardIndex].id) {
+      updatedCards[cardIndex].deleted = true;
+      setCards(updatedCards);
+    } else {
+      // otherwise, we could just remove it from the array
+      setCards((prevCards) =>
+        prevCards.filter((card, index) => index !== cardIndex)
+      );
+    }
   };
 
   if (isLoading) {
     return (
-      <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <main>
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </main>
     );
   }
 
@@ -125,7 +138,11 @@ const EditSet = () => {
     );
 
   if (user.id !== userId) {
-    return <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
+    return (
+      <main>
+        <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
+      </main>
+    );
   }
 
   return (
@@ -135,7 +152,7 @@ const EditSet = () => {
           <div className="set-header-container">
             <h1>Edit: {title}</h1>
             <Button variant="primary" type="submit" onClick={handleSubmit}>
-              Edit
+              Save
             </Button>
           </div>
           <div className="set-info-container">
@@ -195,11 +212,7 @@ const EditSet = () => {
                       type="text"
                       placeholder="Front"
                       value={card.front}
-                      onChange={(e) => {
-                        const updatedCards = [...cards];
-                        updatedCards[index].front = e.target.value;
-                        setCards(updatedCards);
-                      }}
+                      onChange={(e) => handleCardUpdate(e, "front", index)}
                     />
                   </FloatingLabel>
                   <FloatingLabel label="Back" className="card-container-back">
@@ -207,11 +220,7 @@ const EditSet = () => {
                       type="text"
                       placeholder="Back"
                       value={card.back}
-                      onChange={(e) => {
-                        const updatedCards = [...cards];
-                        updatedCards[index].back = e.target.value;
-                        setCards(updatedCards);
-                      }}
+                      onChange={(e) => handleCardUpdate(e, "back", index)}
                     />
                     <FontAwesomeIcon
                       icon={faTrash}
@@ -223,7 +232,7 @@ const EditSet = () => {
             )
         )}
         <div className="footer-button-container">
-          <Button onClick={() => addCard()}>Add Card</Button>
+          <Button onClick={addCard}>Add Card</Button>
         </div>
       </Form>
     </div>

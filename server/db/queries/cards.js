@@ -29,16 +29,11 @@ const updateCardsData = (cardsData) => {
       ]);
     } else {
       const query = `
-      INSERT INTO cards (front, back, deleted, set_id)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO cards (front, back, set_id)
+      VALUES ($1, $2, $3)
       RETURNING id;
       `;
-      return db.query(query, [
-        cardData.front,
-        cardData.back,
-        cardData.deleted,
-        cardData.set_id,
-      ]);
+      return db.query(query, [cardData.front, cardData.back, cardData.set_id]);
     }
   });
 

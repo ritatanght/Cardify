@@ -59,6 +59,23 @@ router.put("/edit/:id", (req, res) => {
   // make sure the user is logged-in
   if (!userId) return res.status(401).json({ message: "Please log in first." });
 
+  const {
+    setFormData: { title, description, category_id },
+    cardFormData,
+  } = req.body;
+
+  if (!title || !description)
+    return res
+      .status(400)
+      .json({ message: "Title and description cannot be empty" });
+
+  if (!category_id)
+    return res.status(400).json({ message: "Please pick a category" });
+
+  const emptyCard = cardFormData.some((card) => !card.front || !card.back);
+  if (emptyCard)
+    return res.status(400).json({ message: "Cards cannot be empty" });
+
   // make sure the user who edits the set is the set owner
   sets.getSetOwnerBySetId(setId).then((data) => {
     if (data.user_id !== userId)
@@ -66,13 +83,16 @@ router.put("/edit/:id", (req, res) => {
         .status(403)
         .json({ message: "You can only edit your own set." });
 
-    sets
-      .updateSetData(setId)
-      .then((response) => {
-        res
-          .status(200)
-          .json({ message: "Set update successfully", data: response });
-      })
+    if (!data) return res.status(404).json({ message: "Set not found." });
+
+    // update the set and cards
+    const updateSetPromise = sets.updateSetData(setId);
+    const updateCardsPromise = cards.updateCardsData(
+      cardFormData.map((card) => (card.id ? card : { ...card, set_id: setId })) // add set_id key to new cards
+    );
+
+    Promise.all([updateSetPromise, updateCardsPromise])
+      .then(() => res.status(200).json({ message: "Set updated successfully" }))
       .catch((err) => {
         console.error(err);
         return res.status(500).end();
