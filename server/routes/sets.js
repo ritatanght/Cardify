@@ -21,7 +21,9 @@ router.post("/create", (req, res) => {
     return res.status(400).json({ message: "Please pick a category" });
 
   if (cardFormData.length === 0)
-    return res.status(400).json({ message: "There should be at least one card" });
+    return res
+      .status(400)
+      .json({ message: "There should be at least one card" });
 
   const emptyCard = cardFormData.some((card) => !card.front || !card.back);
   if (emptyCard)
@@ -76,7 +78,9 @@ router.put("/edit/:id", (req, res) => {
     return res.status(400).json({ message: "Please pick a category" });
 
   if (cardFormData.length === 0)
-    return res.status(400).json({ message: "There should be at least one card" });
+    return res
+      .status(400)
+      .json({ message: "There should be at least one card" });
 
   const emptyCard = cardFormData.some((card) => !card.front || !card.back);
   if (emptyCard)
@@ -92,7 +96,7 @@ router.put("/edit/:id", (req, res) => {
     if (!data) return res.status(404).json({ message: "Set not found." });
 
     // update the set and cards
-    const updateSetPromise = sets.updateSetData(setId);
+    const updateSetPromise = sets.updateSetData({ ...req.body.setFormData });
     const updateCardsPromise = cards.updateCardsData(
       cardFormData.map((card) => (card.id ? card : { ...card, set_id: setId })) // add set_id key to new cards
     );
