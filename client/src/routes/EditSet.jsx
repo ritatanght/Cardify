@@ -66,20 +66,12 @@ const EditSet = () => {
       set_id: setId,
     };
 
-    axios
-      .put(`/api/sets/edit/${setId}`, setFormData)
-      .then((result) => {
-        const setId = result.data.id;
-        const cardDataWithSetId = cards.map((card) => ({
-          ...card,
-          set_id: setId,
-        }));
-        axios.put(`/api/cards/edit/${setId}`, cardDataWithSetId);
-      })
-      .then(() => {
-        // TODO: Fix to get toast message from res.data.message
-        toast.success("Set update successfully", { position: "top-center" });
-        navigate("/profile");
+    axios.put(`/api/sets/edit/${setId}`, { setFormData, cardFormData: cards })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data.message, { position: "top-center" });
+          navigate("/profile");
+        }
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -87,7 +79,7 @@ const EditSet = () => {
           clearUserInfo();
           return navigate("/login");
         } else {
-          toast.error(err);
+          toast.error(err.response.data.message);
         }
       });
   };
@@ -112,7 +104,7 @@ const EditSet = () => {
   };
 
   const handleDelete = (cardIndex) => {
-    let updatedCards = [...cards];
+    const updatedCards = [...cards];
     // A card has an id means it's been created in the database previously
     // we have to keep it to update the database
     if (cards[cardIndex].id) {
