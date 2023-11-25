@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "../context/UserProvider";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -47,10 +47,9 @@ const CreateSet = () => {
 
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
-  console.log(cards);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const setFormData = {
       title,
       description,
