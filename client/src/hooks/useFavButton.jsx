@@ -11,7 +11,7 @@ const useFavButton = (initialState = false) => {
     if (isLiked) {
       // Unlike a set
       axios
-        .put("/api/favorites", { setId })
+        .delete("/api/favorites", { setId })
         .then(({ status }) => {
           if (status === 200) {
             updateFavoriteSets();

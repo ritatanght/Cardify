@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
     .then(() => res.status(201).end());
 });
 
-router.put("/", (req, res) => {
+router.delete("/", (req, res) => {
   const { setId } = req.body;
   const userId = req.session.userId;
   if (!userId)
