@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -32,6 +32,7 @@ const EditSet = () => {
     const getSetPromise = axios.get(`/api/sets/${setId}`);
     const categoriesPromise = axios.get("/api/categories/");
 
+    setIsLoading(true);
     Promise.all([getSetPromise, categoriesPromise])
       .then(([setData, categoryData]) => {
         const set = setData.data.set;
@@ -52,9 +53,8 @@ const EditSet = () => {
         toast.error(err);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [setId]);
 
-  console.log(cards);
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -66,7 +66,8 @@ const EditSet = () => {
       set_id: setId,
     };
 
-    axios.put(`/api/sets/edit/${setId}`, { setFormData, cardFormData: cards })
+    axios
+      .put(`/api/sets/edit/${setId}`, { setFormData, cardFormData: cards })
       .then((res) => {
         if (res.status === 200) {
           toast.success(res.data.message, { position: "top-center" });
@@ -120,9 +121,11 @@ const EditSet = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <main>
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </main>
     );
   }
 
@@ -135,7 +138,11 @@ const EditSet = () => {
     );
 
   if (user.id !== userId) {
-    return <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
+    return (
+      <main>
+        <h1>Sorry, you don&apos;t have permission to edit this set!</h1>;
+      </main>
+    );
   }
 
   return (
@@ -145,7 +152,7 @@ const EditSet = () => {
           <div className="set-header-container">
             <h1>Edit: {title}</h1>
             <Button variant="primary" type="submit" onClick={handleSubmit}>
-              Edit
+              Save
             </Button>
           </div>
           <div className="set-info-container">
