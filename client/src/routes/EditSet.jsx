@@ -28,7 +28,6 @@ const EditSet = () => {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     const getSetPromise = axios.get(`/api/sets/${setId}`);
     const categoriesPromise = axios.get("/api/categories/");
@@ -55,16 +54,17 @@ const EditSet = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  console.log(cards);
   const handleSubmit = (event) => {
     event.preventDefault();
 
-  const setFormData = {
-    title,
-    description,
-    category_id: selectedCategory.id,
-    private: isPrivate,
-    set_id: setId,
-  };
+    const setFormData = {
+      title,
+      description,
+      category_id: selectedCategory.id,
+      private: isPrivate,
+      set_id: setId,
+    };
 
     axios
       .put(`/api/sets/edit/${setId}`, setFormData)
@@ -104,10 +104,27 @@ const EditSet = () => {
     setCards(newCards);
   };
 
+  const handleCardUpdate = (e, side, index) => {
+    setCards((prevCards) => {
+      const updatedCards = [...prevCards];
+      updatedCards[index][side] = e.target.value;
+      return updatedCards;
+    });
+  };
+
   const handleDelete = (cardIndex) => {
-    const updatedCards = [...cards];
-    updatedCards[cardIndex].deleted = true;
-    setCards(updatedCards);
+    let updatedCards = [...cards];
+    // A card has an id means it's been created in the database previously
+    // we have to keep it to update the database
+    if (cards[cardIndex].id) {
+      updatedCards[cardIndex].deleted = true;
+      setCards(updatedCards);
+    } else {
+      // otherwise, we could just remove it from the array
+      setCards((prevCards) =>
+        prevCards.filter((card, index) => index !== cardIndex)
+      );
+    }
   };
 
   if (isLoading) {
@@ -197,11 +214,7 @@ const EditSet = () => {
                       type="text"
                       placeholder="Front"
                       value={card.front}
-                      onChange={(e) => {
-                        const updatedCards = [...cards];
-                        updatedCards[index].front = e.target.value;
-                        setCards(updatedCards);
-                      }}
+                      onChange={(e) => handleCardUpdate(e, "front", index)}
                     />
                   </FloatingLabel>
                   <FloatingLabel label="Back" className="card-container-back">
@@ -209,11 +222,7 @@ const EditSet = () => {
                       type="text"
                       placeholder="Back"
                       value={card.back}
-                      onChange={(e) => {
-                        const updatedCards = [...cards];
-                        updatedCards[index].back = e.target.value;
-                        setCards(updatedCards);
-                      }}
+                      onChange={(e) => handleCardUpdate(e, "back", index)}
                     />
                     <FontAwesomeIcon
                       icon={faTrash}
