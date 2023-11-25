@@ -57,7 +57,8 @@ const getSetInfoById = (setId) => {
       FROM sets
       JOIN categories ON category_id = categories.id
       JOIN users ON user_id = users.id
-      WHERE sets.id = $1;`,
+      WHERE sets.id = $1
+      AND sets.deleted = false;`,
       [setId]
     )
     .then((data) => data.rows[0]);
@@ -70,7 +71,6 @@ const getSetsByCategoryId = (categoryId) => {
     SELECT sets.*, username FROM sets 
     JOIN users ON user_id = users.id
     WHERE category_id = $1
-    AND private = false
     AND sets.deleted = false
   ;`,
       [categoryId]
