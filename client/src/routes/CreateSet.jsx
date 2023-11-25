@@ -96,6 +96,9 @@ const CreateSet = () => {
   };
 
   const handleDelete = (cardIndex) => {
+    if (cards.length === 1)
+      return toast.info("There should be at least one card");
+
     const updatedCards = [...cards];
     updatedCards.splice(cardIndex, 1);
     setCards(updatedCards);
