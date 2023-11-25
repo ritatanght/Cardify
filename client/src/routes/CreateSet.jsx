@@ -48,8 +48,6 @@ const CreateSet = () => {
   // If user is not logged-in, redirect to login page
   if (!user) return <Navigate to="/login" replace={true} />;
 
-  const cardFormData = cards;
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -61,7 +59,7 @@ const CreateSet = () => {
     };
 
     axios
-      .post("/api/sets/create", { setFormData, cardFormData })
+      .post("/api/sets/create", { setFormData, cardFormData: cards })
       .then((res) => {
         if (res.status === 201) {
           toast.success(res.data.message, { position: "top-center" });
