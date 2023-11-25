@@ -103,7 +103,7 @@ const EditSet = () => {
     });
   };
 
-  const handleDelete = (cardIndex) => {
+  const handleCardDelete = (cardIndex) => {
     if (cards.length === 1)
       return toast.info("There should be at least one card");
 
@@ -211,7 +211,7 @@ const EditSet = () => {
                 key={index}
                 card={card}
                 onUpdate={(e) => handleCardUpdate(index, e)}
-                onDelete={() => handleDelete(index)}
+                onDelete={() => handleCardDelete(index)}
               />
             )
         )}
