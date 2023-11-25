@@ -60,10 +60,6 @@ const CreateSet = () => {
       private: isPrivate,
     };
 
-    // disallow empty front or back for cards
-    const emptyCard = cards.some((card) => !card.front || !card.back);
-    if (emptyCard) return toast.error("Cards cannot be empty");
-
     axios
       .post("/api/sets/create", { setFormData, cardFormData })
       .then((res) => {
