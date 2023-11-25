@@ -28,13 +28,6 @@ const EditSet = () => {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const setformData = {
-    title,
-    description,
-    category_id: selectedCategory.id,
-    private: isPrivate,
-    set_id: setId,
-  };
 
   useEffect(() => {
     const getSetPromise = axios.get(`/api/sets/${setId}`);
@@ -64,8 +57,17 @@ const EditSet = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+  const setFormData = {
+    title,
+    description,
+    category_id: selectedCategory.id,
+    private: isPrivate,
+    set_id: setId,
+  };
+
     axios
-      .put(`/api/sets/edit/${setId}`, setformData)
+      .put(`/api/sets/edit/${setId}`, setFormData)
       .then((result) => {
         const setId = result.data.id;
         const cardDataWithSetId = cards.map((card) => ({
