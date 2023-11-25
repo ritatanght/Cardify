@@ -1,12 +1,12 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
+import Button from "react-bootstrap/Button";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();

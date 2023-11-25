@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFavButton from "../hooks/useFavButton";
-import Button from "react-bootstrap/Button";
-import Spinner from "react-bootstrap/Spinner";
 import Cards from "../components/Cards";
-import EditCardModal from "./EditCardModal";
+import EditCardModal from "../components/EditCardModal";
+import useFavButton from "../hooks/useFavButton";
+import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
-import axios from "axios";
-import { useUser } from "../context/UserProvider";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/ViewSet.scss";
-import "../assets/styles/icons.scss";
-import { toast } from "react-toastify";
+import axios from "axios";
 
 const ViewSet = () => {
   const { setId } = useParams();
+  const { user, favoriteSets } = useUser();
+  const { isLiked, checkLiked, toggleLike } = useFavButton();
+  
   const [setData, setSetData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingCard, setEditingCard] = useState(null);
-  const { isLiked, checkLiked, toggleLike } = useFavButton();
-  const { user, favoriteSets } = useUser();
 
   useEffect(() => {
     axios

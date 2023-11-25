@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CardForm = ({ card, onUpdate, onDelete }) => {
   return (

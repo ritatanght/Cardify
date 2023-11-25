@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
+import SearchBar from "./SearchBar";
+import { useUser } from "../context/UserProvider";
+import { ToastContainer } from "react-toastify";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import SearchBar from "./SearchBar";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../context/UserProvider";
-import axios from "axios";
 import "../assets/styles/Header.scss";
-import Logo from "../assets/images/logo.png";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logo from "../assets/images/logo.png";
+import axios from "axios";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);

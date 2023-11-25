@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import SetItem from "../components/SetItem";
+import useSetsList from "../hooks/useSetsList";
+import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { Button } from "react-bootstrap";
-import axios from "axios";
-import { useUser } from "../context/UserProvider";
-import useSetsList from "../hooks/useSetsList";
-import { Navigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/profile.scss";
-import { toast } from "react-toastify";
+import axios from "axios";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();

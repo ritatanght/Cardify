@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import CardItem from "./CardItem";
+import Confetti from "react-confetti";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/Button";
-import Confetti from "react-confetti";
 
 const Cards = ({ cards, isSetOwner, onEdit }) => {
   const [currCard, setCurrCard] = useState(1);

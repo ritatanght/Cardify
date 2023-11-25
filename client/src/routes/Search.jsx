@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 import SetItem from "../components/SetItem";
-import { useUser } from "../context/UserProvider";
 import useSetsList from "../hooks/useSetsList";
-import Spinner from "react-bootstrap/Spinner";
+import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Search.scss";
+import axios from "axios";
 
 const Search = () => {
   const location = useLocation();

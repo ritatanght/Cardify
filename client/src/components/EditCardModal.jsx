@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { useUser } from "../context/UserProvider";
-import { useNavigate } from "react-router";
 
 const EditCardModal = ({ show, onHide, card, onUpdate }) => {
   const navigate = useNavigate();
+  const { clearUserInfo } = useUser();
+
   const [front, setFront] = useState(card.front);
   const [back, setBack] = useState(card.back);
-  const { clearUserInfo } = useUser();
 
   const handleSubmit = () => {
     if (!front || !back)

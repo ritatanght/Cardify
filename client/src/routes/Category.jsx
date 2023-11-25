@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import useSetsList from "../hooks/useSetsList";
 import { useUser } from "../context/UserProvider";
-import Spinner from "react-bootstrap/Spinner";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Category.scss";
 
 const Category = () => {
