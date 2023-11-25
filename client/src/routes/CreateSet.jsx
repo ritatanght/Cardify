@@ -83,7 +83,6 @@ const CreateSet = () => {
       {
         front: "",
         back: "",
-        deleted: false,
       },
     ];
     setCards(newCards);
