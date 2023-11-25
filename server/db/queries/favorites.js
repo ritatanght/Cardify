@@ -18,8 +18,8 @@ const getFavoritesByUserId = (userId) => {
 const addFavoriteByUserAndSet = (userId, setId) => {
   return db.query(
     `SELECT * FROM favorites 
-   WHERE user_id = $1
-    AND set_id = $2;`,
+     WHERE user_id = $1
+     AND set_id = $2;`,
     [userId, setId]
   ).then((likeRecord) => {
     // update deleted column for a found existing record
@@ -27,9 +27,9 @@ const addFavoriteByUserAndSet = (userId, setId) => {
       return db
         .query(
           `UPDATE favorites
-          SET deleted = false
-          WHERE user_id = $1
-          AND set_id = $2;`,
+           SET deleted = false
+           WHERE user_id = $1
+           AND set_id = $2;`,
           [userId, setId]
         )
         .then((data) => data.rows);
