@@ -95,7 +95,10 @@ const CreateSet = () => {
     });
   };
 
-  const handleDelete = (cardIndex) => {
+  const handleCardDelete = (cardIndex) => {
+    if (cards.length === 1)
+      return toast.info("There should be at least one card");
+
     const updatedCards = [...cards];
     updatedCards.splice(cardIndex, 1);
     setCards(updatedCards);
@@ -163,7 +166,7 @@ const CreateSet = () => {
             key={index}
             card={card}
             onUpdate={(e) => handleCardUpdate(index, e)}
-            onDelete={() => handleDelete(index)}
+            onDelete={() => handleCardDelete(index)}
           />
         ))}
         <div className="footer-button-container">

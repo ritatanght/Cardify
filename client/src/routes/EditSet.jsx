@@ -103,7 +103,10 @@ const EditSet = () => {
     });
   };
 
-  const handleDelete = (cardIndex) => {
+  const handleCardDelete = (cardIndex) => {
+    if (cards.length === 1)
+      return toast.info("There should be at least one card");
+
     const updatedCards = [...cards];
     // A card has an id means it's been created in the database previously
     // we have to keep it to update the database
@@ -208,7 +211,7 @@ const EditSet = () => {
                 key={index}
                 card={card}
                 onUpdate={(e) => handleCardUpdate(index, e)}
-                onDelete={() => handleDelete(index)}
+                onDelete={() => handleCardDelete(index)}
               />
             )
         )}
