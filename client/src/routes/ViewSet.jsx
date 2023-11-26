@@ -17,7 +17,7 @@ const ViewSet = () => {
   const { setId } = useParams();
   const { user, favoriteSets } = useUser();
   const { isLiked, checkLiked, toggleLike } = useFavButton();
-  
+
   const [setData, setSetData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -83,7 +83,7 @@ const ViewSet = () => {
           <h1>{set.title}</h1>
           <h2>{set.category_name}</h2>
           {user && (
-            <Button variant="link" onClick={() => toggleLike(setId)}>
+            <Button variant="link" onClick={() => toggleLike(set)}>
               {isLiked ? (
                 <FontAwesomeIcon
                   icon={fillHeart}

@@ -23,7 +23,7 @@ const SetItem = ({ set, setOwner, onDelete }) => {
         <h2>{set.title}</h2>
       </Link>
       <div className="set-item-right">
-        <Button variant="link" onClick={() => toggleLike(set.id)}>
+        <Button variant="link" onClick={() => toggleLike(set)}>
           {isLiked ? (
             <FontAwesomeIcon
               icon={fillHeart}
