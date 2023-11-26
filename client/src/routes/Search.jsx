@@ -32,9 +32,14 @@ const Search = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Searching...</span>
-      </Spinner>
+      <div className="search-container">
+        <h1>
+          Search Results for &quot;<span>{query}</span>&quot;
+        </h1>
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Searching...</span>
+        </Spinner>
+      </div>
     );
   }
 
