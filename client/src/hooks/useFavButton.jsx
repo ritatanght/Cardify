@@ -5,16 +5,16 @@ import { toast } from "react-toastify";
 
 const useFavButton = (initialState = false) => {
   const [isLiked, setIsLiked] = useState(initialState);
-  const { updateFavoriteSets, clearUserInfo } = useUser();
+  const { addToFavList, removeDeletedFromFavList, clearUserInfo } = useUser();
 
-  const toggleLike = (setId) => {
+  const toggleLike = (set) => {
     if (isLiked) {
       // Unlike a set
       axios
-        .delete(`/api/favorites/${setId}`)
+        .delete(`/api/favorites/${set.id}`)
         .then(({ status }) => {
           if (status === 200) {
-            updateFavoriteSets();
+            removeDeletedFromFavList(set.id);
             setIsLiked(false);
           }
         })
@@ -29,10 +29,10 @@ const useFavButton = (initialState = false) => {
     } else {
       // Like a set
       axios
-        .post(`/api/favorites/${setId}`)
+        .post(`/api/favorites/${set.id}`)
         .then(({ status }) => {
           if (status === 201) {
-            updateFavoriteSets();
+            addToFavList(set);
             setIsLiked(true);
           }
         })
