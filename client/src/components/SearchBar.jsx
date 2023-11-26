@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -12,13 +13,13 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (queryString) {
-      setQueryString("");
-      return navigate(`/search?query=${encodeURIComponent(queryString)}`);
-    }
+    if (!queryString) return toast.info("Please enter keyword for search");
+
+    setQueryString("");
+    return navigate(`/search?query=${encodeURIComponent(queryString)}`);
   };
 
-  // pressing enter when focusing on the input field will search the form
+  // pressing enter when focusing on the input field will submit the keyword for search
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSearch(e);
