@@ -24,7 +24,7 @@ const SearchBar = () => {
       handleSearch(e);
     }
   };
-  
+
   return (
     <div className="SearchBar">
       <InputGroup>
@@ -34,6 +34,7 @@ const SearchBar = () => {
           aria-label="Search"
           value={queryString}
           onChange={(e) => setQueryString(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <Button onClick={handleSearch}>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
