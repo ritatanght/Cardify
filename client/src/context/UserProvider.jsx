@@ -17,9 +17,24 @@ const UserProvider = (props) => {
 
   useEffect(() => {
     if (user) {
-      updateFavoriteSets();
+      axios
+        .get("/api/favorites")
+        .then((res) => {
+          setFavoriteSets(res.data);
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            clearUserInfo();
+          } else {
+            console.error(err);
+          }
+        });
     }
   }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem("favoriteSets", JSON.stringify(favoriteSets));
+  }, [favoriteSets]);
 
   /**
    * store the userObject in state and local storage
@@ -45,30 +60,20 @@ const UserProvider = (props) => {
     });
   };
 
-  const updateFavoriteSets = () => {
-    axios
-      .get("/api/favorites")
-      .then((res) => {
-        setFavoriteSets(res.data);
-        localStorage.setItem("favoriteSets", JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          clearUserInfo();
-        } else {
-          console.error(err);
-        }
-      });
+  const addToFavList = (set) => {
+    const { id, title, user_id, username, private: isPrivate } = set;
+    const newSet = { id, title, user_id, username, private: isPrivate };
+    setFavoriteSets((prev) => [...prev, newSet]);
   };
 
-  const removeDeletedFromFavList = (setId) =>
+  const removeFromFavList = (setId) =>
     setFavoriteSets((prevSet) => prevSet.filter((set) => set.id !== setId));
 
   const userData = {
     user,
     favoriteSets,
-    updateFavoriteSets,
-    removeDeletedFromFavList,
+    addToFavList,
+    removeFromFavList,
     logout,
     storeUserInfo,
     clearUserInfo,

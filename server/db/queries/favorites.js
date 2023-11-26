@@ -4,7 +4,8 @@ const getFavoritesByUserId = (userId) => {
   return db
     .query(
       `
-    SELECT sets.*, users.username FROM favorites
+    SELECT sets.id, sets.title, sets.private, sets.user_id, users.username AS username
+    FROM favorites
     JOIN sets ON favorites.set_id = sets.id
     JOIN users ON sets.user_id = users.id
     WHERE favorites.user_id = $1 
