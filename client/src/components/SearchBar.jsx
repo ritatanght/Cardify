@@ -12,12 +12,19 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (queryString){
-      setQueryString("")
+    if (queryString) {
+      setQueryString("");
       return navigate(`/search?query=${encodeURIComponent(queryString)}`);
-    } 
+    }
   };
 
+  // pressing enter when focusing on the input field will search the form
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+    }
+  };
+  
   return (
     <div className="SearchBar">
       <InputGroup>
