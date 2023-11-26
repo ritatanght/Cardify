@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SetItem from "../components/SetItem";
 import useSetsList from "../hooks/useSetsList";
 import { useUser } from "../context/UserProvider";
@@ -9,13 +9,13 @@ import "../assets/styles/Search.scss";
 import axios from "axios";
 
 const Search = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const query = queryParams.get("query");
+  const [searchParams] = useSearchParams();
   const { user } = useUser();
 
   const { sets, setSets, deleteSet } = useSetsList();
   const [isLoading, setIsLoading] = useState(true);
+
+  const query = searchParams.get("query");
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,9 +32,14 @@ const Search = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Searching...</span>
-      </Spinner>
+      <div className="search-container">
+        <h1>
+          Search Results for &quot;<span>{query}</span>&quot;
+        </h1>
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Searching...</span>
+        </Spinner>
+      </div>
     );
   }
 
