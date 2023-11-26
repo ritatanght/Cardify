@@ -66,14 +66,14 @@ const UserProvider = (props) => {
     setFavoriteSets((prev) => [...prev, newSet]);
   };
 
-  const removeDeletedFromFavList = (setId) =>
+  const removeFromFavList = (setId) =>
     setFavoriteSets((prevSet) => prevSet.filter((set) => set.id !== setId));
 
   const userData = {
     user,
     favoriteSets,
     addToFavList,
-    removeDeletedFromFavList,
+    removeFromFavList,
     logout,
     storeUserInfo,
     clearUserInfo,

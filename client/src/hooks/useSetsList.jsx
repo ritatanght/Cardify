@@ -1,11 +1,11 @@
-import { toast } from "react-toastify";
-import { useUser } from "../context/UserProvider";
-import axios from "axios";
 import { useState } from "react";
+import { useUser } from "../context/UserProvider";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const useSetsList = () => {
   const [sets, setSets] = useState([]);
-  const { clearUserInfo, removeDeletedFromFavList } = useUser();
+  const { clearUserInfo, removeFromFavList } = useUser();
 
   const deleteSet = (setId) => {
     axios
@@ -14,7 +14,7 @@ const useSetsList = () => {
         if (res.status === 200) {
           const updatedSets = sets.filter((set) => set.id !== setId);
           setSets(updatedSets);
-          removeDeletedFromFavList(setId);
+          removeFromFavList(setId);
           toast.success(res.data.message);
         }
       })

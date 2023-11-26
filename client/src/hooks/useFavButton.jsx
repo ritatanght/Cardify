@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const useFavButton = (initialState = false) => {
   const [isLiked, setIsLiked] = useState(initialState);
-  const { addToFavList, removeDeletedFromFavList, clearUserInfo } = useUser();
+  const { addToFavList, removeFromFavList, clearUserInfo } = useUser();
 
   const toggleLike = (set) => {
     if (isLiked) {
@@ -14,7 +14,7 @@ const useFavButton = (initialState = false) => {
         .delete(`/api/favorites/${set.id}`)
         .then(({ status }) => {
           if (status === 200) {
-            removeDeletedFromFavList(set.id);
+            removeFromFavList(set.id);
             setIsLiked(false);
           }
         })
