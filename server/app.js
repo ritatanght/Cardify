@@ -33,4 +33,9 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/favorites", favoritesRouter);
 app.use("/api/search", searchesRouter);
 
+// For any other route, serve React's index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 module.exports = app;
