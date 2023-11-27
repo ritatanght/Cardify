@@ -20,7 +20,7 @@ const SetItem = ({ set, setOwner, onDelete }) => {
   return (
     <div className="set-item-container">
       <Link to={`/sets/${set.id}`}>
-        <h2>{set.title}</h2>
+        <p>{set.title}</p>
       </Link>
       <div className="set-item-right">
         <Button variant="link" onClick={() => toggleLike(set)}>
@@ -46,7 +46,7 @@ const SetItem = ({ set, setOwner, onDelete }) => {
             </Button>
           </div>
         ) : (
-          <h2>{setOwner}</h2>
+          <span>{setOwner}</span>
         )}
       </div>
     </div>
