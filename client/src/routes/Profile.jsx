@@ -8,14 +8,13 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import "../assets/styles/profile.scss";
+import "../assets/styles/Profile.scss";
 import axios from "axios";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();
   const { sets, setSets, deleteSet } = useSetsList();
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     if (user) {

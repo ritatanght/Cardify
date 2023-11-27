@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import BackgroundChanger from "../components/BackgroundChanger";
 import Button from "react-bootstrap/Button";
-import "../assets/styles/home.scss";
+import "../assets/styles/Home.scss";
 
 const Home = () => {
   const bannerContainerRef = useRef(null); // Create a ref
