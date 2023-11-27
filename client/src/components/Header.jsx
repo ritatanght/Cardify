@@ -5,8 +5,9 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
+import CloseButton from "react-bootstrap/CloseButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 import "../assets/styles/Header.scss";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../assets/images/logo.png";
@@ -14,6 +15,7 @@ import axios from "axios";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useUser();
 
   useEffect(() => {
@@ -50,30 +52,43 @@ const Header = () => {
           {dropDownItems}
         </NavDropdown>
 
-        <Navbar.Collapse className="justify-content-end">
-          <SearchBar />
-        </Navbar.Collapse>
+        <Navbar.Collapse className="right justify-content-end">
+          <Button
+            className="menu"
+            aria-label="Open menu"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </Button>
+          <div className={`nav-menu ${isMenuOpen ? " opened" : ""}`}>
+            <CloseButton
+              aria-label="Close menu"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <SearchBar />
 
-        <Navbar.Collapse className="justify-content-end right">
-          {user ? (
-            <>
-              <Button variant="link" className="profile-btn" href="/profile">
-                <FontAwesomeIcon icon={faUser} />
-              </Button>
-              <Button variant="primary" onClick={logout}>
-                Sign Out
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="primary" href="/login">
-                Login
-              </Button>
-              <Button variant="primary" href="/register">
-                Sign Up
-              </Button>
-            </>
-          )}
+            {user ? (
+              <div>
+                <Button variant="link" className="profile-btn" href="/profile">
+                  <strong>{user.username}</strong>
+                  <FontAwesomeIcon icon={faUser} />
+                </Button>
+
+                <Button variant="primary" onClick={logout}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button variant="primary" href="/login">
+                  Login
+                </Button>
+                <Button variant="primary" href="/register">
+                  Sign Up
+                </Button>
+              </div>
+            )}
+          </div>
         </Navbar.Collapse>
       </Navbar>
     </header>
