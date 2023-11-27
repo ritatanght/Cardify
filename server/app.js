@@ -3,13 +3,13 @@ const path = require("path");
 const logger = require("morgan");
 const cookieSession = require("cookie-session");
 
-const usersRouter = require("./routes/users");
-const categoriesRouter = require("./routes/categories");
-const setsRouter = require("./routes/sets");
-const cardsRouter = require("./routes/cards");
-const favoritesRouter = require("./routes/favorites");
-const searchesRouter = require("./routes/searches");
-const authRouter = require("./routes/auth")
+const usersRouter = require("./api/users");
+const categoriesRouter = require("./api/categories");
+const setsRouter = require("./api/sets");
+const cardsRouter = require("./api/cards");
+const favoritesRouter = require("./api/favorites");
+const searchesRouter = require("./api/searches");
+const authRouter = require("./api/auth")
 
 const app = express();
 
