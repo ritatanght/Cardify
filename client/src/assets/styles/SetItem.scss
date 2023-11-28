@@ -30,15 +30,9 @@
     text-align: left;
   }
 
-  .icon-primary {
-    width: 25px;
-    height: 30px;
-    padding: 0;
-
-    svg {
-      width: 100%;
-      height: auto;
-    }
+  .btn.btn-link {
+    font-size: 1.5rem;
+    padding: 0 0 0 0.8em;
   }
 
   .set-item-right {
