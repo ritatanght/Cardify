@@ -14,7 +14,7 @@
 
   > a:first-child {
     text-decoration: none;
-    color: inherit;
+    color: lighten(#000, 10);
     transition: all 0.3s ease;
 
     &:hover {
