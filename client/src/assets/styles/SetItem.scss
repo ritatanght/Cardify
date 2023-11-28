@@ -33,6 +33,7 @@
   .icon-primary {
     width: 25px;
     height: 30px;
+    padding: 0;
 
     svg {
       width: 100%;
@@ -48,10 +49,7 @@
     span {
       font-style: italic;
       font-size: 1.5rem;
-    }
-
-    .fav-icon:hover {
-      cursor: pointer;
+      color: darken(var.$color-5, 25%);
     }
   }
 }
