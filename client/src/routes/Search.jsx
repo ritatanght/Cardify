@@ -32,14 +32,14 @@ const Search = () => {
 
   if (isLoading) {
     return (
-      <div className="search-container">
+      <main className="search-container">
         <h1>
           Search Results for &quot;<span>{query}</span>&quot;
         </h1>
         <Spinner animation="border" variant="primary" role="status">
           <span className="visually-hidden">Searching...</span>
         </Spinner>
-      </div>
+      </main>
     );
   }
 
@@ -53,7 +53,7 @@ const Search = () => {
   });
 
   return (
-    <div className="search-container">
+    <main className="search-container">
       <h1>
         Search Results for &quot;<span>{query}</span>&quot;
       </h1>
@@ -69,7 +69,7 @@ const Search = () => {
       ) : (
         <h1 className="no-results">Couldn&apos;t find anything!</h1>
       )}
-    </div>
+    </main>
   );
 };
 

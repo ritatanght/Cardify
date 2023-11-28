@@ -8,14 +8,13 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import "../assets/styles/profile.scss";
+import "../assets/styles/Profile.scss";
 import axios from "axios";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();
   const { sets, setSets, deleteSet } = useSetsList();
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     if (user) {
@@ -51,8 +50,8 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div className="d-flex justify-content-between align-items-center">
+    <main className="profile-container">
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>{user.username}</h1>
         <Button className="create-set" variant="primary" href="/sets/create">
           Create Set
@@ -92,7 +91,7 @@ const Profile = () => {
           )}
         </Tab>
       </Tabs>
-    </div>
+    </main>
   );
 };
 

@@ -27,8 +27,7 @@
     }
   }
   .btn {
-    background-color: var.$color-5;
-    border: inherit;
+    
     padding: 0.8em;
   }
 }
@@ -64,5 +63,17 @@
   }
   p {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home-container {
+    .banner-container {
+      border-radius: 0;
+    }
+  }
+  .columns-container {
+    flex-direction: column;
+    gap: 1.5em;
   }
 }

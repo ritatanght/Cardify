@@ -78,8 +78,8 @@ const ViewSet = () => {
 
   return (
     <main className="ViewSet">
-      <section className="d-flex justify-content-between align-items-end">
-        <div className="d-flex gap-2 align-items-end">
+      <section className="ViewSet__header">
+        <div className="ViewSet__header-left">
           <h1>{set.title}</h1>
           <h2>{set.category_name}</h2>
           {user && (

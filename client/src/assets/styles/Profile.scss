@@ -1,18 +1,11 @@
 @use "./variables" as var;
 
 .profile-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-
-  h1 {
-    margin-bottom: 1em; // Space below the username title
-  }
 
   .nav-tabs {
     font-size: 1.1rem;
-    margin-bottom: 20px; // Space below the tabs
+    margin-bottom: 1.5em;
+    font-family: "Playpen Sans", cursive;
   }
 
   p.empty {

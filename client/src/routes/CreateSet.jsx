@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
-import "../assets/styles/EditSet.scss";
+import "../assets/styles/Create-Edit-Set.scss";
 import axios from "axios";
 
 
@@ -105,7 +105,7 @@ const CreateSet = () => {
   };
 
   return (
-    <div className="create-container">
+    <main className="create-container">
       <Form>
         <div className="set-container">
           <div className="set-header-container">
@@ -173,7 +173,7 @@ const CreateSet = () => {
           <Button onClick={addCard}>Add Card</Button>
         </div>
       </Form>
-    </div>
+    </main>
   );
 };
 

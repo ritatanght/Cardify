@@ -3,7 +3,17 @@
 .ViewSet {
   max-width: 800px;
   margin: 0 auto;
-
+  .ViewSet__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.2em;
+    .ViewSet__header-left {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5em;
+    }
+  }
   h1,
   h2 {
     margin-bottom: 0;
@@ -71,6 +81,7 @@
       visibility: hidden;
     }
     .card__text {
+      font-family: "Playpen Sans", cursive;
       font-size: 2rem;
       margin: 0;
     }
@@ -156,10 +167,9 @@
   .card-finish,
   .card-front,
   .card-back {
-    font-family: "Playpen Sans", cursive;
     border-radius: 10px;
     padding: 0.5em;
-    width: 730px;
+    width: min(90vw, 730px);
     aspect-ratio: 2/1;
     display: flex;
     justify-content: center;
@@ -186,6 +196,69 @@
           transform: translateX(-5px);
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .ViewSet {
+    padding: 1.2em 1em;
+    .ViewSet__header {
+      align-items: center;
+
+      .btn {
+        line-height: 1;
+      }
+      .ViewSet__header-left {
+        display: block;
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 0.2em;
+        }
+        > :not(h1) {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+    .cards-container {
+      margin-top: 0.5em;
+      text-align: center;
+      .card__text {
+        font-size: 1.6rem;
+      }
+    }
+    .Card {
+      .card-front,
+      .card-back {
+        border-width: 8px;
+        aspect-ratio: 1/1.2;
+        .card__icons-container {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          button {
+            font-size: 1.5rem;
+            padding: 0.4em;
+          }
+        }
+      }
+    }
+
+    .card-finish {
+      border-width: 8px;
+      aspect-ratio: 1/1.2;
+      overflow: hidden;
+      .card-finish__icons-container {
+        left: 5px;
+        bottom: 2px;
+        button {
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .set-info {
+      padding-inline: 0;
     }
   }
 }
@@ -220,10 +293,6 @@
   .btn-secondary {
     background-color: darken(var.$color-3, 30%);
     border: darken(var.$color-3, 30%);
-  }
-  .btn-primary {
-    background-color: var.$color-5;
-    border-color: var.$color-5;
   }
 }
 

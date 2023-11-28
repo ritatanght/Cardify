@@ -20,9 +20,21 @@ const SetItem = ({ set, setOwner, onDelete }) => {
   return (
     <div className="set-item-container">
       <Link to={`/sets/${set.id}`}>
-        <h2>{set.title}</h2>
+        <p>{set.title}</p>
       </Link>
       <div className="set-item-right">
+        {user && user.id === set.user_id ? (
+          <div className="set-icons">
+            <Button variant="link" onClick={onDelete}>
+              <FontAwesomeIcon icon={faTrashCan} className="icon-primary" />
+            </Button>
+            <Button variant="link" href={`/sets/edit/${set.id}`}>
+              <FontAwesomeIcon icon={faPenToSquare} className="icon-primary" />
+            </Button>
+          </div>
+        ) : (
+          <span>{setOwner}</span>
+        )}
         <Button variant="link" onClick={() => toggleLike(set)}>
           {isLiked ? (
             <FontAwesomeIcon
@@ -36,18 +48,6 @@ const SetItem = ({ set, setOwner, onDelete }) => {
             />
           )}
         </Button>
-        {user && user.id === set.user_id ? (
-          <div className="set-icons">
-            <Button variant="link" href={`/sets/edit/${set.id}`}>
-              <FontAwesomeIcon icon={faPenToSquare} className="icon-primary" />
-            </Button>
-            <Button variant="link" onClick={onDelete}>
-              <FontAwesomeIcon icon={faTrashCan} className="icon-primary" />
-            </Button>
-          </div>
-        ) : (
-          <h2>{setOwner}</h2>
-        )}
       </div>
     </div>
   );

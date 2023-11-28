@@ -65,7 +65,7 @@ const Category = () => {
     ));
 
   return (
-    <div className="Category-container">
+    <main className="Category-container">
       <h1>
         Category: <span>{category}</span>
       </h1>
@@ -74,7 +74,7 @@ const Category = () => {
       ) : (
         <section>{setsElements}</section>
       )}
-    </div>
+    </main>
   );
 };
 

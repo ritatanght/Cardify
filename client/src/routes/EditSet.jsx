@@ -10,8 +10,8 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
 import Spinner from "react-bootstrap/Spinner";
+import "../assets/styles/Create-Edit-Set.scss";
 import axios from "axios";
-import "../assets/styles/EditSet.scss";
 
 const EditSet = () => {
   const navigate = useNavigate();
@@ -148,7 +148,7 @@ const EditSet = () => {
   }
 
   return (
-    <div className="create-container">
+    <main className="edit-container">
       <Form>
         <div className="set-container">
           <div className="set-header-container">
@@ -220,7 +220,7 @@ const EditSet = () => {
           <Button onClick={addCard}>Add Card</Button>
         </div>
       </Form>
-    </div>
+    </main>
   );
 };
 
