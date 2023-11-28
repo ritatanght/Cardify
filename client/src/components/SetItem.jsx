@@ -35,19 +35,21 @@ const SetItem = ({ set, setOwner, onDelete }) => {
         ) : (
           <span>{setOwner}</span>
         )}
-        <Button variant="link" onClick={() => toggleLike(set)}>
-          {isLiked ? (
-            <FontAwesomeIcon
-              icon={fillHeart}
-              className="icon-primary heart-icon"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={emptyHeart}
-              className="icon-primary heart-icon"
-            />
-          )}
-        </Button>
+        {user && (
+          <Button variant="link" onClick={() => toggleLike(set)}>
+            {isLiked ? (
+              <FontAwesomeIcon
+                icon={fillHeart}
+                className="icon-primary heart-icon"
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={emptyHeart}
+                className="icon-primary heart-icon"
+              />
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
