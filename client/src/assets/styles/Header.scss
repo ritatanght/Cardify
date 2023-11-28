@@ -99,7 +99,7 @@ nav {
       background: var.$color-3;
       box-shadow: -2px 0 10px darken(var.$color-3, 40%);
       padding: 1.5em;
-      transform: translateX(100%);
+      transform: translateX(105%);
       transition: transform 0.3s ease;
       &.opened {
         transform: translateX(0);
