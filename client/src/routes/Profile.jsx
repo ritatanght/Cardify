@@ -50,8 +50,8 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div className="d-flex justify-content-between align-items-center">
+    <main className="profile-container">
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>{user.username}</h1>
         <Button className="create-set" variant="primary" href="/sets/create">
           Create Set
@@ -91,7 +91,7 @@ const Profile = () => {
           )}
         </Tab>
       </Tabs>
-    </div>
+    </main>
   );
 };
 
