@@ -74,13 +74,21 @@ const Header = () => {
                   <FontAwesomeIcon icon={faUser} />
                 </Button>
 
-                <Button variant="primary" onClick={logout}>
+                <Button
+                  variant="primary"
+                  className="sign-out-btn"
+                  onClick={logout}
+                >
                   Sign Out
                 </Button>
               </div>
             ) : (
               <div>
-                <Button variant="primary" href="/login">
+                <Button
+                  variant="primary"
+                  className="login-btn"
+                  href="/login"
+                >
                   Login
                 </Button>
                 <Button variant="primary" href="/register">
