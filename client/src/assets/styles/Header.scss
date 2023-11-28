@@ -8,7 +8,7 @@ header {
   .navbar {
     padding: 0;
   }
-  #nav-dropdown{
+  #nav-dropdown {
     font-family: "Playpen Sans", cursive;
   }
 }
@@ -32,6 +32,10 @@ nav {
   button.btn.menu,
   .btn-close {
     display: none;
+  }
+
+  button.btn.menu:hover {
+    background-color: darken(var.$color-1, 5);
   }
 
   .nav-menu {
@@ -65,6 +69,20 @@ nav {
       transform: translateY(-3px);
     }
   }
+  .sign-out-btn.btn {
+    background-color: darken(var.$color-3, 25);
+    &:hover {
+      background-color: darken(var.$color-3, 50);
+    }
+  }
+
+  .login-btn.btn {
+    background-color: darken(var.$color-2, 15);
+
+    &:hover {
+      background-color: darken(var.$color-2, 25);
+    }
+  }
 }
 
 @keyframes arrowDown {
@@ -93,7 +111,7 @@ nav {
       z-index: 5;
       flex-direction: column;
       justify-content: flex-start;
-      gap: 1em;
+      gap: 1.5em;
       inset: 0 0 0 auto;
       background: var.$color-3;
       box-shadow: -2px 0 10px darken(var.$color-3, 40%);
