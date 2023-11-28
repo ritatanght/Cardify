@@ -2,6 +2,7 @@
 
 header {
   background-color: var.$color-3;
+  padding-inline: 1.5em;
   .navbar-brand img {
     height: 50px;
   }
@@ -98,8 +99,11 @@ nav {
 }
 
 @media screen and (max-width: 800px) {
-  header .navbar-brand img {
-    height: 40px;
+  header {
+    padding-inline: 1em;
+    .navbar-brand img {
+      height: 40px;
+    }
   }
   nav {
     .nav-item.dropdown {

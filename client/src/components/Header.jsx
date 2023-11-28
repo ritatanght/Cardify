@@ -31,7 +31,7 @@ const Header = () => {
     ));
 
   return (
-    <header className="px-4">
+    <header>
       <ToastContainer
         position="bottom-center"
         autoClose={4000}
