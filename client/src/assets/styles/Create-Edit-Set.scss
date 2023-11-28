@@ -136,12 +136,9 @@
 }
 
 .footer-button-container {
-  display: flex;
-  justify-content: center;
-
+  text-align: center;
   button {
-    padding-left: 25vw;
-    padding-right: 25vw;
+    padding-inline: 30%;
   }
 }
 
