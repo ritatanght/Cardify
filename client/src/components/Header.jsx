@@ -65,7 +65,7 @@ const Header = () => {
               aria-label="Close menu"
               onClick={() => setIsMenuOpen(false)}
             />
-            <SearchBar />
+            <SearchBar closeMenu={() => setIsMenuOpen(false)} />
 
             {user ? (
               <div>

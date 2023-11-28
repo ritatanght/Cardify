@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
-const SearchBar = () => {
+const SearchBar = ({ closeMenu }) => {
   const navigate = useNavigate();
   const [queryString, setQueryString] = useState("");
 
@@ -16,6 +16,7 @@ const SearchBar = () => {
     if (!queryString) return toast.info("Please enter keyword for search");
 
     setQueryString("");
+    closeMenu();
     return navigate(`/search?query=${encodeURIComponent(queryString)}`);
   };
 
