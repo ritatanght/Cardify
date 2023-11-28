@@ -40,12 +40,17 @@ const Profile = () => {
 
   if (isLoading) {
     return (
-      <div className="profile-container">
-        <h1>{user.username}</h1>
+      <main className="profile-container">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h1>{user.username}</h1>
+          <Button className="create-set" variant="primary" href="/sets/create">
+            Create Set
+          </Button>
+        </div>
         <Spinner animation="border" variant="primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      </div>
+      </main>
     );
   }
 
