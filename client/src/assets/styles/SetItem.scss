@@ -18,6 +18,7 @@
     transition: all 0.3s ease;
 
     &:hover {
+      text-decoration: none;
       transform: translateX(5px);
       color: darken(var.$color-5, 10%);
     }

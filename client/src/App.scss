@@ -61,6 +61,12 @@ h3 {
 }
 main {
   margin-inline: auto;
+  a {
+    text-decoration: none;
+    &:not([role=button]):hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .spinner-border.text-primary {
@@ -68,12 +74,6 @@ main {
   margin: 2em auto;
 }
 
-a {
-  text-decoration: none;
-  &:not([role="button"]):hover {
-    text-decoration: underline;
-  }
-}
 
 @media screen and (max-width: 800px) {
   .content-container {
