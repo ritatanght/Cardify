@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
+import { likeSet, unlikeSet } from "../services/api";
 
 const useFavButton = (initialState = false) => {
   const [isLiked, setIsLiked] = useState(initialState);
@@ -10,8 +10,7 @@ const useFavButton = (initialState = false) => {
   const toggleLike = (set) => {
     if (isLiked) {
       // Unlike a set
-      axios
-        .delete(`/api/favorites/${set.id}`)
+      unlikeSet(set.id)
         .then(({ status }) => {
           if (status === 200) {
             removeFromFavList(set.id);
@@ -28,8 +27,7 @@ const useFavButton = (initialState = false) => {
         });
     } else {
       // Like a set
-      axios
-        .post(`/api/favorites/${set.id}`)
+      likeSet(set.id)
         .then(({ status }) => {
           if (status === 201) {
             addToFavList(set);

@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { deleteSetById } from "../services/api";
 
 const useSetsList = () => {
   const [sets, setSets] = useState([]);
   const { clearUserInfo, removeFromFavList } = useUser();
 
   const deleteSet = (setId) => {
-    axios
-      .delete(`/api/sets/delete/${setId}`)
+    deleteSetById(setId)
       .then((res) => {
         if (res.status === 200) {
           const updatedSets = sets.filter((set) => set.id !== setId);

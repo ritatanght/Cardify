@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { getUserFavorites, logOutUser } from "../services/api";
 
 export const userContext = createContext();
 
@@ -17,11 +17,8 @@ const UserProvider = (props) => {
 
   useEffect(() => {
     if (user) {
-      axios
-        .get("/api/favorites")
-        .then((res) => {
-          setFavoriteSets(res.data);
-        })
+      getUserFavorites()
+        .then(setFavoriteSets)
         .catch((err) => {
           if (err.response.status === 401) {
             clearUserInfo();
@@ -53,7 +50,7 @@ const UserProvider = (props) => {
   };
 
   const logout = () => {
-    axios.post(`/api/auth/logout`).then((res) => {
+    logOutUser().then((res) => {
       if (res.status === 200) {
         clearUserInfo();
       }

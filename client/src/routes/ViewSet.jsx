@@ -11,7 +11,7 @@ import { faHeart as fillHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/ViewSet.scss";
-import axios from "axios";
+import { getSet } from "../services/api";
 
 const ViewSet = () => {
   const { setId } = useParams();
@@ -24,9 +24,8 @@ const ViewSet = () => {
   const [editingCard, setEditingCard] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`/api/sets/${setId}`)
-      .then((res) => setSetData(res.data))
+    getSet(setId)
+      .then(setSetData)
       .catch((err) => {
         toast.error(err);
       })

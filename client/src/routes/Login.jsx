@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
+import { logInUser } from "../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,22 +19,21 @@ const Login = () => {
     e.preventDefault();
     if (!email || !password) return toast.error("Fields cannot be empty.");
 
-    axios
-      .post("/api/auth/login", { email, password })
-      .then(({ data }) => {
-        if (data.user) {
-          toast.success("Login successful", {
-            position: "top-center",
-            autoClose: 2000,
-          });
-          storeUserInfo(data.user);
-          return navigate("/profile");
-        }
-        if (data.message) {
-          toast.error(data.message);
-        }
-      })
-      .catch((err) => toast.error(err.response.data.message));
+   logInUser({email, password})
+     .then(data => {
+       if (data.user) {
+         toast.success("Login successful", {
+           position: "top-center",
+           autoClose: 2000,
+         });
+         storeUserInfo(data.user);
+         return navigate("/profile");
+       }
+       if (data.message) {
+         toast.error(data.message);
+       }
+     })
+     .catch((err) => toast.error(err.response.data.message));
   };
 
   // redirect to profile if user has already logged-in

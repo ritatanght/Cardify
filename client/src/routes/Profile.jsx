@@ -9,7 +9,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Profile.scss";
-import axios from "axios";
+import { getUserSets } from "../services/api";
 
 const Profile = () => {
   const { user, favoriteSets, clearUserInfo } = useUser();
@@ -19,12 +19,8 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       setIsLoading(true);
-      axios
-        .get("/api/sets/user")
-        .then((res) => {
-          const userSets = res.data.filter((set) => set.deleted !== true);
-          setSets(userSets);
-        })
+      getUserSets()
+        .then(setSets)
         .catch((err) =>
           err.response.status === 401 ? clearUserInfo() : toast.error(err)
         )
