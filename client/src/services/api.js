@@ -15,3 +15,7 @@ export const registerUser = (userInfo) => {
 export const createSet = (setData)=>{
  return axios.post("/api/sets/create", setData);
 }
+
+export const getSet = (setId)=>{
+  return axios.get(`/api/sets/${setId}`).then(res =>res.data)
+}
