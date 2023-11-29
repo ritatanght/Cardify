@@ -29,3 +29,11 @@ export const searchSets = (query) => {
 export const getUserSets = () => {
   return axios.get("/api/sets/user").then((res) => res.data);
 };
+
+export const getUserFavorites = () => {
+  return axios.get("/api/favorites").then((res) => res.data);
+};
+
+export const logOutUser = () => {
+  return axios.post(`/api/auth/logout`);
+};
