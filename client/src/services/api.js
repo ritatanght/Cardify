@@ -7,3 +7,7 @@ export const getAllCategories = () => {
 export const logInUser = (loginInfo) => {
   return axios.post("/api/auth/login", loginInfo).then((res) => res.data);
 };
+
+export const registerUser = (userInfo) => {
+  return axios.post("/api/users", userInfo);
+};

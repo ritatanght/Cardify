@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
+import { registerUser } from "../services/api";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,8 +24,7 @@ const Register = () => {
         "The password and confirm password fields do not match."
       );
 
-    axios
-      .post("/api/users", { email, username, password })
+    registerUser({ email, username, password })
       .then((res) => {
         if (res.status === 200) {
           storeUserInfo(res.data);
