@@ -57,9 +57,11 @@ const ViewSet = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" variant="primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <main>
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </main>
     );
   }
 
