@@ -25,3 +25,7 @@ export const searchSets = (query) => {
     .get(`/api/search?query=${encodeURIComponent(query)}`)
     .then((res) => res.data);
 };
+
+export const getUserSets = () => {
+  return axios.get("/api/sets/user").then((res) => res.data);
+};
