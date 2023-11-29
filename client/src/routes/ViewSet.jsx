@@ -40,6 +40,11 @@ const ViewSet = () => {
     setShowEditModal(true);
   };
 
+  const closeEditModal = () => {
+    setEditingCard(null);
+    setShowEditModal(false);
+  };
+
   const handleCardUpdate = (updatedCard) => {
     setSetData((prevData) => {
       const newCards = prevData.cards.map((card) =>
@@ -115,7 +120,7 @@ const ViewSet = () => {
       {editingCard && (
         <EditCardModal
           show={showEditModal}
-          onHide={() => setShowEditModal(false)}
+          onHide={closeEditModal}
           card={editingCard}
           onUpdate={handleCardUpdate}
         />
