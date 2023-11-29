@@ -11,7 +11,7 @@ import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 import "../assets/styles/Header.scss";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../assets/images/logo.png";
-import axios from "axios";
+import { getAllCategories } from "../services/api";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -19,7 +19,7 @@ const Header = () => {
   const { user, logout } = useUser();
 
   useEffect(() => {
-    axios.get("/api/categories").then((res) => setCategories(res.data));
+    getAllCategories().then(setCategories);
   }, []);
 
   const dropDownItems =
@@ -84,11 +84,7 @@ const Header = () => {
               </div>
             ) : (
               <div>
-                <Button
-                  variant="primary"
-                  className="login-btn"
-                  href="/login"
-                >
+                <Button variant="primary" className="login-btn" href="/login">
                   Login
                 </Button>
                 <Button variant="primary" href="/register">
