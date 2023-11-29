@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
+import { editCardById } from "../services/api";
 
 const EditCardModal = ({ show, onHide, card, onUpdate }) => {
   const navigate = useNavigate();
@@ -18,8 +18,7 @@ const EditCardModal = ({ show, onHide, card, onUpdate }) => {
     if (!front || !back)
       return toast.info("Front and back text cannot be empty");
     // Update the card data on the backend first
-    axios
-      .put(`/api/cards/update/${card.id}`, { front, back })
+    editCardById(card.id, { front, back })
       .then((response) => {
         if (response.data.success) {
           // If successful, update the UI
@@ -70,7 +69,7 @@ const EditCardModal = ({ show, onHide, card, onUpdate }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          Close
+          Cancel
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
           Save Changes
