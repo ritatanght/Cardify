@@ -6,7 +6,7 @@ import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Search.scss";
-import axios from "axios";
+import { searchSets } from "../services/api";
 
 const Search = () => {
   const [searchParams] = useSearchParams();
@@ -19,15 +19,12 @@ const Search = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(`/api/search?query=${encodeURIComponent(query)}`)
-      .then((res) => {
-        setSets(res.data);
-        setIsLoading(false);
-      })
+    searchSets(query)
+      .then(setSets)
       .catch((err) => {
         toast.error(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [query]);
 
   if (isLoading) {

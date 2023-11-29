@@ -12,10 +12,16 @@ export const registerUser = (userInfo) => {
   return axios.post("/api/users", userInfo);
 };
 
-export const createSet = (setData)=>{
- return axios.post("/api/sets/create", setData);
-}
+export const createSet = (setData) => {
+  return axios.post("/api/sets/create", setData);
+};
 
-export const getSet = (setId)=>{
-  return axios.get(`/api/sets/${setId}`).then(res =>res.data)
-}
+export const getSet = (setId) => {
+  return axios.get(`/api/sets/${setId}`).then((res) => res.data);
+};
+
+export const searchSets = (query) => {
+  return axios
+    .get(`/api/search?query=${encodeURIComponent(query)}`)
+    .then((res) => res.data);
+};
