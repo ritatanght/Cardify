@@ -9,7 +9,6 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
 import "../assets/styles/Create-Edit-Set.scss";
-import axios from "axios";
 import { getAllCategories, createSet } from "../services/api";
 
 const CreateSet = () => {
