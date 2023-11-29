@@ -42,3 +42,10 @@ export const deleteSetById = (setId) => {
   return axios.delete(`/api/sets/delete/${setId}`);
 };
 
+export const likeSet = (setId) => {
+  return axios.post(`/api/favorites/${setId}`);
+};
+
+export const unlikeSet = (setId) => {
+  return axios.delete(`/api/favorites/${setId}`);
+};
