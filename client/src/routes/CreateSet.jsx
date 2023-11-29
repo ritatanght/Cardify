@@ -10,7 +10,7 @@ import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
 import "../assets/styles/Create-Edit-Set.scss";
 import axios from "axios";
-
+import { getAllCategories, createSet } from "../services/api";
 
 const CreateSet = () => {
   const navigate = useNavigate();
@@ -28,13 +28,10 @@ const CreateSet = () => {
   ]);
 
   useEffect(() => {
-    axios
-      .get("/api/categories/")
-      .then((response) => {
-        setCategories(response.data);
-      })
+    getAllCategories()
+      .then(setCategories)
       .catch((err) => {
-        toast.error(err);
+        console.error(err.response.data.message);
       });
   }, []);
 
@@ -57,8 +54,7 @@ const CreateSet = () => {
       private: isPrivate,
     };
 
-    axios
-      .post("/api/sets/create", { setFormData, cardFormData: cards })
+    createSet({ setFormData, cardFormData: cards })
       .then((res) => {
         if (res.status === 201) {
           toast.success(res.data.message, { position: "top-center" });

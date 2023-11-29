@@ -11,3 +11,7 @@ export const logInUser = (loginInfo) => {
 export const registerUser = (userInfo) => {
   return axios.post("/api/users", userInfo);
 };
+
+export const createSet = (setData)=>{
+ return axios.post("/api/sets/create", setData);
+}
