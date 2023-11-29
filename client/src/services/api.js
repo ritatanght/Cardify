@@ -37,3 +37,8 @@ export const getUserFavorites = () => {
 export const logOutUser = () => {
   return axios.post(`/api/auth/logout`);
 };
+
+export const deleteSetById = (setId) => {
+  return axios.delete(`/api/sets/delete/${setId}`);
+};
+
