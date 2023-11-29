@@ -11,7 +11,7 @@ import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import Dropdown from "react-bootstrap/Dropdown";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Create-Edit-Set.scss";
-import axios from "axios";
+import { getAllCategories, getSet, editSet } from "../services/api";
 
 const EditSet = () => {
   const navigate = useNavigate();
@@ -28,15 +28,9 @@ const EditSet = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getSetPromise = axios.get(`/api/sets/${setId}`);
-    const categoriesPromise = axios.get("/api/categories/");
-
     setIsLoading(true);
-    Promise.all([getSetPromise, categoriesPromise])
-      .then(([setData, categoryData]) => {
-        const set = setData.data.set;
-        const cards = setData.data.cards;
-
+    Promise.all([getSet(setId), getAllCategories()])
+      .then(([{ set, cards }, categoryData]) => {
         setUserId(set.user_id);
         setTitle(set.title);
         setDescription(set.description);
@@ -46,7 +40,7 @@ const EditSet = () => {
         }); //Category state is stored as an object. ID is required for submitting
         setIsPrivate(set.private);
         setCards(cards);
-        setCategories(categoryData.data);
+        setCategories(categoryData);
       })
       .catch((err) => {
         toast.error(err);
@@ -65,8 +59,7 @@ const EditSet = () => {
       set_id: setId,
     };
 
-    axios
-      .put(`/api/sets/edit/${setId}`, { setFormData, cardFormData: cards })
+    editSet(setId, { setFormData, cardFormData: cards })
       .then((res) => {
         if (res.status === 200) {
           toast.success(res.data.message, { position: "top-center" });

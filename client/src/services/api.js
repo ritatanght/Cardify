@@ -49,3 +49,7 @@ export const likeSet = (setId) => {
 export const unlikeSet = (setId) => {
   return axios.delete(`/api/favorites/${setId}`);
 };
+
+export const editSet = (setId, updatedSetInfo) =>{
+  return axios.put(`/api/sets/edit/${setId}`, updatedSetInfo);
+}
