@@ -4,9 +4,9 @@ import SetItem from "../components/SetItem";
 import useSetsList from "../hooks/useSetsList";
 import { useUser } from "../context/UserProvider";
 import { toast } from "react-toastify";
-import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import "../assets/styles/Category.scss";
+import { getCategoryById } from "../services/api";
 
 const Category = () => {
   const { categoryId } = useParams();
@@ -17,11 +17,10 @@ const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`/api/categories/${categoryId}`)
-      .then((res) => {
-        setCategory(res.data.category);
-        setSets(res.data.sets);
+    getCategoryById(categoryId)
+      .then((data) => {
+        setCategory(data.category);
+        setSets(data.sets);
       })
       .catch((err) => {
         toast.error(err);

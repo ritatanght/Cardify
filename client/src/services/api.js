@@ -5,6 +5,10 @@ export const getAllCategories = () => {
   return axios.get("/api/categories").then((res) => res.data);
 };
 
+export const getCategoryById = (categoryId) => {
+  return axios.get(`/api/categories/${categoryId}`).then((res) => res.data);
+};
+
 /* --- Users --- */
 export const registerUser = (userInfo) => {
   return axios.post("/api/users", userInfo);
