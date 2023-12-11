@@ -1,4 +1,5 @@
 const db = require("../../configs/db.config");
+const { randomUUID } = require("crypto");
 
 const getUserUsername = (userId) => {
   const query = `
@@ -12,12 +13,14 @@ const getUserUsername = (userId) => {
 
 const createUser = (email, username, hash) => {
   const query = `
-  INSERT INTO users (username, email, hashed_password)
+  INSERT INTO users (id, username, email, hashed_password)
   VALUES 
-  ($1, $2, $3)
+  ($1, $2, $3, $4)
   RETURNING id, username, email
   `;
-  return db.query(query, [username, email, hash]).then((data) => data.rows[0]);
+  return db
+    .query(query, [randomUUID(), username, email, hash])
+    .then((data) => data.rows[0]);
 };
 
 const getUserByEmail = (email) => {
